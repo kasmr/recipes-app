@@ -6,7 +6,7 @@ import InputBase from '@material-ui/core/InputBase';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import Panel from './Panel';
-import LocalBarIcon from '@material-ui/icons/LocalBar';
+import MenuBookRoundedIcon from '@material-ui/icons/MenuBookRounded';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -72,7 +72,7 @@ export default function Navbar() {
         <Toolbar>
           <Panel />
           <Typography className={classes.title} variant='h4' noWrap>
-            Coctail App <LocalBarIcon fontSize='large' />
+            Recipe App <MenuBookRoundedIcon style={{ fontSize: '2rem' }} />
           </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>

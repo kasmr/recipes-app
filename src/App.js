@@ -1,6 +1,9 @@
 import React from 'react';
-import Navbar from './components/layout/Navbar';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+import Navbar from './components/layout/Navbar';
+import AddButton from './components/layout/AddButton';
+import RecipesList from './components/recipes/RecipesList';
 
 const theme = createMuiTheme({
   palette: {
@@ -16,9 +19,10 @@ const theme = createMuiTheme({
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <div className='App'>
-        <Navbar />
-      </div>
+      <Navbar />
+      <Container maxWidth='lg' style={{ marginTop: '2rem' }}>
+        <RecipesList />
+      </Container>
     </ThemeProvider>
   );
 }
