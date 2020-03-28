@@ -15,6 +15,7 @@ import Favorite from '@material-ui/icons/Favorite';
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import Chip from '@material-ui/core/Chip';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -39,7 +40,9 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const RecipeItem = ({ image }) => {
+Math.round();
+
+const RecipeItem = ({ image, title, source, labels, calories }) => {
   const classes = useStyles();
 
   console.log(image);
@@ -49,23 +52,32 @@ const RecipeItem = ({ image }) => {
         <CardHeader
           avatar={
             <Avatar aria-label='recipe' className={classes.avatar}>
-              R
+              {title.substring(0, 1)}
             </Avatar>
           }
-          title='Shrimp and Chorizo Paella'
-          subheader='September 14, 2016'
+          title={title}
+          subheader={source}
         />
         <CardMedia
           className={classes.media}
           image={image}
           title='Paella dish'
         />
-        <CardContent>
-          <Typography
-            variant='body2'
-            color='textSecondary'
-            component='p'
-          ></Typography>
+        <CardContent wrap>
+          <Typography variant='body2' color='textSecondary' component='p'>
+            <Chip
+              label='Basic'
+              avatar={<Avatar>@</Avatar>}
+              label={labels.toString()}
+              clickable
+              color='primary'
+            />
+            <Chip
+              label={`Calories: ${Math.round(calories)}`}
+              color={calories > 4000 ? 'secondary' : 'default'}
+              style={{ marginTop: '1rem' }}
+            />
+          </Typography>
         </CardContent>
         <CardActions disableSpacing>
           <FormControlLabel

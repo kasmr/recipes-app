@@ -25,7 +25,13 @@ const RecipesList = () => {
   return (
     <div className='main-container'>
       {recipes.map(r => (
-        <RecipeItem image={r.recipe.image} />
+        <RecipeItem
+          image={r.recipe.image}
+          title={r.recipe.label}
+          source={r.recipe.source}
+          labels={r.recipe.healthLabels}
+          calories={r.recipe.calories}
+        />
       ))}
     </div>
   );

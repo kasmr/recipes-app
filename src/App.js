@@ -20,7 +20,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Navbar />
-      <Container maxWidth='lg' style={{ marginTop: '2rem' }}>
+      <Container maxWidth='xl' style={{ marginTop: '5rem' }}>
         <RecipesList />
       </Container>
     </ThemeProvider>
