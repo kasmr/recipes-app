@@ -16,6 +16,7 @@ import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Chip from '@material-ui/core/Chip';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -40,40 +41,35 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-Math.round();
-
 const RecipeItem = ({ image, title, source, labels, calories }) => {
   const classes = useStyles();
 
-  console.log(image);
   return (
     <div className='card'>
       <Card className={classes.root}>
-        <CardHeader
-          avatar={
-            <Avatar aria-label='recipe' className={classes.avatar}>
-              {title.substring(0, 1)}
-            </Avatar>
-          }
-          title={title}
-          subheader={source}
-        />
-        <CardMedia
-          className={classes.media}
-          image={image}
-          title='Paella dish'
-        />
-        <CardContent wrap>
-          <Typography variant='body2' color='textSecondary' component='p'>
+        <Link to={`/recipe/${title}`}>
+          <CardHeader
+            avatar={
+              <Avatar aria-label='recipe' className={classes.avatar}>
+                {title.substring(0, 1)}
+              </Avatar>
+            }
+            title={title}
+            subheader={source}
+          />
+        </Link>
+        <CardMedia className={classes.media} image={image} title='title' />
+        <CardContent className='card-content'>
+          <Typography variant='body2' color='textSecondary' component='div'>
             <Chip
               label='Basic'
               avatar={<Avatar>@</Avatar>}
-              label={labels.toString()}
+              label={labels.slice(0, 3).toString()}
               clickable
               color='primary'
             />
             <Chip
-              label={`Calories: ${Math.round(calories)}`}
+              label={`Calories: ${Math.round(calories)} kcal`}
               color={calories > 4000 ? 'secondary' : 'default'}
               style={{ marginTop: '1rem' }}
             />
@@ -94,14 +90,16 @@ const RecipeItem = ({ image, title, source, labels, calories }) => {
             <ShareIcon />
           </IconButton>
           <CardActions>
-            <Button
-              size='small'
-              variant='contained'
-              color='primary'
-              style={{ marginLeft: '7rem' }}
-            >
-              Learn More
-            </Button>
+            <Link to={`/recipe/${title}`}>
+              <Button
+                size='small'
+                variant='contained'
+                color='primary'
+                style={{ marginLeft: '7rem' }}
+              >
+                Learn More
+              </Button>
+            </Link>
           </CardActions>
         </CardActions>
       </Card>

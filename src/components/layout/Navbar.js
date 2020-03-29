@@ -7,6 +7,7 @@ import { fade, makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import Panel from './Panel';
 import MenuBookRoundedIcon from '@material-ui/icons/MenuBookRounded';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -18,6 +19,7 @@ const useStyles = makeStyles(theme => ({
   title: {
     flexGrow: 1,
     display: 'none',
+    color: 'white',
     [theme.breakpoints.up('sm')]: {
       display: 'block'
     }
@@ -69,12 +71,9 @@ export default function Navbar() {
   return (
     <div className={classes.root}>
       <AppBar position='fixed'>
-        <Toolbar>
+        <Toolbar style={{ justifyContent: 'space-between' }}>
           <Panel />
-          <Typography className={classes.title} variant='h4' noWrap>
-            Recipe App <MenuBookRoundedIcon style={{ fontSize: '2rem' }} />
-          </Typography>
-          <div className={classes.search}>
+          <div className={classes.search} style={{ marginLeft: '11rem' }}>
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
@@ -87,6 +86,16 @@ export default function Navbar() {
               inputProps={{ 'aria-label': 'search' }}
             />
           </div>
+          <Link to='/'>
+            <Typography
+              className={classes.title}
+              variant='h4'
+              noWrap
+              color='white'
+            >
+              Recipe App <MenuBookRoundedIcon style={{ fontSize: '2rem' }} />
+            </Typography>
+          </Link>
         </Toolbar>
       </AppBar>
     </div>

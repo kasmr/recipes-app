@@ -5,5 +5,10 @@
 
   .card {
     margin: 2rem;
+
+    .card-content {
+      display: flex;
+      flex-wrap: wrap;
+    }
   }
 }

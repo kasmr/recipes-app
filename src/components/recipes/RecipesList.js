@@ -31,6 +31,7 @@ const RecipesList = () => {
           source={r.recipe.source}
           labels={r.recipe.healthLabels}
           calories={r.recipe.calories}
+          key={r.recipe.uri}
         />
       ))}
     </div>
