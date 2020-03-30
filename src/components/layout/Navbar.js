@@ -87,12 +87,7 @@ export default function Navbar() {
             />
           </div>
           <Link to='/'>
-            <Typography
-              className={classes.title}
-              variant='h4'
-              noWrap
-              color='white'
-            >
+            <Typography className={classes.title} variant='h4' noWrap>
               Recipe App <MenuBookRoundedIcon style={{ fontSize: '2rem' }} />
             </Typography>
           </Link>

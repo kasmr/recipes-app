@@ -47,7 +47,7 @@ const RecipeItem = ({ image, title, source, labels, calories }) => {
   return (
     <div className='card'>
       <Card className={classes.root}>
-        <Link to={`/recipe/${title}`}>
+        <Link to={`/recipe/${title}/${source}`}>
           <CardHeader
             avatar={
               <Avatar aria-label='recipe' className={classes.avatar}>
@@ -62,9 +62,8 @@ const RecipeItem = ({ image, title, source, labels, calories }) => {
         <CardContent className='card-content'>
           <Typography variant='body2' color='textSecondary' component='div'>
             <Chip
-              label='Basic'
               avatar={<Avatar>@</Avatar>}
-              label={labels.slice(0, 3).toString()}
+              label={labels.slice(0, 2).toString()}
               clickable
               color='primary'
             />

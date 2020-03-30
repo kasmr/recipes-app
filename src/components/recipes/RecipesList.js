@@ -10,7 +10,7 @@ const RecipesList = () => {
   useEffect(() => {
     fetchData();
 
-    //es-lint-disable-next-line
+    //eslint-disable-next-line
   }, []);
 
   const fetchData = async () => {
@@ -19,7 +19,6 @@ const RecipesList = () => {
     );
     const data = await res.json();
     setRecipes(data.hits);
-    console.log(data.hits);
   };
 
   return (
