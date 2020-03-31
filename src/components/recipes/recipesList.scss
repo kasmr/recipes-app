@@ -6,8 +6,13 @@
   .card {
     margin: 2rem;
 
+    .card-header {
+      height: 3rem;
+    }
+
     .card-content {
       display: flex;
+      flex-direction: column;
       flex-wrap: wrap;
     }
   }

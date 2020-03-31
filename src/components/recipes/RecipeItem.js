@@ -18,6 +18,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Chip from '@material-ui/core/Chip';
 import { Link } from 'react-router-dom';
 import Rating from '@material-ui/lab/Rating';
+import Box from '@material-ui/core/Box';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -27,29 +28,20 @@ const useStyles = makeStyles(theme => ({
     height: 0,
     paddingTop: '56.25%' // 16:9
   },
-  expand: {
-    transform: 'rotate(0deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest
-    })
-  },
-  expandOpen: {
-    transform: 'rotate(180deg)'
-  },
   red: {
     backgroundColor: red[600]
   }
 }));
 
-const RecipeItem = ({ image, title, source, labels, calories }) => {
+const RecipeItem = ({ image, title, source, labels, calories, time }) => {
   const classes = useStyles();
 
   return (
-    <div className='card'>
+    <Box className='card' boxShadow={2}>
       <Card className={classes.root}>
-        <Link to={`/recipe/${title}/${source}`}>
+        <Link to={`/recipe/${title}/${source}/${time}`}>
           <CardHeader
+            className='card-header'
             avatar={
               <Avatar aria-label='recipe' className={classes.red}>
                 {title.substring(0, 1)}
@@ -57,28 +49,31 @@ const RecipeItem = ({ image, title, source, labels, calories }) => {
             }
             title={title}
             subheader={source}
-            action={
-              <Rating
-                style={{ marginTop: '1.2rem' }}
-                name='half-rating-read'
-                defaultValue={2.5}
-                precision={0.5}
-                readOnly
-                size='small'
-              />
-            }
           />
         </Link>
         <CardMedia className={classes.media} image={image} title='title' />
-        <CardContent className='card-content'>
-          <Typography variant='body2' color='textSecondary' component='div'>
+        <CardContent>
+          <Typography
+            variant='body2'
+            color='textSecondary'
+            component='div'
+            className='card-content'
+          >
             <Typography
               variant='body2'
               color='textSecondary'
               component='div'
               align='center'
               style={{ marginBottom: '1rem' }}
-            ></Typography>
+            >
+              <Rating
+                name='half-rating-read'
+                defaultValue={2.5}
+                precision={0.5}
+                readOnly
+                size='large'
+              />
+            </Typography>
             <Chip
               avatar={<Avatar>@</Avatar>}
               label={labels.slice(0, 2).toString()}
@@ -107,7 +102,7 @@ const RecipeItem = ({ image, title, source, labels, calories }) => {
             <ShareIcon />
           </IconButton>
           <CardActions>
-            <Link to={`/recipe/${title}/${source}`}>
+            <Link to={`/recipe/${title}/${source}/${time}`}>
               <Button
                 size='small'
                 variant='contained'
@@ -120,7 +115,7 @@ const RecipeItem = ({ image, title, source, labels, calories }) => {
           </CardActions>
         </CardActions>
       </Card>
-    </div>
+    </Box>
   );
 };
 

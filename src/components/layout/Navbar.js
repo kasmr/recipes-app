@@ -31,11 +31,11 @@ const useStyles = makeStyles(theme => ({
     '&:hover': {
       backgroundColor: fade(theme.palette.common.white, 0.25)
     },
-    marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(1),
-      width: 'auto'
+    marginLeft: '11rem',
+    width: 'auto',
+    [theme.breakpoints.down('sm')]: {
+      width: 'auto',
+      marginLeft: 0
     }
   },
   searchIcon: {
@@ -65,22 +65,16 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Navbar() {
+const Navbar = () => {
   const classes = useStyles();
-
-  // const fetch = e => {
-  //   e.preventDefault();
-  //   const search = e.target.value;
-  //   console.log('fetch!', search);
-  // };
 
   return (
     <div className={classes.root}>
       <AppBar position='fixed'>
         <Toolbar style={{ justifyContent: 'space-between' }}>
           <Panel />
-          <form onSubmit={fetch}>
-            <div className={classes.search} style={{ marginLeft: '11rem' }}>
+          <form>
+            <div className={classes.search}>
               <div className={classes.searchIcon}>
                 <SearchIcon />
               </div>
@@ -91,7 +85,6 @@ export default function Navbar() {
                   input: classes.inputInput
                 }}
                 inputProps={{ 'aria-label': 'search' }}
-                value=''
               />
             </div>
           </form>
@@ -104,4 +97,6 @@ export default function Navbar() {
       </AppBar>
     </div>
   );
-}
+};
+
+export default Navbar;

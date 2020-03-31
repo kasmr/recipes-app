@@ -13,6 +13,7 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import FastfoodIcon from '@material-ui/icons/Fastfood';
 import TimerIcon from '@material-ui/icons/Timer';
+import ImportContactsRoundedIcon from '@material-ui/icons/ImportContactsRounded';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -21,6 +22,11 @@ const useStyles = makeStyles(theme => ({
   },
   chip: {
     margin: theme.spacing(0.5)
+  },
+  chip2: {
+    [theme.breakpoints.down('sm')]: {
+      display: 'flex'
+    }
   },
   section1: {
     margin: theme.spacing(3, 2)
@@ -42,7 +48,7 @@ const labelsArray = [
   'High-Protein'
 ];
 
-export default function RecipeDivider({ recipe }) {
+const RecipeBody = ({ recipe }) => {
   const classes = useStyles();
 
   const {
@@ -53,8 +59,11 @@ export default function RecipeDivider({ recipe }) {
     dietLabels,
     healthLabels,
     totalWeight,
-    totalTime
+    totalTime,
+    url
   } = recipe;
+
+  console.log(dietLabels);
 
   return (
     <div className={classes.root}>
@@ -95,6 +104,7 @@ export default function RecipeDivider({ recipe }) {
           component='div'
         >
           <Chip
+            className={classes.chip2}
             avatar={<Avatar>@</Avatar>}
             label={healthLabels.toString()}
             clickable
@@ -106,12 +116,12 @@ export default function RecipeDivider({ recipe }) {
       <div className={classes.section2}>
         <Typography variant='body1'>Diet labels</Typography>
         <div>
-          {labelsArray.map(label => (
+          {labelsArray.map(labels => (
             <Chip
               key={uuidv4()}
               className={classes.chip}
-              color={dietLabels.toString() === label ? 'primary' : 'default'}
-              label={label}
+              color={dietLabels.toString() === labels ? 'primary' : 'default'}
+              label={labels}
             />
           ))}
         </div>
@@ -149,8 +159,32 @@ export default function RecipeDivider({ recipe }) {
               secondary={`${Math.round(totalWeight)} grams`}
             />
           </ListItem>
+          <Divider variant='inset' component='li' />
+          <ListItem>
+            <ListItemAvatar>
+              <Avatar>
+                <ImportContactsRoundedIcon />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText
+              primary='To see instructions by'
+              secondary={
+                <a href={url} target='_blank' rel='noopener noreferrer'>
+                  <Chip
+                    avatar={<Avatar component='span'>@</Avatar>}
+                    label={source}
+                    clickable
+                    color='primary'
+                    component='span'
+                  />
+                </a>
+              }
+            />
+          </ListItem>
         </List>
       </div>
     </div>
   );
-}
+};
+
+export default RecipeBody;

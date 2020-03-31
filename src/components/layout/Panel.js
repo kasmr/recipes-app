@@ -21,7 +21,7 @@ const useStyles = makeStyles({
   }
 });
 
-export default function Panel() {
+const Panel = () => {
   const classes = useStyles();
   const [state, setState] = React.useState({
     left: false
@@ -95,4 +95,6 @@ export default function Panel() {
       ))}
     </div>
   );
-}
+};
+
+export default Panel;

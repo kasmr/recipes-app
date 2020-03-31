@@ -17,7 +17,7 @@ const theme = createMuiTheme({
   }
 });
 
-function App() {
+const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
@@ -25,12 +25,12 @@ function App() {
         <Container maxWidth='xl' style={{ marginTop: '5rem' }}>
           <Switch>
             <Route exact path='/' component={RecipesList} />
-            <Route path='/recipe/:title/:source' component={Recipe} />
+            <Route path='/recipe/:title/:source/:time' component={Recipe} />
           </Switch>
         </Container>
       </BrowserRouter>
     </ThemeProvider>
   );
-}
+};
 
 export default App;
