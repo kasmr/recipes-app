@@ -1,7 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { v4 as uuidv4 } from 'uuid';
 import Chip from '@material-ui/core/Chip';
-import Button from '@material-ui/core/Button';
+import Rating from '@material-ui/lab/Rating';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
@@ -10,14 +11,12 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
-import ImageIcon from '@material-ui/icons/Image';
-import WorkIcon from '@material-ui/icons/Work';
-import BeachAccessIcon from '@material-ui/icons/BeachAccess';
+import FastfoodIcon from '@material-ui/icons/Fastfood';
+import TimerIcon from '@material-ui/icons/Timer';
 
 const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
-    maxWidth: 360,
     backgroundColor: theme.palette.background.paper
   },
   chip: {
@@ -34,71 +33,123 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function RecipeDivider() {
+const labelsArray = [
+  'Low-Carb',
+  'Low-Fat',
+  'Low-Sodium',
+  'Balanced',
+  'High-Fiber',
+  'High-Protein'
+];
+
+export default function RecipeDivider({ recipe }) {
   const classes = useStyles();
+
+  const {
+    label,
+    image,
+    source,
+    calories,
+    dietLabels,
+    healthLabels,
+    totalWeight,
+    totalTime
+  } = recipe;
 
   return (
     <div className={classes.root}>
       <div className={classes.section1}>
-        <Grid container alignItems='center'>
-          <Grid item xs>
-            <Typography gutterBottom variant='h4'>
-              Toothbrush
+        <Grid container alignItems='center' justify='center'>
+          <Grid item>
+            <Typography variant='h3' align='center'>
+              {label}
+            </Typography>
+            <Typography color='textSecondary' variant='h5' align='center'>
+              {source}
             </Typography>
           </Grid>
-          <Grid item>
-            <Typography gutterBottom variant='h6'>
-              $4.50
-            </Typography>
+          <Grid item xs={12} align='center' style={{ marginTop: '1rem' }}>
+            <img src={image} alt='' />
           </Grid>
         </Grid>
-        <Typography color='textSecondary' variant='body2'>
-          Pinstriped cornflower blue cotton blouse takes you on a walk to the
-          park or just down the hall.
+        <Typography style={{ marginTop: '1rem' }} align='center'>
+          Recipe rating
+        </Typography>
+        <Typography
+          style={{ marginTop: '1rem' }}
+          align='center'
+          component='div'
+        >
+          <Rating
+            name='half-rating'
+            defaultValue={0}
+            precision={0.5}
+            size='large'
+          />
+        </Typography>
+        <Typography
+          color='textSecondary'
+          variant='body2'
+          style={{ marginTop: '1rem' }}
+          align='center'
+          component='div'
+        >
+          <Chip
+            avatar={<Avatar>@</Avatar>}
+            label={healthLabels.toString()}
+            clickable
+            color='primary'
+          />
         </Typography>
       </div>
       <Divider variant='middle' />
       <div className={classes.section2}>
-        <Typography gutterBottom variant='body1'>
-          Select type
-        </Typography>
+        <Typography variant='body1'>Diet labels</Typography>
         <div>
-          <Chip className={classes.chip} label='Extra Soft' />
-          <Chip className={classes.chip} color='primary' label='Soft' />
-          <Chip className={classes.chip} label='Medium' />
-          <Chip className={classes.chip} label='Hard' />
+          {labelsArray.map(label => (
+            <Chip
+              key={uuidv4()}
+              className={classes.chip}
+              color={dietLabels.toString() === label ? 'primary' : 'default'}
+              label={label}
+            />
+          ))}
         </div>
         <List className={classes.root}>
           <ListItem>
             <ListItemAvatar>
               <Avatar>
-                <ImageIcon />
+                <TimerIcon />
               </Avatar>
             </ListItemAvatar>
-            <ListItemText primary='Photos' secondary='Jan 9, 2014' />
+            <ListItemText
+              primary='Total time to cook'
+              secondary={`${totalTime} minutes`}
+            />
           </ListItem>
           <Divider variant='inset' component='li' />
           <ListItem>
             <ListItemAvatar>
               <Avatar>
-                <WorkIcon />
+                <FastfoodIcon />
               </Avatar>
             </ListItemAvatar>
-            <ListItemText primary='Work' secondary='Jan 7, 2014' />
+            <ListItemText
+              primary='Calories'
+              secondary={`${Math.round(calories)} kcal`}
+            />
           </ListItem>
           <Divider variant='inset' component='li' />
           <ListItem>
             <ListItemAvatar>
-              <Avatar>
-                <BeachAccessIcon />
-              </Avatar>
+              <Avatar>W</Avatar>
             </ListItemAvatar>
-            <ListItemText primary='Vacation' secondary='July 20, 2014' />
+            <ListItemText
+              primary='Total weight'
+              secondary={`${Math.round(totalWeight)} grams`}
+            />
           </ListItem>
         </List>
-      </div>
-      <div className={classes.section3}>
-        <Button color='primary'>Add to cart</Button>
       </div>
     </div>
   );

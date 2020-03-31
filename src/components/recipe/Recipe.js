@@ -45,15 +45,7 @@ const Recipe = match => {
         .filter(r => r.recipe.source === passedSource)
         .map(r => (
           <div key={r.recipe.uri}>
-            <h1>{r.recipe.label}</h1>
-            <h4>{r.recipe.source}</h4>
-            <img src={r.recipe.image} alt='' />
-            <h4>{r.recipe.dietLabels}</h4>
-            <h4>{r.recipe.healthLabels}</h4>
-            <h4>{r.recipe.calories}</h4>
-            <h4>{r.recipe.totalWeight}</h4>
-            <h4>{r.recipe.totalTime}</h4>
-            <RecipeDivider />
+            <RecipeDivider recipe={r.recipe} />
             <div>
               {r.recipe.ingredients.map((i, index) => (
                 <p key={index}>

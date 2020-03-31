@@ -17,6 +17,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Chip from '@material-ui/core/Chip';
 import { Link } from 'react-router-dom';
+import Rating from '@material-ui/lab/Rating';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -36,8 +37,8 @@ const useStyles = makeStyles(theme => ({
   expandOpen: {
     transform: 'rotate(180deg)'
   },
-  avatar: {
-    backgroundColor: red[500]
+  red: {
+    backgroundColor: red[600]
   }
 }));
 
@@ -50,17 +51,34 @@ const RecipeItem = ({ image, title, source, labels, calories }) => {
         <Link to={`/recipe/${title}/${source}`}>
           <CardHeader
             avatar={
-              <Avatar aria-label='recipe' className={classes.avatar}>
+              <Avatar aria-label='recipe' className={classes.red}>
                 {title.substring(0, 1)}
               </Avatar>
             }
             title={title}
             subheader={source}
+            action={
+              <Rating
+                style={{ marginTop: '1.2rem' }}
+                name='half-rating-read'
+                defaultValue={2.5}
+                precision={0.5}
+                readOnly
+                size='small'
+              />
+            }
           />
         </Link>
         <CardMedia className={classes.media} image={image} title='title' />
         <CardContent className='card-content'>
           <Typography variant='body2' color='textSecondary' component='div'>
+            <Typography
+              variant='body2'
+              color='textSecondary'
+              component='div'
+              align='center'
+              style={{ marginBottom: '1rem' }}
+            ></Typography>
             <Chip
               avatar={<Avatar>@</Avatar>}
               label={labels.slice(0, 2).toString()}
@@ -89,7 +107,7 @@ const RecipeItem = ({ image, title, source, labels, calories }) => {
             <ShareIcon />
           </IconButton>
           <CardActions>
-            <Link to={`/recipe/${title}`}>
+            <Link to={`/recipe/${title}/${source}`}>
               <Button
                 size='small'
                 variant='contained'

@@ -68,24 +68,33 @@ const useStyles = makeStyles(theme => ({
 export default function Navbar() {
   const classes = useStyles();
 
+  // const fetch = e => {
+  //   e.preventDefault();
+  //   const search = e.target.value;
+  //   console.log('fetch!', search);
+  // };
+
   return (
     <div className={classes.root}>
       <AppBar position='fixed'>
         <Toolbar style={{ justifyContent: 'space-between' }}>
           <Panel />
-          <div className={classes.search} style={{ marginLeft: '11rem' }}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
+          <form onSubmit={fetch}>
+            <div className={classes.search} style={{ marginLeft: '11rem' }}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <InputBase
+                placeholder='Search…'
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput
+                }}
+                inputProps={{ 'aria-label': 'search' }}
+                value=''
+              />
             </div>
-            <InputBase
-              placeholder='Search…'
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </div>
+          </form>
           <Link to='/'>
             <Typography className={classes.title} variant='h4' noWrap>
               Recipe App <MenuBookRoundedIcon style={{ fontSize: '2rem' }} />
