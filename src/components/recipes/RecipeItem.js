@@ -30,6 +30,12 @@ const useStyles = makeStyles(theme => ({
   },
   red: {
     backgroundColor: red[600]
+  },
+  button1: {
+    marginLeft: '7rem',
+    [theme.breakpoints.down('sm')]: {
+      marginLeft: '2rem'
+    }
   }
 }));
 
@@ -107,7 +113,7 @@ const RecipeItem = ({ image, title, source, labels, calories, time }) => {
                 size='small'
                 variant='contained'
                 color='primary'
-                style={{ marginLeft: '7rem' }}
+                className={classes.button1}
               >
                 Learn More
               </Button>

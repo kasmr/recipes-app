@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -68,12 +68,25 @@ const useStyles = makeStyles(theme => ({
 const Navbar = () => {
   const classes = useStyles();
 
+  const [search, setSearch] = useState({
+    query: '',
+    redirect: false
+  });
+
+  const onFormSubmit = e => {
+    e.preventDefault();
+  };
+
+  const onChange = e => {
+    setSearch({ query: e.target.value });
+  };
+
   return (
     <div className={classes.root}>
       <AppBar position='fixed'>
         <Toolbar style={{ justifyContent: 'space-between' }}>
           <Panel />
-          <form>
+          <form onSubmit={onFormSubmit}>
             <div className={classes.search}>
               <div className={classes.searchIcon}>
                 <SearchIcon />
@@ -85,6 +98,9 @@ const Navbar = () => {
                   input: classes.inputInput
                 }}
                 inputProps={{ 'aria-label': 'search' }}
+                type='text'
+                value={search.query}
+                onChange={onChange}
               />
             </div>
           </form>

@@ -1,29 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import { APP_ID, APP_KEY } from '../userApi';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { getRecipes } from '../../redux/actions';
+import PropTypes from 'prop-types';
 import RecipeItem from './RecipeItem';
 import './recipesList.scss';
 
-const RecipesList = () => {
-  const [recipes, setRecipes] = useState([]);
-  const [query, setQuery] = useState('chicken');
-
+const RecipesList = ({ stateRecipes, getRecipes }) => {
   useEffect(() => {
-    fetchData();
+    // fetchData();
+    getRecipes();
 
     //eslint-disable-next-line
   }, []);
 
-  const fetchData = async () => {
-    const res = await fetch(
-      `https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}`
-    );
-    const data = await res.json();
-    setRecipes(data.hits);
-  };
-
   return (
     <div className='main-container'>
-      {recipes.map(r => (
+      {stateRecipes.map(r => (
         <RecipeItem
           image={r.recipe.image}
           title={r.recipe.label}
@@ -38,4 +30,15 @@ const RecipesList = () => {
   );
 };
 
-export default RecipesList;
+RecipesList.propTypes = {
+  stateRecipes: PropTypes.array.isRequired,
+  getRecipes: PropTypes.func.isRequired
+};
+
+const mapStateToProps = state => {
+  return {
+    stateRecipes: state.recipes.recipes
+  };
+};
+
+export default connect(mapStateToProps, { getRecipes })(RecipesList);

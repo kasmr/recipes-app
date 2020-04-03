@@ -1,0 +1,3 @@
+export const GET_RECIPES = 'GET_RECIPES';
+export const SHOW_SKELETON = 'SHOW_SKELETON';
+export const HIDE_SKELETON = 'HIDE_SKELETON';
