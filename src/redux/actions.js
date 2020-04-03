@@ -4,13 +4,22 @@ import {
   GET_RECIPE,
   SEARCH_RECIPES,
   SET_QUERY,
-  SET_REDIRECT
+  SHOW_LOADING
 } from './types';
+
+//Set loading to true
+export const showLoading = () => {
+  return {
+    type: SHOW_LOADING
+  };
+};
 
 //Get all recipes for home page
 
 export const getRecipes = () => async dispatch => {
   try {
+    dispatch(showLoading());
+
     const res = await fetch(
       `https://api.edamam.com/search?q=chicken&app_id=${APP_ID}&app_key=${APP_KEY}`
     );
@@ -27,6 +36,8 @@ export const getRecipes = () => async dispatch => {
 
 export const getRecipe = passedTitle => async dispatch => {
   try {
+    dispatch(showLoading());
+
     const res = await fetch(
       `https://api.edamam.com/search?q=${passedTitle}&app_id=${APP_ID}&app_key=${APP_KEY}`
     );
@@ -52,6 +63,8 @@ export const setQuery = text => {
 
 export const searchRecipes = query => async dispatch => {
   try {
+    dispatch(showLoading());
+
     const res = await fetch(
       `https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}`
     );
@@ -61,11 +74,4 @@ export const searchRecipes = query => async dispatch => {
   } catch (error) {
     console.error(error);
   }
-};
-
-//Set redirect to true
-export const setLoading = () => {
-  return {
-    type: SET_REDIRECT
-  };
 };

@@ -6,6 +6,7 @@ import Navbar from './components/layout/Navbar';
 import Recipe from './components/recipe/Recipe';
 import Results from './components/pages/Results';
 import Home from './components/pages/Home';
+import SkeletonCurrent from './components/layout/SkeletonCurrent';
 
 const theme = createMuiTheme({
   palette: {
@@ -27,6 +28,7 @@ const App = () => {
           <Switch>
             <Route exact path='/' component={Home} />
             <Route exact path='/results' component={Results} />
+            <Route exact path='/skeleton' component={SkeletonCurrent} />
             <Route path='/recipe/:title/:source/:time' component={Recipe} />
           </Switch>
         </Container>

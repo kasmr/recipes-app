@@ -1,17 +1,22 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { getRecipes } from '../../redux/actions';
+import { getRecipes, showLoading } from '../../redux/actions';
 import PropTypes from 'prop-types';
 import RecipeItem from './RecipeItem';
+import SkeletonGroup from '../layout/SkeletonGroup';
 import './recipesList.scss';
 
-const RecipesList = ({ stateRecipes, getRecipes }) => {
+const RecipesList = ({ stateRecipes, getRecipes, loading }) => {
   useEffect(() => {
     // fetchData();
     getRecipes();
 
     //eslint-disable-next-line
   }, []);
+
+  if (loading || stateRecipes === null) {
+    return <SkeletonGroup />;
+  }
 
   return (
     <div className='main-container'>
@@ -32,13 +37,17 @@ const RecipesList = ({ stateRecipes, getRecipes }) => {
 
 RecipesList.propTypes = {
   stateRecipes: PropTypes.array.isRequired,
-  getRecipes: PropTypes.func.isRequired
+  getRecipes: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = state => {
   return {
-    stateRecipes: state.recipes.recipes
+    stateRecipes: state.recipes.recipes,
+    loading: state.recipes.loading
   };
 };
 
-export default connect(mapStateToProps, { getRecipes })(RecipesList);
+export default connect(mapStateToProps, { getRecipes, showLoading })(
+  RecipesList
+);

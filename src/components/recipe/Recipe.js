@@ -5,8 +5,10 @@ import { getRecipe } from '../../redux/actions';
 import RecipeBody from './RecipeBody';
 import RecipeTable from './RecipeTable';
 import RecipeIngredients from './RecipeIngredients';
+import { Redirect } from 'react-router';
+import SkeletonCurrent from '../layout/SkeletonCurrent';
 
-const Recipe = ({ match, getRecipe, currentRecipe }) => {
+const Recipe = ({ match, getRecipe, currentRecipe, redirect, loading }) => {
   const passedTitle = match.params.title;
   const passedSource = match.params.source;
   const passedTime = match.params.time;
@@ -15,6 +17,14 @@ const Recipe = ({ match, getRecipe, currentRecipe }) => {
     getRecipe(passedTitle);
     //eslint-disable-next-line
   }, []);
+
+  if (redirect === true) {
+    return <Redirect to='/results' />;
+  }
+
+  if (loading || currentRecipe === null) {
+    return <SkeletonCurrent />;
+  }
 
   return (
     <>
@@ -37,12 +47,16 @@ const Recipe = ({ match, getRecipe, currentRecipe }) => {
 
 Recipe.propTypes = {
   currentRecipe: PropTypes.array.isRequired,
-  getRecipe: PropTypes.func.isRequired
+  getRecipe: PropTypes.func.isRequired,
+  redirect: PropTypes.bool.isRequired,
+  loading: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = state => {
   return {
-    currentRecipe: state.recipes.currentRecipe
+    currentRecipe: state.recipes.currentRecipe,
+    redirect: state.recipes.redirect,
+    loading: state.recipes.loading
   };
 };
 

@@ -19,6 +19,7 @@ import Chip from '@material-ui/core/Chip';
 import { Link } from 'react-router-dom';
 import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
+import './recipesList.scss';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -34,7 +35,7 @@ const useStyles = makeStyles(theme => ({
   button1: {
     marginLeft: '7rem',
     [theme.breakpoints.down('sm')]: {
-      marginLeft: '2rem'
+      // marginLeft: '1rem'
     }
   }
 }));

@@ -4,14 +4,23 @@ import { searchRecipes } from '../../redux/actions';
 import PropTypes from 'prop-types';
 import RecipeItem from '../recipes/RecipeItem';
 import '../recipes/recipesList.scss';
+import { Redirect } from 'react-router';
+import SkeletonGroup from '../layout/SkeletonGroup';
 
-const Results = ({ results, searchRecipes, query }) => {
+const Results = ({ results, searchRecipes, query, loading }) => {
   useEffect(() => {
-    // fetchData();
     searchRecipes(query);
 
     //eslint-disable-next-line
-  }, []);
+  }, [query]);
+
+  if (query === '') {
+    return <Redirect to='/' />;
+  }
+
+  if (loading) {
+    return <SkeletonGroup />;
+  }
 
   return (
     <div className='main-container'>
@@ -31,14 +40,16 @@ const Results = ({ results, searchRecipes, query }) => {
 };
 
 Results.propTypes = {
-  searchedRecipes: PropTypes.array.isRequired,
-  results: PropTypes.func.isRequired
+  results: PropTypes.array.isRequired,
+  searchRecipes: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = state => {
   return {
     results: state.recipes.results,
-    query: state.recipes.query
+    query: state.recipes.query,
+    loading: state.recipes.loading
   };
 };
 
