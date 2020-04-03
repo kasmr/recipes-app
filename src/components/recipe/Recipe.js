@@ -1,29 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import { APP_ID, APP_KEY } from '../userApi';
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { getRecipe } from '../../redux/actions';
 import RecipeBody from './RecipeBody';
 import RecipeTable from './RecipeTable';
 import RecipeIngredients from './RecipeIngredients';
 
-const Recipe = ({ match }) => {
-  const [currentRecipe, setCurrentRecipe] = useState([]);
-
+const Recipe = ({ match, getRecipe, currentRecipe }) => {
   const passedTitle = match.params.title;
   const passedSource = match.params.source;
   const passedTime = match.params.time;
 
   useEffect(() => {
-    fetchData();
+    getRecipe(passedTitle);
     //eslint-disable-next-line
   }, []);
-
-  const fetchData = async () => {
-    const res = await fetch(
-      `https://api.edamam.com/search?q=${passedTitle}&app_id=${APP_ID}&app_key=${APP_KEY}`
-    );
-    const data = await res.json();
-    console.log(data.hits);
-    setCurrentRecipe(data.hits);
-  };
 
   return (
     <>
@@ -44,4 +35,15 @@ const Recipe = ({ match }) => {
   );
 };
 
-export default Recipe;
+Recipe.propTypes = {
+  currentRecipe: PropTypes.array.isRequired,
+  getRecipe: PropTypes.func.isRequired
+};
+
+const mapStateToProps = state => {
+  return {
+    currentRecipe: state.recipes.currentRecipe
+  };
+};
+
+export default connect(mapStateToProps, { getRecipe })(Recipe);

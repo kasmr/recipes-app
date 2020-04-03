@@ -1,13 +1,71 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { fade, makeStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { setQuery } from '../../redux/actions';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
-import { fade, makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import Panel from './Panel';
 import MenuBookRoundedIcon from '@material-ui/icons/MenuBookRounded';
-import { Link } from 'react-router-dom';
+
+const Navbar = ({ setQuery }) => {
+  const classes = useStyles();
+
+  const [value, setValue] = useState('');
+
+  const onFormSubmit = e => {
+    e.preventDefault();
+    setQuery(value);
+    setValue('');
+  };
+
+  const onChange = e => {
+    setValue(e.target.value);
+  };
+
+  return (
+    <div className={classes.root}>
+      <AppBar position='fixed'>
+        <Toolbar style={{ justifyContent: 'space-between' }}>
+          <Panel />
+          <form onSubmit={onFormSubmit}>
+            <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <InputBase
+                placeholder='Search…'
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput
+                }}
+                inputProps={{ 'aria-label': 'search' }}
+                type='text'
+                value={value}
+                onChange={onChange}
+              />
+            </div>
+          </form>
+          <Link to='/'>
+            <Typography className={classes.title} variant='h4' noWrap>
+              Recipe App <MenuBookRoundedIcon style={{ fontSize: '2rem' }} />
+            </Typography>
+          </Link>
+        </Toolbar>
+      </AppBar>
+    </div>
+  );
+};
+
+Navbar.propTypes = {
+  setQuery: PropTypes.func.isRequired
+};
+
+export default connect(null, { setQuery })(Navbar);
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -64,55 +122,3 @@ const useStyles = makeStyles(theme => ({
     }
   }
 }));
-
-const Navbar = () => {
-  const classes = useStyles();
-
-  const [search, setSearch] = useState({
-    query: '',
-    redirect: false
-  });
-
-  const onFormSubmit = e => {
-    e.preventDefault();
-  };
-
-  const onChange = e => {
-    setSearch({ query: e.target.value });
-  };
-
-  return (
-    <div className={classes.root}>
-      <AppBar position='fixed'>
-        <Toolbar style={{ justifyContent: 'space-between' }}>
-          <Panel />
-          <form onSubmit={onFormSubmit}>
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon />
-              </div>
-              <InputBase
-                placeholder='Search…'
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput
-                }}
-                inputProps={{ 'aria-label': 'search' }}
-                type='text'
-                value={search.query}
-                onChange={onChange}
-              />
-            </div>
-          </form>
-          <Link to='/'>
-            <Typography className={classes.title} variant='h4' noWrap>
-              Recipe App <MenuBookRoundedIcon style={{ fontSize: '2rem' }} />
-            </Typography>
-          </Link>
-        </Toolbar>
-      </AppBar>
-    </div>
-  );
-};
-
-export default Navbar;
