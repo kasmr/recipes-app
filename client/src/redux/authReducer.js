@@ -7,6 +7,7 @@ import {
   LOGOUT,
   AUTH_ERROR,
   CLEAR_ERRORS,
+  SHOW_LOADING,
 } from './types';
 
 const initalState = {
@@ -17,8 +18,26 @@ const initalState = {
   error: null,
 };
 
-export const recipeReducer = (state = initalState, action) => {
+export const authReducer = (state = initalState, action) => {
   switch (action.type) {
+    case REGISTER_SUCCESS:
+      localStorage.setItem('token', action.payload.token);
+      return {
+        ...state,
+        ...action.payload,
+        isAuthenticated: true,
+        loading: false,
+      };
+    case REGISTER_FAIL:
+      localStorage.removeItem('token');
+      return {
+        ...state,
+        token: null,
+        isAuthenticated: false,
+        loading: false,
+        user: null,
+        error: action.payload,
+      };
     case SHOW_LOADING:
       return {
         ...state,

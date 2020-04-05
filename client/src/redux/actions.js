@@ -5,6 +5,8 @@ import {
   SEARCH_RECIPES,
   SET_QUERY,
   SHOW_LOADING,
+  REGISTER_SUCCESS,
+  REGISTER_FAIL,
 } from './types';
 
 //Set loading to true
@@ -83,8 +85,32 @@ export const searchRecipes = (query) => async (dispatch) => {
 /////////////////
 
 //Load user
+export const loadUser = () => console.log('loadUser');
 
 //Register user
+export const register = (formData) => async (dispatch) => {
+  try {
+    const res = await fetch('/api/users', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    });
+
+    const data = await res.json();
+    console.log(data);
+    dispatch({
+      type: REGISTER_SUCCESS,
+      payload: data,
+    });
+  } catch (err) {
+    dispatch({
+      type: REGISTER_FAIL,
+      payload: err.response.data.msg,
+    });
+  }
+};
 
 //Logout user
 
