@@ -21,23 +21,20 @@ import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
 import './recipesList.scss';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 345
+    maxWidth: 345,
   },
   media: {
     height: 0,
-    paddingTop: '56.25%' // 16:9
+    paddingTop: '56.25%', // 16:9
   },
   red: {
-    backgroundColor: red[600]
+    backgroundColor: red[600],
   },
   button1: {
     marginLeft: '7rem',
-    [theme.breakpoints.down('sm')]: {
-      // marginLeft: '1rem'
-    }
-  }
+  },
 }));
 
 const RecipeItem = ({ image, title, source, labels, calories, time }) => {

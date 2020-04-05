@@ -13,6 +13,7 @@ const SkeletonGroup = () => {
       <SkeletonRecipe />
       <SkeletonRecipe />
       <SkeletonRecipe />
+      <SkeletonRecipe />
     </div>
   );
 };

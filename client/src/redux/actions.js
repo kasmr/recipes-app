@@ -4,19 +4,19 @@ import {
   GET_RECIPE,
   SEARCH_RECIPES,
   SET_QUERY,
-  SHOW_LOADING
+  SHOW_LOADING,
 } from './types';
 
 //Set loading to true
 export const showLoading = () => {
   return {
-    type: SHOW_LOADING
+    type: SHOW_LOADING,
   };
 };
 
 //Get all recipes for home page
 
-export const getRecipes = () => async dispatch => {
+export const getRecipes = () => async (dispatch) => {
   try {
     dispatch(showLoading());
 
@@ -34,7 +34,7 @@ export const getRecipes = () => async dispatch => {
 
 //Get single chosen recipe
 
-export const getRecipe = passedTitle => async dispatch => {
+export const getRecipe = (passedTitle) => async (dispatch) => {
   try {
     dispatch(showLoading());
 
@@ -52,16 +52,16 @@ export const getRecipe = passedTitle => async dispatch => {
 
 //Set search query
 
-export const setQuery = text => {
+export const setQuery = (text) => {
   return {
     type: SET_QUERY,
-    payload: text
+    payload: text,
   };
 };
 
 //Search for recipes
 
-export const searchRecipes = query => async dispatch => {
+export const searchRecipes = (query) => async (dispatch) => {
   try {
     dispatch(showLoading());
 
@@ -75,3 +75,17 @@ export const searchRecipes = query => async dispatch => {
     console.error(error);
   }
 };
+
+//////////////////
+
+//Backend actions
+
+/////////////////
+
+//Load user
+
+//Register user
+
+//Logout user
+
+//Clear Errors

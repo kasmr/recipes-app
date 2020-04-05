@@ -7,27 +7,35 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import HomeIcon from '@material-ui/icons/Home';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 import MenuIcon from '@material-ui/icons/Menu';
 import IconButton from '@material-ui/core/IconButton';
+import SearchIcon from '@material-ui/icons/Search';
+import InfoIcon from '@material-ui/icons/Info';
+import { Link } from 'react-router-dom';
+import CardMedia from '@material-ui/core/CardMedia';
 
 const useStyles = makeStyles({
   list: {
-    width: 250
+    width: 250,
+  },
+  media: {
+    height: 0,
+    paddingTop: '56.25%', // 16:9
   },
   fullList: {
-    width: 'auto'
-  }
+    width: 'auto',
+  },
 });
 
 const Panel = () => {
   const classes = useStyles();
   const [state, setState] = React.useState({
-    left: false
+    left: false,
   });
 
-  const toggleDrawer = (anchor, open) => event => {
+  const toggleDrawer = (anchor, open) => (event) => {
     if (
       event.type === 'keydown' &&
       (event.key === 'Tab' || event.key === 'Shift')
@@ -38,42 +46,53 @@ const Panel = () => {
     setState({ ...state, [anchor]: open });
   };
 
-  const list = anchor => (
+  const list = (anchor) => (
     <div
       className={clsx(classes.list, {
-        [classes.fullList]: anchor === 'top' || anchor === 'bottom'
+        [classes.fullList]: anchor === 'top' || anchor === 'bottom',
       })}
       role='presentation'
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
+      <CardMedia className={classes.media} image='/menu.jpg' title='Recipes' />
       <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem button key={text}>
+        <Link to='/'>
+          <ListItem button>
             <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              <HomeIcon />
             </ListItemIcon>
-            <ListItemText primary={text} />
+            <ListItemText primary='Home' />
           </ListItem>
-        ))}
+        </Link>
+        <ListItem button>
+          <ListItemIcon>
+            <FavoriteIcon />
+          </ListItemIcon>
+          <ListItemText primary='Favorite' />
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon>
+            <SearchIcon />
+          </ListItemIcon>
+          <ListItemText primary='Extended Search' />
+        </ListItem>
       </List>
       <Divider />
       <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
+        <ListItem button>
+          <ListItemIcon>
+            <InfoIcon />
+          </ListItemIcon>
+          <ListItemText primary='About' />
+        </ListItem>
       </List>
     </div>
   );
 
   return (
     <div>
-      {['left'].map(anchor => (
+      {['left'].map((anchor) => (
         <React.Fragment key={anchor}>
           <IconButton
             edge='start'

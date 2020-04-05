@@ -7,16 +7,17 @@ import Recipe from './components/recipe/Recipe';
 import Results from './components/pages/Results';
 import Home from './components/pages/Home';
 import SkeletonCurrent from './components/layout/SkeletonCurrent';
+import Login from './components/auth/Login';
 
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#0288d1'
+      main: '#0288d1',
     },
     secondary: {
-      main: '#e53935'
-    }
-  }
+      main: '#e53935',
+    },
+  },
 });
 
 const App = () => {
@@ -27,6 +28,7 @@ const App = () => {
         <Container maxWidth='xl' style={{ marginTop: '5rem' }}>
           <Switch>
             <Route exact path='/' component={Home} />
+            <Route exact path='/auth' component={Login} />
             <Route exact path='/results' component={Results} />
             <Route exact path='/skeleton' component={SkeletonCurrent} />
             <Route path='/recipe/:title/:source/:time' component={Recipe} />

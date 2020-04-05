@@ -38,7 +38,7 @@ const SkeletonRecipe = () => {
             style={{
               display: 'flex',
               justifyContent: 'center',
-              marginBottom: 12
+              marginBottom: 12,
             }}
           />
           <Skeleton animation='wave' height={50} style={{ marginBottom: 6 }} />
@@ -52,13 +52,16 @@ const SkeletonRecipe = () => {
 
 export default SkeletonRecipe;
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   card: {
-    minWidth: 340,
+    minWidth: 345,
     minHeight: 480,
-    margin: '2rem'
+    margin: '2rem',
+    [theme.breakpoints.down('sm')]: {
+      minWidth: 290,
+    },
   },
   media: {
-    height: 190
-  }
+    height: 190,
+  },
 }));
