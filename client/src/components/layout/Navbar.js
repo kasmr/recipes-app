@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { setQuery } from '../../redux/actions';
+import { setQuery, logout } from '../../redux/actions';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -12,89 +12,129 @@ import SearchIcon from '@material-ui/icons/Search';
 import Panel from './Panel';
 import MenuBookRoundedIcon from '@material-ui/icons/MenuBookRounded';
 
-const Navbar = ({ setQuery }) => {
+const Navbar = ({ setQuery, isAuthenticated, user, logout }) => {
   const classes = useStyles();
 
   const [value, setValue] = useState('');
 
-  const onFormSubmit = e => {
+  const onFormSubmit = (e) => {
     e.preventDefault();
     setQuery(value);
     setValue('');
   };
 
-  const onChange = e => {
+  const onChange = (e) => {
     setValue(e.target.value);
   };
 
-  return (
-    <div className={classes.root}>
-      <AppBar position='fixed'>
-        <Toolbar style={{ justifyContent: 'space-between' }}>
-          <Panel />
-          <form onSubmit={onFormSubmit}>
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon />
-              </div>
-              <InputBase
-                placeholder='Search…'
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput
-                }}
-                inputProps={{ 'aria-label': 'search' }}
-                type='text'
-                value={value}
-                onChange={onChange}
-              />
-            </div>
-          </form>
-          <Link to='/'>
-            <Typography className={classes.title} variant='h4' noWrap>
+  if (!isAuthenticated) {
+    return (
+      <div className={classes.root}>
+        <AppBar position='fixed'>
+          <Toolbar>
+            <Typography
+              className={classes.title2}
+              variant='h4'
+              noWrap
+              align='center'
+            >
               Recipe App <MenuBookRoundedIcon style={{ fontSize: '2rem' }} />
             </Typography>
-          </Link>
-        </Toolbar>
-      </AppBar>
-    </div>
-  );
+          </Toolbar>
+        </AppBar>
+      </div>
+    );
+  } else {
+    return (
+      <div className={classes.root}>
+        <AppBar position='fixed'>
+          <Toolbar style={{ justifyContent: 'space-between' }}>
+            <Panel />
+            <form onSubmit={onFormSubmit}>
+              <div className={classes.search}>
+                <div className={classes.searchIcon}>
+                  <SearchIcon />
+                </div>
+                <InputBase
+                  placeholder='Search…'
+                  classes={{
+                    root: classes.inputRoot,
+                    input: classes.inputInput,
+                  }}
+                  inputProps={{ 'aria-label': 'search' }}
+                  type='text'
+                  value={value}
+                  onChange={onChange}
+                />
+              </div>
+              <button onClick={() => logout()}>
+                {user && user.name}LOGOUT
+              </button>
+            </form>
+            <Link to='/'>
+              <Typography className={classes.title} variant='h4' noWrap>
+                Recipe App <MenuBookRoundedIcon style={{ fontSize: '2rem' }} />
+              </Typography>
+            </Link>
+          </Toolbar>
+        </AppBar>
+      </div>
+    );
+  }
 };
 
 Navbar.propTypes = {
-  setQuery: PropTypes.func.isRequired
+  setQuery: PropTypes.func.isRequired,
+  logout: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+  user: PropTypes.object,
 };
 
-export default connect(null, { setQuery })(Navbar);
+const mapStateToProps = (state) => {
+  return {
+    isAuthenticated: state.auth.isAuthenticated,
+    user: state.auth.user,
+  };
+};
 
-const useStyles = makeStyles(theme => ({
+export default connect(mapStateToProps, { setQuery, logout })(Navbar);
+
+const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   menuButton: {
-    marginRight: theme.spacing(2)
+    marginRight: theme.spacing(2),
   },
   title: {
     flexGrow: 1,
     display: 'none',
     color: 'white',
     [theme.breakpoints.up('sm')]: {
-      display: 'block'
-    }
+      display: 'block',
+    },
+  },
+  title2: {
+    flexGrow: 1,
+    display: 'block',
+    color: 'white',
+    [theme.breakpoints.up('sm')]: {
+      display: 'block',
+    },
   },
   search: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
     backgroundColor: fade(theme.palette.common.white, 0.15),
     '&:hover': {
-      backgroundColor: fade(theme.palette.common.white, 0.25)
+      backgroundColor: fade(theme.palette.common.white, 0.25),
     },
     marginLeft: '11rem',
     width: 'auto',
     [theme.breakpoints.down('sm')]: {
       width: 'auto',
-      marginLeft: 0
-    }
+      marginLeft: 0,
+    },
   },
   searchIcon: {
     padding: theme.spacing(0, 2),
@@ -103,10 +143,10 @@ const useStyles = makeStyles(theme => ({
     pointerEvents: 'none',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   inputRoot: {
-    color: 'inherit'
+    color: 'inherit',
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
@@ -117,8 +157,8 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up('sm')]: {
       width: '12ch',
       '&:focus': {
-        width: '20ch'
-      }
-    }
-  }
+        width: '20ch',
+      },
+    },
+  },
 }));

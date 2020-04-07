@@ -1,15 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { login } from '../../redux/actions';
+import PropTypes from 'prop-types';
 import Avatar from '@material-ui/core/Avatar';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
+import Alert from '../layout/Alert';
 import './auth.scss';
 
-const Login = () => {
+const Login = ({ isAuthenticated, error, login, history }) => {
   const classes = useStyles();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      history.push('/');
+    }
+    //eslint-disable-next-line
+  }, [error, isAuthenticated, history]);
 
   const [user, setUser] = useState({
     email: '',
@@ -22,11 +33,15 @@ const Login = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log('Login submit');
+    login({
+      email,
+      password,
+    });
   };
 
   return (
     <form className={classes.root} onSubmit={onSubmit}>
+      {error && <Alert error={error} type='error' />}
       <div className='form'>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
@@ -72,7 +87,7 @@ const Login = () => {
         </Button>
         <div className={classes.sub}>
           <Link to='/register'>
-            <Typography color='primary'>
+            <Typography color='primary' className={classes.link}>
               Don't have an account? Register
             </Typography>
           </Link>
@@ -81,6 +96,21 @@ const Login = () => {
     </form>
   );
 };
+
+Login.propTypes = {
+  login: PropTypes.func.isRequired,
+  error: PropTypes.string,
+  isAuthenticated: PropTypes.bool,
+};
+
+const mapStateToProps = (state) => {
+  return {
+    error: state.auth.error,
+    isAuthenticated: state.auth.isAuthenticated,
+  };
+};
+
+export default connect(mapStateToProps, { login })(Login);
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -115,6 +145,7 @@ const useStyles = makeStyles((theme) => ({
       width: '90%',
     },
   },
+  link: {
+    fontSize: '0.9rem',
+  },
 }));
-
-export default Login;

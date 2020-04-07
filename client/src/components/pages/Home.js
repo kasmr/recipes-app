@@ -13,12 +13,12 @@ const Home = ({ redirect }) => {
 };
 
 Home.propTypes = {
-  redirect: PropTypes.bool.isRequired
+  redirect: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    redirect: state.recipes.redirect
+    redirect: state.recipes.redirect,
   };
 };
 

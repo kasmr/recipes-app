@@ -1,15 +1,16 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { getRecipes, showLoading } from '../../redux/actions';
+import { getRecipes, showLoading, loadUser } from '../../redux/actions';
 import PropTypes from 'prop-types';
 import RecipeItem from './RecipeItem';
 import SkeletonGroup from '../layout/SkeletonGroup';
 import './recipesList.scss';
 
-const RecipesList = ({ stateRecipes, getRecipes, loading }) => {
+const RecipesList = ({ stateRecipes, getRecipes, loading, loadUser }) => {
   useEffect(() => {
     // fetchData();
     getRecipes();
+    loadUser();
 
     //eslint-disable-next-line
   }, []);
@@ -20,7 +21,7 @@ const RecipesList = ({ stateRecipes, getRecipes, loading }) => {
 
   return (
     <div className='main-container'>
-      {stateRecipes.map(r => (
+      {stateRecipes.map((r) => (
         <RecipeItem
           image={r.recipe.image}
           title={r.recipe.label}
@@ -38,16 +39,16 @@ const RecipesList = ({ stateRecipes, getRecipes, loading }) => {
 RecipesList.propTypes = {
   stateRecipes: PropTypes.array.isRequired,
   getRecipes: PropTypes.func.isRequired,
-  loading: PropTypes.bool.isRequired
+  loading: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     stateRecipes: state.recipes.recipes,
-    loading: state.recipes.loading
+    loading: state.recipes.loading,
   };
 };
 
-export default connect(mapStateToProps, { getRecipes, showLoading })(
+export default connect(mapStateToProps, { getRecipes, showLoading, loadUser })(
   RecipesList
 );

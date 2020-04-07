@@ -11,6 +11,9 @@ import {
   SHOW_ALERT,
   USER_LOADED,
   AUTH_ERROR,
+  LOGIN_FAIL,
+  LOGIN_SUCCESS,
+  LOGOUT,
 } from './types';
 
 //Set loading to true
@@ -104,7 +107,8 @@ export const loadUser = () => async (dispatch) => {
   try {
     const res = await fetch('/api/auth');
 
-    const data = res.json();
+    const data = await res.json();
+    console.log(data);
 
     dispatch({ type: USER_LOADED, payload: data });
   } catch (err) {
@@ -124,7 +128,6 @@ export const register = (formData) => async (dispatch) => {
     });
 
     const data = await res.json();
-    console.log(data);
     if (res.status === 200) {
       dispatch({
         type: REGISTER_SUCCESS,
@@ -132,6 +135,7 @@ export const register = (formData) => async (dispatch) => {
       });
       loadUser();
     } else {
+      showAlert();
       dispatch({
         type: REGISTER_FAIL,
         payload: data.msg,
@@ -145,6 +149,40 @@ export const register = (formData) => async (dispatch) => {
   }
 };
 
-//Logout user
+//Login user
+export const login = (formData) => async (dispatch) => {
+  try {
+    const res = await fetch('/api/auth', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    });
 
+    const data = await res.json();
+    if (res.status === 200) {
+      dispatch({
+        type: LOGIN_SUCCESS,
+        payload: data,
+      });
+      loadUser();
+    } else {
+      dispatch({
+        type: LOGIN_FAIL,
+        payload: data.msg,
+      });
+    }
+  } catch (error) {
+    dispatch({
+      type: LOGIN_FAIL,
+      payload: error,
+    });
+  }
+};
+
+//Logout user
+export const logout = () => {
+  return { type: LOGOUT };
+};
 //Clear Errors

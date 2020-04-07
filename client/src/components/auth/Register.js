@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { register, showAlert } from '../../redux/actions';
+import { register } from '../../redux/actions';
 import PropTypes from 'prop-types';
 import Avatar from '@material-ui/core/Avatar';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -9,17 +9,18 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
-import './auth.scss';
 import Alert from '../layout/Alert';
+import './auth.scss';
 
-const Register = ({ register, error, showAlert, alert }) => {
+const Register = ({ register, error, isAuthenticated, history }) => {
   const classes = useStyles();
 
   useEffect(() => {
-    if (error === 'User already exists') {
-      showAlert();
+    if (isAuthenticated) {
+      history.push('/');
     }
-  }, [error]);
+    //eslint-disable-next-line
+  }, [isAuthenticated, history]);
 
   const [user, setUser] = useState({
     name: '',
@@ -28,7 +29,7 @@ const Register = ({ register, error, showAlert, alert }) => {
     password2: '',
   });
 
-  const { name, email, password, password2 } = user;
+  const { name, email, password } = user;
 
   const onChange = (e) => setUser({ ...user, [e.target.name]: e.target.value });
 
@@ -43,7 +44,7 @@ const Register = ({ register, error, showAlert, alert }) => {
 
   return (
     <form className={classes.root} autoComplete='off' onSubmit={onSubmit}>
-      {alert && <Alert error={error} type='error' />}
+      {error && <Alert error={error} type='error' />}
       <div className='form'>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
@@ -86,16 +87,6 @@ const Register = ({ register, error, showAlert, alert }) => {
           helperText='Password must contain at least 6 characters'
           variant='outlined'
         />
-        <TextField
-          required
-          onChange={onChange}
-          name='password2'
-          type='password'
-          value={password2}
-          label='Confirm password'
-          helperText='Passwords must match'
-          variant='outlined'
-        />
         <Button
           className={classes.button}
           variant='contained'
@@ -107,7 +98,7 @@ const Register = ({ register, error, showAlert, alert }) => {
         </Button>
         <div className={classes.sub}>
           <Link to='/login'>
-            <Typography color='primary'>
+            <Typography color='primary' className={classes.link}>
               Already have an account? Login
             </Typography>
           </Link>
@@ -119,18 +110,18 @@ const Register = ({ register, error, showAlert, alert }) => {
 
 Register.propTypes = {
   register: PropTypes.func.isRequired,
-  showAlert: PropTypes.func.isRequired,
   error: PropTypes.string,
+  isAuthenticated: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => {
   return {
     error: state.auth.error,
-    alert: state.auth.alert,
+    isAuthenticated: state.auth.isAuthenticated,
   };
 };
 
-export default connect(mapStateToProps, { register, showAlert })(Register);
+export default connect(mapStateToProps, { register })(Register);
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -167,5 +158,8 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('sm')]: {
       width: '90%',
     },
+  },
+  link: {
+    fontSize: '0.9rem',
   },
 }));

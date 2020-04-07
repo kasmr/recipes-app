@@ -6,16 +6,13 @@ import {
   LOGIN_SUCCESS,
   LOGOUT,
   AUTH_ERROR,
-  CLEAR_ERRORS,
   SHOW_LOADING,
-  SHOW_ALERT,
 } from './types';
 
 const initalState = {
   token: localStorage.getItem('token'),
-  isAuthenticated: null,
+  isAuthenticated: false,
   loading: false,
-  alert: false,
   user: null,
   error: null,
 };
@@ -30,6 +27,7 @@ export const authReducer = (state = initalState, action) => {
         user: action.payload,
       };
     case REGISTER_SUCCESS:
+    case LOGIN_SUCCESS:
       localStorage.setItem('token', action.payload.token);
       return {
         ...state,
@@ -38,7 +36,9 @@ export const authReducer = (state = initalState, action) => {
         loading: false,
       };
     case REGISTER_FAIL:
+    case LOGIN_FAIL:
     case AUTH_ERROR:
+    case LOGOUT:
       localStorage.removeItem('token');
       return {
         ...state,
@@ -52,11 +52,6 @@ export const authReducer = (state = initalState, action) => {
       return {
         ...state,
         loading: true,
-      };
-    case SHOW_ALERT:
-      return {
-        ...state,
-        alert: true,
       };
 
     default:
