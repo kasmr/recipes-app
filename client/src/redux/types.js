@@ -4,6 +4,7 @@ export const SET_QUERY = 'SET_QUERY';
 export const SEARCH_RECIPES = 'SEARCH_RECIPES';
 export const SET_REDIRECT = 'SET_REDIRECT';
 export const SHOW_LOADING = 'SHOW_LOADING';
+export const SHOW_ALERT = 'SHOW_ALERT';
 // Types for Backend auth
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 export const REGISTER_FAIL = 'REGISTER_FAIL';

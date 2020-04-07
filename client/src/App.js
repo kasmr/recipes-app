@@ -9,6 +9,11 @@ import Home from './components/pages/Home';
 import SkeletonCurrent from './components/layout/SkeletonCurrent';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
+import setAuthToken from './utils/setAuthToken';
+
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
+}
 
 const theme = createMuiTheme({
   palette: {

@@ -1,19 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { register, showAlert } from '../../redux/actions';
+import PropTypes from 'prop-types';
+import Avatar from '@material-ui/core/Avatar';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import TextField from '@material-ui/core/TextField';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
-import LockOpenIcon from '@material-ui/icons/LockOpen';
-import EmailOutlinedIcon from '@material-ui/icons/EmailOutlined';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
 import './auth.scss';
-import { connect } from 'react-redux';
-import { register } from '../../redux/actions';
-import PropTypes from 'prop-types';
+import Alert from '../layout/Alert';
 
-const Register = ({ register }) => {
+const Register = ({ register, error, showAlert, alert }) => {
   const classes = useStyles();
+
+  useEffect(() => {
+    if (error === 'User already exists') {
+      showAlert();
+    }
+  }, [error]);
 
   const [user, setUser] = useState({
     name: '',
@@ -37,7 +43,11 @@ const Register = ({ register }) => {
 
   return (
     <form className={classes.root} autoComplete='off' onSubmit={onSubmit}>
+      {alert && <Alert error={error} type='error' />}
       <div className='form'>
+        <Avatar className={classes.avatar}>
+          <LockOutlinedIcon />
+        </Avatar>
         <Typography
           variant='h2'
           gutterBottom
@@ -52,70 +62,39 @@ const Register = ({ register }) => {
           name='name'
           type='text'
           value={name}
-          id='outlined-required'
           label='Username '
           variant='outlined'
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position='start'>
-                <AccountCircleOutlinedIcon />
-              </InputAdornment>
-            ),
-          }}
         />
         <TextField
           required
           onChange={onChange}
           name='email'
           type='email'
+          autoComplete='email'
           value={email}
-          id='outlined-helperText'
           label='Email adress'
           variant='outlined'
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position='start'>
-                <EmailOutlinedIcon />
-              </InputAdornment>
-            ),
-          }}
         />
 
         <TextField
           required
           onChange={onChange}
           name='password'
-          type='text'
+          type='password'
           value={password}
-          id='outlined-helperText'
           label='Password'
           helperText='Password must contain at least 6 characters'
           variant='outlined'
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position='start'>
-                <LockOpenIcon />
-              </InputAdornment>
-            ),
-          }}
         />
         <TextField
           required
           onChange={onChange}
           name='password2'
-          type='text'
+          type='password'
           value={password2}
-          id='outlined-helperText'
           label='Confirm password'
           helperText='Passwords must match'
           variant='outlined'
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position='start'>
-                <LockOpenIcon />
-              </InputAdornment>
-            ),
-          }}
         />
         <Button
           className={classes.button}
@@ -126,6 +105,13 @@ const Register = ({ register }) => {
         >
           Register
         </Button>
+        <div className={classes.sub}>
+          <Link to='/login'>
+            <Typography color='primary'>
+              Already have an account? Login
+            </Typography>
+          </Link>
+        </div>
       </div>
     </form>
   );
@@ -133,9 +119,18 @@ const Register = ({ register }) => {
 
 Register.propTypes = {
   register: PropTypes.func.isRequired,
+  showAlert: PropTypes.func.isRequired,
+  error: PropTypes.string,
 };
 
-export default connect(null, { register })(Register);
+const mapStateToProps = (state) => {
+  return {
+    error: state.auth.error,
+    alert: state.auth.alert,
+  };
+};
+
+export default connect(mapStateToProps, { register, showAlert })(Register);
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -147,12 +142,30 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
-  text: {
+  avatar: {
+    marginBottom: '1rem',
+    backgroundColor: theme.palette.secondary.main,
     [theme.breakpoints.down('sm')]: {
-      fontSize: '2.5rem',
+      marginBottom: 0,
     },
+  },
+  text: {
+    fontSize: '1.5rem',
   },
   button: {
     marginTop: '1rem',
+    width: '30%',
+    [theme.breakpoints.down('sm')]: {
+      width: '90%',
+    },
+  },
+  sub: {
+    width: '30%',
+    display: 'flex',
+    justifyContent: 'flex-end',
+    marginTop: '1rem',
+    [theme.breakpoints.down('sm')]: {
+      width: '90%',
+    },
   },
 }));

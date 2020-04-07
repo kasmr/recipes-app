@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import Avatar from '@material-ui/core/Avatar';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import TextField from '@material-ui/core/TextField';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import LockOpenIcon from '@material-ui/icons/LockOpen';
-import EmailOutlinedIcon from '@material-ui/icons/EmailOutlined';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import { Typography } from '@material-ui/core';
@@ -26,8 +26,11 @@ const Login = () => {
   };
 
   return (
-    <form className={classes.root} autoComplete='off' onSubmit={onSubmit}>
+    <form className={classes.root} onSubmit={onSubmit}>
       <div className='form'>
+        <Avatar className={classes.avatar}>
+          <LockOutlinedIcon />
+        </Avatar>
         <Typography
           variant='h2'
           gutterBottom
@@ -45,32 +48,18 @@ const Login = () => {
           id='outlined-helperText'
           label='Email adress'
           variant='outlined'
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position='start'>
-                <EmailOutlinedIcon />
-              </InputAdornment>
-            ),
-          }}
+          autoComplete='email'
         />
 
         <TextField
           required
           onChange={onChange}
           name='password'
-          type='text'
+          type='password'
           value={password}
-          id='outlined-helperText'
           label='Password'
           helperText='Password must contain at least 6 characters'
           variant='outlined'
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position='start'>
-                <LockOpenIcon />
-              </InputAdornment>
-            ),
-          }}
         />
         <Button
           className={classes.button}
@@ -81,6 +70,13 @@ const Login = () => {
         >
           Login
         </Button>
+        <div className={classes.sub}>
+          <Link to='/register'>
+            <Typography color='primary'>
+              Don't have an account? Register
+            </Typography>
+          </Link>
+        </div>
       </div>
     </form>
   );
@@ -96,13 +92,28 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
+  avatar: {
+    marginBottom: '1rem',
+    backgroundColor: theme.palette.secondary.main,
+  },
   text: {
-    [theme.breakpoints.down('sm')]: {
-      fontSize: '2.5rem',
-    },
+    fontSize: '1.5rem',
   },
   button: {
     marginTop: '1rem',
+    width: '30%',
+    [theme.breakpoints.down('sm')]: {
+      width: '90%',
+    },
+  },
+  sub: {
+    width: '30%',
+    display: 'flex',
+    justifyContent: 'flex-end',
+    marginTop: '1rem',
+    [theme.breakpoints.down('sm')]: {
+      width: '90%',
+    },
   },
 }));
 

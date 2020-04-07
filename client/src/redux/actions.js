@@ -1,4 +1,5 @@
 import { APP_ID, APP_KEY } from '../components/userApi';
+import setAuthToken from '../utils/setAuthToken';
 import {
   GET_RECIPES,
   GET_RECIPE,
@@ -7,12 +8,22 @@ import {
   SHOW_LOADING,
   REGISTER_SUCCESS,
   REGISTER_FAIL,
+  SHOW_ALERT,
+  USER_LOADED,
+  AUTH_ERROR,
 } from './types';
 
 //Set loading to true
 export const showLoading = () => {
   return {
     type: SHOW_LOADING,
+  };
+};
+
+//Set Alert to true
+export const showAlert = () => {
+  return {
+    type: SHOW_ALERT,
   };
 };
 
@@ -85,7 +96,21 @@ export const searchRecipes = (query) => async (dispatch) => {
 /////////////////
 
 //Load user
-export const loadUser = () => console.log('loadUser');
+export const loadUser = () => async (dispatch) => {
+  // load token into global headers
+  if (localStorage.token) {
+    setAuthToken(localStorage.token);
+  }
+  try {
+    const res = await fetch('/api/auth');
+
+    const data = res.json();
+
+    dispatch({ type: USER_LOADED, payload: data });
+  } catch (err) {
+    dispatch({ type: AUTH_ERROR });
+  }
+};
 
 //Register user
 export const register = (formData) => async (dispatch) => {
@@ -100,14 +125,22 @@ export const register = (formData) => async (dispatch) => {
 
     const data = await res.json();
     console.log(data);
-    dispatch({
-      type: REGISTER_SUCCESS,
-      payload: data,
-    });
-  } catch (err) {
+    if (res.status === 200) {
+      dispatch({
+        type: REGISTER_SUCCESS,
+        payload: data,
+      });
+      loadUser();
+    } else {
+      dispatch({
+        type: REGISTER_FAIL,
+        payload: data.msg,
+      });
+    }
+  } catch (error) {
     dispatch({
       type: REGISTER_FAIL,
-      payload: err.response.data.msg,
+      payload: error,
     });
   }
 };
