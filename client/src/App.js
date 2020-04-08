@@ -10,6 +10,7 @@ import SkeletonCurrent from './components/layout/SkeletonCurrent';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import setAuthToken from './utils/setAuthToken';
+import PrivateRoute from './components/routing/PrivateRoute';
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -33,7 +34,7 @@ const App = () => {
         <Navbar />
         <Container maxWidth='xl' style={{ marginTop: '5rem' }}>
           <Switch>
-            <Route exact path='/' component={Home} />
+            <PrivateRoute exact path='/' component={Home} />
             <Route exact path='/register' component={Register} />
             <Route exact path='/login' component={Login} />
             <Route exact path='/results' component={Results} />
