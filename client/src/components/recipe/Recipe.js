@@ -8,7 +8,14 @@ import RecipeIngredients from './RecipeIngredients';
 import { Redirect } from 'react-router';
 import SkeletonCurrent from '../layout/SkeletonCurrent';
 
-const Recipe = ({ match, getRecipe, currentRecipe, redirect, loading }) => {
+const Recipe = ({
+  match,
+  getRecipe,
+  currentRecipe,
+  redirect,
+  loading,
+  isAuthenticated,
+}) => {
   const passedTitle = match.params.title;
   const passedSource = match.params.source;
   const passedTime = match.params.time;
@@ -17,6 +24,10 @@ const Recipe = ({ match, getRecipe, currentRecipe, redirect, loading }) => {
     getRecipe(passedTitle);
     //eslint-disable-next-line
   }, []);
+
+  if (!isAuthenticated) {
+    return <Redirect to='/login' />;
+  }
 
   if (redirect === true) {
     return <Redirect to='/results' />;
@@ -30,11 +41,11 @@ const Recipe = ({ match, getRecipe, currentRecipe, redirect, loading }) => {
     <>
       {currentRecipe
         .filter(
-          r =>
+          (r) =>
             //eslint-disable-next-line
             r.recipe.source === passedSource && r.recipe.totalTime == passedTime
         )
-        .map(r => (
+        .map((r) => (
           <div key={r.recipe.uri}>
             <RecipeBody recipe={r.recipe} />
             <RecipeIngredients recipe={r.recipe} />
@@ -49,14 +60,16 @@ Recipe.propTypes = {
   currentRecipe: PropTypes.array.isRequired,
   getRecipe: PropTypes.func.isRequired,
   redirect: PropTypes.bool.isRequired,
-  loading: PropTypes.bool.isRequired
+  loading: PropTypes.bool.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     currentRecipe: state.recipes.currentRecipe,
     redirect: state.recipes.redirect,
-    loading: state.recipes.loading
+    loading: state.recipes.loading,
+    isAuthenticated: state.auth.isAuthenticated,
   };
 };
 

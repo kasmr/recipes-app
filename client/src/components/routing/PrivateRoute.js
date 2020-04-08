@@ -27,8 +27,8 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 };
 
 PrivateRoute.propTypes = {
-  isAuthenticatied: PropTypes.bool.isRequired,
-  loading: PropTypes.bool.isRequired,
+  isAuthenticatied: PropTypes.bool,
+  loading: PropTypes.bool,
 };
 
 export default PrivateRoute;

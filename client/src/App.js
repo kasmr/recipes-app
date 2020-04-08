@@ -6,7 +6,6 @@ import Navbar from './components/layout/Navbar';
 import Recipe from './components/recipe/Recipe';
 import Results from './components/pages/Results';
 import Home from './components/pages/Home';
-import SkeletonCurrent from './components/layout/SkeletonCurrent';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import setAuthToken from './utils/setAuthToken';
@@ -38,8 +37,11 @@ const App = () => {
             <Route exact path='/register' component={Register} />
             <Route exact path='/login' component={Login} />
             <Route exact path='/results' component={Results} />
-            <Route exact path='/skeleton' component={SkeletonCurrent} />
-            <Route path='/recipe/:title/:source/:time' component={Recipe} />
+            <Route
+              exact
+              path='/recipe/:title/:source/:time'
+              component={Recipe}
+            />
           </Switch>
         </Container>
       </BrowserRouter>

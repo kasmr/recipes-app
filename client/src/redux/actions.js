@@ -1,4 +1,5 @@
 import { APP_ID, APP_KEY } from '../components/userApi';
+import axios from 'axios';
 import setAuthToken from '../utils/setAuthToken';
 import {
   GET_RECIPES,
@@ -105,12 +106,9 @@ export const loadUser = () => async (dispatch) => {
     setAuthToken(localStorage.token);
   }
   try {
-    const res = await fetch('/api/auth');
+    const res = await axios.get('/api/auth');
 
-    const data = await res.json();
-    console.log(data);
-
-    dispatch({ type: USER_LOADED, payload: data });
+    dispatch({ type: USER_LOADED, payload: res.data });
   } catch (err) {
     dispatch({ type: AUTH_ERROR });
   }
@@ -118,33 +116,31 @@ export const loadUser = () => async (dispatch) => {
 
 //Register user
 export const register = (formData) => async (dispatch) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
   try {
-    const res = await fetch('/api/users', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData),
-    });
+    const res = await axios.post('/api/users', formData, config);
 
-    const data = await res.json();
     if (res.status === 200) {
       dispatch({
         type: REGISTER_SUCCESS,
-        payload: data,
+        payload: res.data,
       });
       loadUser();
     } else {
       showAlert();
       dispatch({
         type: REGISTER_FAIL,
-        payload: data.msg,
+        payload: res.data.msg,
       });
     }
-  } catch (error) {
+  } catch (err) {
     dispatch({
       type: REGISTER_FAIL,
-      payload: error,
+      payload: err.response.data.msg,
     });
   }
 };
