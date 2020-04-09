@@ -39,7 +39,6 @@ export const getRecipes = () => async (dispatch) => {
     const res = await axios.get(
       `https://api.edamam.com/search?q=chicken&app_id=${process.env.REACT_APP_RECIPE_API_ID}&app_key=${process.env.REACT_APP_RECIPE_API_KEY}`
     );
-
     dispatch({ type: GET_RECIPES, payload: res.data.hits });
   } catch (err) {
     console.error(err);

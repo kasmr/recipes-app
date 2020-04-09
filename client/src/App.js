@@ -30,8 +30,8 @@ const theme = createMuiTheme({
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
+      <Navbar />
       <BrowserRouter>
-        <Navbar />
         <Container maxWidth='xl' style={{ marginTop: '5rem' }}>
           <Switch>
             <PrivateRoute exact path='/' component={Home} />
