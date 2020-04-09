@@ -1,34 +1,31 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { Route, Redirect, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-const PrivateRoute = ({ component: Component, ...rest }) => {
-  // Gave a try for redux hooks here
-  const isAuthenticated = useSelector((state) => {
-    return state.auth.isAuthenticated;
-  });
-  const loading = useSelector((state) => {
-    return state.auth.loading;
-  });
-
+const PrivateRoute = ({ component: Component, loading, token, ...rest }) => {
   return (
     <Route
       {...rest}
       render={(props) =>
-        !isAuthenticated && !loading ? (
-          <Redirect to='/login' />
-        ) : (
-          <Component {...props} />
-        )
+        !token && !loading ? <Redirect to='/login' /> : <Component {...props} />
       }
     />
   );
 };
 
 PrivateRoute.propTypes = {
-  isAuthenticatied: PropTypes.bool,
-  loading: PropTypes.bool,
+  token: PropTypes.string.isRequired,
+  loading: PropTypes.bool.isRequired,
 };
 
-export default PrivateRoute;
+const mapStateToProps = (state) => {
+  return {
+    loading: state.auth.loading,
+    token: state.auth.token,
+  };
+};
+
+export default withRouter(
+  connect(mapStateToProps, null, null, { pure: false })(PrivateRoute)
+);

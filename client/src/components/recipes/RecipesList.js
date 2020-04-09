@@ -1,17 +1,14 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { getRecipes, showLoading, loadUser } from '../../redux/actions';
+import { getRecipes, showLoading } from '../../redux/actions';
 import PropTypes from 'prop-types';
 import RecipeItem from './RecipeItem';
 import SkeletonGroup from '../layout/SkeletonGroup';
 import './recipesList.scss';
 
-const RecipesList = ({ stateRecipes, getRecipes, loading, loadUser }) => {
+const RecipesList = ({ stateRecipes, getRecipes, loading }) => {
   useEffect(() => {
-    // fetchData();
     getRecipes();
-    loadUser();
-
     //eslint-disable-next-line
   }, []);
 
@@ -49,6 +46,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { getRecipes, showLoading, loadUser })(
+export default connect(mapStateToProps, { getRecipes, showLoading })(
   RecipesList
 );

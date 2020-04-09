@@ -34,14 +34,14 @@ const App = () => {
         <Container maxWidth='xl' style={{ marginTop: '5rem' }}>
           <Switch>
             <PrivateRoute exact path='/' component={Home} />
-            <Route exact path='/register' component={Register} />
-            <Route exact path='/login' component={Login} />
-            <Route exact path='/results' component={Results} />
-            <Route
+            <PrivateRoute exact path='/results' component={Results} />
+            <PrivateRoute
               exact
               path='/recipe/:title/:source/:time'
               component={Recipe}
             />
+            <Route exact path='/register' component={Register} />
+            <Route exact path='/login' component={Login} />
           </Switch>
         </Container>
       </BrowserRouter>

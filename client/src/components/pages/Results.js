@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { searchRecipes } from '../../redux/actions';
+import { searchRecipes, loadUser } from '../../redux/actions';
 import PropTypes from 'prop-types';
 import RecipeItem from '../recipes/RecipeItem';
 import '../recipes/recipesList.scss';
 import { Redirect } from 'react-router';
 import SkeletonGroup from '../layout/SkeletonGroup';
 
-const Results = ({ results, searchRecipes, query, loading }) => {
+const Results = ({ results, searchRecipes, query, loading, loadUser }) => {
   useEffect(() => {
+    loadUser()
     searchRecipes(query);
 
     //eslint-disable-next-line
@@ -24,7 +25,7 @@ const Results = ({ results, searchRecipes, query, loading }) => {
 
   return (
     <div className='main-container'>
-      {results.map(r => (
+      {results.map((r) => (
         <RecipeItem
           image={r.recipe.image}
           title={r.recipe.label}
@@ -42,15 +43,16 @@ const Results = ({ results, searchRecipes, query, loading }) => {
 Results.propTypes = {
   results: PropTypes.array.isRequired,
   searchRecipes: PropTypes.func.isRequired,
-  loading: PropTypes.bool.isRequired
+  loading: PropTypes.bool.isRequired,
+  loadUser: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     results: state.recipes.results,
     query: state.recipes.query,
-    loading: state.recipes.loading
+    loading: state.recipes.loading,
   };
 };
 
-export default connect(mapStateToProps, { searchRecipes })(Results);
+export default connect(mapStateToProps, { searchRecipes, loadUser })(Results);

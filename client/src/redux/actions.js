@@ -124,19 +124,11 @@ export const register = (formData) => async (dispatch) => {
   try {
     const res = await axios.post('/api/users', formData, config);
 
-    if (res.status === 200) {
-      dispatch({
-        type: REGISTER_SUCCESS,
-        payload: res.data,
-      });
-      loadUser();
-    } else {
-      showAlert();
-      dispatch({
-        type: REGISTER_FAIL,
-        payload: res.data.msg,
-      });
-    }
+    dispatch({
+      type: REGISTER_SUCCESS,
+      payload: res.data,
+    });
+    loadUser();
   } catch (err) {
     dispatch({
       type: REGISTER_FAIL,
@@ -157,18 +149,11 @@ export const login = (formData) => async (dispatch) => {
     });
 
     const data = await res.json();
-    if (res.status === 200) {
-      dispatch({
-        type: LOGIN_SUCCESS,
-        payload: data,
-      });
-      loadUser();
-    } else {
-      dispatch({
-        type: LOGIN_FAIL,
-        payload: data.msg,
-      });
-    }
+    dispatch({
+      type: LOGIN_SUCCESS,
+      payload: data,
+    });
+    loadUser();
   } catch (error) {
     dispatch({
       type: LOGIN_FAIL,
