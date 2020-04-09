@@ -15,7 +15,7 @@ const PrivateRoute = ({ component: Component, loading, token, ...rest }) => {
 };
 
 PrivateRoute.propTypes = {
-  token: PropTypes.string.isRequired,
+  token: PropTypes.string,
   loading: PropTypes.bool.isRequired,
 };
 
