@@ -1,4 +1,3 @@
-import { APP_ID, APP_KEY } from '../components/userApi';
 import axios from 'axios';
 import setAuthToken from '../utils/setAuthToken';
 import {
@@ -38,7 +37,7 @@ export const getRecipes = () => async (dispatch) => {
     dispatch(showLoading());
 
     const res = await axios.get(
-      `https://api.edamam.com/search?q=chicken&app_id=${APP_ID}&app_key=${APP_KEY}`
+      `https://api.edamam.com/search?q=chicken&app_id=${process.env.REACT_APP_RECIPE_API_ID}&app_key=${process.env.REACT_APP_RECIPE_API_KEY}`
     );
 
     dispatch({ type: GET_RECIPES, payload: res.data.hits });
@@ -54,7 +53,7 @@ export const getRecipe = (passedTitle) => async (dispatch) => {
     dispatch(showLoading());
 
     const res = await axios.get(
-      `https://api.edamam.com/search?q=${passedTitle}&app_id=${APP_ID}&app_key=${APP_KEY}`
+      `https://api.edamam.com/search?q=${passedTitle}&app_id=${process.env.REACT_APP_RECIPE_API_ID}&app_key=${process.env.REACT_APP_RECIPE_API_KEY}`
     );
 
     dispatch({ type: GET_RECIPE, payload: res.data.hits });
@@ -79,7 +78,7 @@ export const searchRecipes = (query) => async (dispatch) => {
     dispatch(showLoading());
 
     const res = await axios.get(
-      `https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}`
+      `https://api.edamam.com/search?q=${query}&app_id=${process.env.REACT_APP_RECIPE_API_ID}&app_key=${process.env.REACT_APP_RECIPE_API_KEY}`
     );
 
     dispatch({ type: SEARCH_RECIPES, payload: res.data.hits });
