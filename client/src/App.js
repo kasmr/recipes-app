@@ -10,6 +10,7 @@ import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import setAuthToken from './utils/setAuthToken';
 import PrivateRoute from './components/routing/PrivateRoute';
+import About from './components/pages/About';
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -34,6 +35,7 @@ const App = () => {
         <Container maxWidth='xl' style={{ marginTop: '5rem' }}>
           <Switch>
             <PrivateRoute exact path='/' component={Home} />
+            <PrivateRoute exact path='/about' component={About} />
             <PrivateRoute exact path='/results' component={Results} />
             <PrivateRoute
               exact

@@ -139,13 +139,13 @@ const Panel = ({ logout, user }) => {
             <ListItemText primary='Home' />
           </ListItem>
         </Link>
-        <ListItem button>
+        <ListItem disabled button>
           <ListItemIcon>
             <FavoriteIcon />
           </ListItemIcon>
-          <ListItemText primary='Favorite' />
+          <ListItemText primary='Favorites' />
         </ListItem>
-        <ListItem button>
+        <ListItem disabled button>
           <ListItemIcon>
             <SearchIcon />
           </ListItemIcon>
@@ -154,12 +154,14 @@ const Panel = ({ logout, user }) => {
       </List>
       <Divider />
       <List>
-        <ListItem button>
-          <ListItemIcon>
-            <InfoIcon />
-          </ListItemIcon>
-          <ListItemText primary='About' />
-        </ListItem>
+        <Link to='/about'>
+          <ListItem button>
+            <ListItemIcon>
+              <InfoIcon />
+            </ListItemIcon>
+            <ListItemText primary='About' />
+          </ListItem>
+        </Link>
       </List>
     </div>
   );

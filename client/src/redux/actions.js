@@ -37,15 +37,13 @@ export const getRecipes = () => async (dispatch) => {
   try {
     dispatch(showLoading());
 
-    const res = await fetch(
+    const res = await axios.get(
       `https://api.edamam.com/search?q=chicken&app_id=${APP_ID}&app_key=${APP_KEY}`
     );
-    const resJson = await res.json();
-    const data = resJson.hits;
 
-    dispatch({ type: GET_RECIPES, payload: data });
-  } catch (error) {
-    console.error(error);
+    dispatch({ type: GET_RECIPES, payload: res.data.hits });
+  } catch (err) {
+    console.error(err);
   }
 };
 
@@ -55,15 +53,13 @@ export const getRecipe = (passedTitle) => async (dispatch) => {
   try {
     dispatch(showLoading());
 
-    const res = await fetch(
+    const res = await axios.get(
       `https://api.edamam.com/search?q=${passedTitle}&app_id=${APP_ID}&app_key=${APP_KEY}`
     );
-    const resJson = await res.json();
-    const data = resJson.hits;
 
-    dispatch({ type: GET_RECIPE, payload: data });
-  } catch (error) {
-    console.error(error);
+    dispatch({ type: GET_RECIPE, payload: res.data.hits });
+  } catch (err) {
+    console.error(err);
   }
 };
 
@@ -82,14 +78,13 @@ export const searchRecipes = (query) => async (dispatch) => {
   try {
     dispatch(showLoading());
 
-    const res = await fetch(
+    const res = await axios.get(
       `https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}`
     );
-    const resJson = await res.json();
-    const data = resJson.hits;
-    dispatch({ type: SEARCH_RECIPES, payload: data });
-  } catch (error) {
-    console.error(error);
+
+    dispatch({ type: SEARCH_RECIPES, payload: res.data.hits });
+  } catch (err) {
+    console.error(err);
   }
 };
 
@@ -139,25 +134,23 @@ export const register = (formData) => async (dispatch) => {
 
 //Login user
 export const login = (formData) => async (dispatch) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
   try {
-    const res = await fetch('/api/auth', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData),
-    });
+    const res = await axios.post('/api/auth', formData, config);
 
-    const data = await res.json();
     dispatch({
       type: LOGIN_SUCCESS,
-      payload: data,
+      payload: res.data,
     });
     loadUser();
-  } catch (error) {
+  } catch (err) {
     dispatch({
       type: LOGIN_FAIL,
-      payload: error,
+      payload: err.response.data.mag,
     });
   }
 };
