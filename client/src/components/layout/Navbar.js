@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { setQuery, logout } from '../../redux/actions';
+import { setQuery } from '../../redux/actions';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -12,7 +12,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import Panel from './Panel';
 import MenuBookRoundedIcon from '@material-ui/icons/MenuBookRounded';
 
-const Navbar = ({ setQuery, isAuthenticated, user, logout }) => {
+const Navbar = ({ setQuery, isAuthenticated }) => {
   const classes = useStyles();
 
   const [value, setValue] = useState('');
@@ -67,9 +67,6 @@ const Navbar = ({ setQuery, isAuthenticated, user, logout }) => {
                   onChange={onChange}
                 />
               </div>
-              <button onClick={() => logout()}>
-                {user && user.name}LOGOUT
-              </button>
             </form>
             <Link to='/'>
               <Typography className={classes.title} variant='h4' noWrap>
@@ -85,19 +82,16 @@ const Navbar = ({ setQuery, isAuthenticated, user, logout }) => {
 
 Navbar.propTypes = {
   setQuery: PropTypes.func.isRequired,
-  logout: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
-  user: PropTypes.object,
 };
 
 const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.auth.isAuthenticated,
-    user: state.auth.user,
   };
 };
 
-export default connect(mapStateToProps, { setQuery, logout })(Navbar);
+export default connect(mapStateToProps, { setQuery })(Navbar);
 
 const useStyles = makeStyles((theme) => ({
   root: {

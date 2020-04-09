@@ -9,7 +9,6 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { red } from '@material-ui/core/colors';
 import ShareIcon from '@material-ui/icons/Share';
 import Favorite from '@material-ui/icons/Favorite';
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
@@ -21,6 +20,13 @@ import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
 import './recipesList.scss';
 
+const stringToColor = () => {
+  let hex = Math.floor(Math.random() * 0xffffff);
+  let color = '#' + hex.toString(16);
+
+  return color;
+};
+
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
@@ -30,10 +36,13 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: '56.25%', // 16:9
   },
   red: {
-    backgroundColor: red[600],
+    backgroundColor: theme.palette.secondary.main,
   },
   button1: {
     marginLeft: '7rem',
+  },
+  avatar: {
+    backgroundColor: `${stringToColor()}`,
   },
 }));
 
@@ -47,7 +56,7 @@ const RecipeItem = ({ image, title, source, labels, calories, time }) => {
           <CardHeader
             className='card-header'
             avatar={
-              <Avatar aria-label='recipe' className={classes.red}>
+              <Avatar aria-label='recipe' className={classes.avatar}>
                 {title.substring(0, 1)}
               </Avatar>
             }
