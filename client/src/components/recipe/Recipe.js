@@ -16,12 +16,10 @@ const Recipe = ({
   loading,
   loadUser,
 }) => {
-  const passedTitle = match.params.title;
-  const passedSource = match.params.source;
-  const passedTime = match.params.time;
+  const id = match.params.id;
 
   useEffect(() => {
-    getRecipe(passedTitle);
+    getRecipe(id);
     loadUser();
     //eslint-disable-next-line
   }, []);
@@ -36,25 +34,19 @@ const Recipe = ({
 
   return (
     <>
-      {currentRecipe
-        .filter(
-          (r) =>
-            //eslint-disable-next-line
-            r.recipe.source === passedSource && r.recipe.totalTime == passedTime
-        )
-        .map((r) => (
-          <div key={r.recipe.uri}>
-            <RecipeBody recipe={r.recipe} />
-            <RecipeIngredients recipe={r.recipe} />
-            <RecipeTable recipe={r.recipe} />
-          </div>
-        ))}
+      {currentRecipe && (
+        <div>
+          <RecipeBody recipe={currentRecipe} />
+          {/* <RecipeIngredients recipe={currentRecipe} /> */}
+          {/* <RecipeTable recipe={currentRecipe} /> */}
+        </div>
+      )}
     </>
   );
 };
 
 Recipe.propTypes = {
-  currentRecipe: PropTypes.array.isRequired,
+  currentRecipe: PropTypes.object.isRequired,
   getRecipe: PropTypes.func.isRequired,
   redirect: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,

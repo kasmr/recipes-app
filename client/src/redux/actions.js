@@ -16,6 +16,8 @@ import {
   LOGOUT,
 } from './types';
 
+const cors = 'http://cors-anywhere.herokuapp.com';
+
 //Set loading to true
 export const showLoading = () => {
   return {
@@ -37,9 +39,9 @@ export const getRecipes = () => async (dispatch) => {
     dispatch(showLoading());
 
     const res = await axios.get(
-      `https://api.edamam.com/search?q=chicken&app_id=${process.env.REACT_APP_RECIPE_API_ID}&app_key=${process.env.REACT_APP_RECIPE_API_KEY}`
+      `${cors}/https://api.spoonacular.com/recipes/random?number=12&limitLicense=false&apiKey=${process.env.REACT_APP_RECIPE_API_KEY}`
     );
-    dispatch({ type: GET_RECIPES, payload: res.data.hits });
+    dispatch({ type: GET_RECIPES, payload: res.data.recipes });
   } catch (err) {
     console.error(err);
   }
@@ -47,15 +49,15 @@ export const getRecipes = () => async (dispatch) => {
 
 //Get single chosen recipe
 
-export const getRecipe = (passedTitle) => async (dispatch) => {
+export const getRecipe = (id) => async (dispatch) => {
   try {
     dispatch(showLoading());
 
     const res = await axios.get(
-      `https://api.edamam.com/search?q=${passedTitle}&app_id=${process.env.REACT_APP_RECIPE_API_ID}&app_key=${process.env.REACT_APP_RECIPE_API_KEY}`
+      `${cors}/https://api.spoonacular.com/recipes/${id}/information?&apiKey=${process.env.REACT_APP_RECIPE_API_KEY}`
     );
 
-    dispatch({ type: GET_RECIPE, payload: res.data.hits });
+    dispatch({ type: GET_RECIPE, payload: res.data });
   } catch (err) {
     console.error(err);
   }

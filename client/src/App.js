@@ -31,17 +31,13 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
-        <Container maxWidth='xl' style={{ marginTop: '5rem' }}>
+        <Container maxWidth='xl' style={{ marginTop: 55 }}>
           <Navbar />
           <Switch>
             <PrivateRoute exact path='/' component={Home} />
             <PrivateRoute exact path='/about' component={About} />
             <PrivateRoute exact path='/results' component={Results} />
-            <PrivateRoute
-              exact
-              path='/recipe/:title/:source/:time'
-              component={Recipe}
-            />
+            <PrivateRoute exact path='/recipe/:id' component={Recipe} />
             <Route exact path='/register' component={Register} />
             <Route exact path='/login' component={Login} />
           </Switch>

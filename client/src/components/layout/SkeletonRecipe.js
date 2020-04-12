@@ -34,7 +34,7 @@ const SkeletonRecipe = () => {
             name='size-large'
             disabled
             defaultValue={0}
-            size='large'
+            size='medium'
             style={{
               display: 'flex',
               justifyContent: 'center',

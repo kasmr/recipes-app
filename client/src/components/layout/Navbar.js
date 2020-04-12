@@ -68,10 +68,11 @@ const Navbar = ({ setQuery, isAuthenticated }) => {
                 />
               </div>
             </form>
-            <Link to='/'>
+            <Link to='/' className={classes.logo}>
               <Typography className={classes.title} variant='h4' noWrap>
-                Recipe App <MenuBookRoundedIcon style={{ fontSize: '2rem' }} />
+                Recipe App
               </Typography>
+              <MenuBookRoundedIcon className={classes.mainIcon} />
             </Link>
           </Toolbar>
         </AppBar>
@@ -116,6 +117,15 @@ const useStyles = makeStyles((theme) => ({
       display: 'block',
     },
   },
+  mainIcon: {
+    margin: 'auto',
+    display: 'flex',
+    fontSize: '3rem',
+  },
+  logo: {
+    display: 'flex',
+    color: '#fff',
+  },
   search: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -147,11 +157,14 @@ const useStyles = makeStyles((theme) => ({
     // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
     transition: theme.transitions.create('width'),
-    width: '100%',
+    width: '8ch',
+    '&:focus': {
+      width: '16ch',
+    },
     [theme.breakpoints.up('sm')]: {
-      width: '12ch',
+      width: '20ch',
       '&:focus': {
-        width: '20ch',
+        width: '40ch',
       },
     },
   },

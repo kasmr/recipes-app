@@ -18,15 +18,17 @@ const RecipesList = ({ stateRecipes, getRecipes, loading }) => {
 
   return (
     <div className='main-container'>
-      {stateRecipes.map((r) => (
+      {stateRecipes.map((recipe) => (
         <RecipeItem
-          image={r.recipe.image}
-          title={r.recipe.label}
-          source={r.recipe.source}
-          labels={r.recipe.healthLabels}
-          calories={r.recipe.calories}
-          time={r.recipe.totalTime}
-          key={r.recipe.uri}
+          title={recipe.title}
+          source={recipe.sourceName}
+          author={recipe.author}
+          diets={recipe.diets}
+          healthScore={recipe.healthScore}
+          summary={recipe.summary}
+          time={recipe.readyInMinutes}
+          id={recipe.id}
+          key={recipe.id}
         />
       ))}
     </div>

@@ -30,6 +30,7 @@ const stringToColor = () => {
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
+    height: '100%',
   },
   media: {
     height: 0,
@@ -46,13 +47,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const RecipeItem = ({ image, title, source, labels, calories, time }) => {
+const RecipeItem = ({
+  title,
+  source,
+  summary,
+  time,
+  id,
+  healthScore,
+  author,
+  diets,
+}) => {
   const classes = useStyles();
 
   return (
     <Box className='card' boxShadow={2}>
       <Card className={classes.root}>
-        <Link to={`/recipe/${title}/${source}/${time}`}>
+        <Link to={`/recipe/${id}`}>
           <CardHeader
             className='card-header'
             avatar={
@@ -61,10 +71,15 @@ const RecipeItem = ({ image, title, source, labels, calories, time }) => {
               </Avatar>
             }
             title={title}
-            subheader={source}
+            subheader={source ? source : author}
+          />
+
+          <CardMedia
+            className={classes.media}
+            image={`https://spoonacular.com/recipeImages/${id}-636x393.jpg`}
+            title='title'
           />
         </Link>
-        <CardMedia className={classes.media} image={image} title='title' />
         <CardContent>
           <Typography
             variant='body2'
@@ -81,21 +96,31 @@ const RecipeItem = ({ image, title, source, labels, calories, time }) => {
             >
               <Rating
                 name='half-rating-read'
-                defaultValue={2.5}
+                value={healthScore}
                 precision={0.5}
                 readOnly
-                size='large'
+                size='medium'
               />
+              <Typography variant='body2' color='textSecondary' component='div'>
+                {summary && summary.slice(0, 75).replace(/<.*?>/g, '')}
+              </Typography>
             </Typography>
+            {diets.length ? (
+              <Chip
+                avatar={<Avatar>#</Avatar>}
+                label={diets.slice(0, 2).toString()}
+                color='primary'
+              />
+            ) : (
+              <Chip
+                avatar={<Avatar>#</Avatar>}
+                label='No diet labels'
+                color='primary'
+              />
+            )}
             <Chip
-              avatar={<Avatar>@</Avatar>}
-              label={labels.slice(0, 2).toString()}
-              clickable
-              color='primary'
-            />
-            <Chip
-              label={`Calories: ${Math.round(calories)} kcal`}
-              color={calories > 4000 ? 'secondary' : 'default'}
+              label={`Time to cook ${time} minutes`}
+              color={time > 60 ? 'secondary' : 'default'}
               style={{ marginTop: '1rem' }}
             />
           </Typography>
@@ -115,7 +140,7 @@ const RecipeItem = ({ image, title, source, labels, calories, time }) => {
             <ShareIcon />
           </IconButton>
           <CardActions>
-            <Link to={`/recipe/${title}/${source}/${time}`}>
+            <Link to={`/recipe/${id}`}>
               <Button
                 size='small'
                 variant='contained'

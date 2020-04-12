@@ -47,6 +47,7 @@ const useStyles = makeStyles((theme) => ({
 
 const StyledBadge = withStyles((theme) => ({
   badge: {
+    cursor: 'pointer',
     backgroundColor: '#44b700',
     color: '#44b700',
     boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
@@ -117,6 +118,7 @@ const Panel = ({ logout, user }) => {
                 horizontal: 'right',
               }}
               variant='dot'
+              onClick={() => logout()}
             >
               <Avatar
                 className={classes.large}

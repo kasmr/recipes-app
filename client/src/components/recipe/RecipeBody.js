@@ -1,6 +1,5 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { v4 as uuidv4 } from 'uuid';
 import Chip from '@material-ui/core/Chip';
 import Rating from '@material-ui/lab/Rating';
 import Grid from '@material-ui/core/Grid';
@@ -13,76 +12,87 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import FastfoodIcon from '@material-ui/icons/Fastfood';
 import TimerIcon from '@material-ui/icons/Timer';
-import ImportContactsRoundedIcon from '@material-ui/icons/ImportContactsRounded';
+import PublicIcon from '@material-ui/icons/Public';
+import CakeIcon from '@material-ui/icons/Cake';
+import SupervisedUserCircleRoundedIcon from '@material-ui/icons/SupervisedUserCircleRounded';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
-    backgroundColor: theme.palette.background.paper
+    backgroundColor: theme.palette.background.paper,
+    marginTop: '5rem',
+  },
+  title: {
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '2rem',
+    },
+  },
+  spoon: {
+    width: 40,
   },
   chip: {
-    margin: theme.spacing(0.5)
+    margin: theme.spacing(0.5),
   },
   chip2: {
     [theme.breakpoints.down('sm')]: {
-      display: 'flex'
-    }
+      display: 'flex',
+    },
+  },
+  image: {
+    [theme.breakpoints.down('sm')]: {
+      width: '300px',
+    },
   },
   section1: {
-    margin: theme.spacing(3, 2)
+    margin: theme.spacing(3, 2),
   },
   section2: {
-    margin: theme.spacing(2)
+    margin: theme.spacing(2),
   },
   section3: {
-    margin: theme.spacing(3, 1, 1)
-  }
+    margin: theme.spacing(3, 1, 1),
+  },
 }));
-
-const labelsArray = [
-  'Low-Carb',
-  'Low-Fat',
-  'Low-Sodium',
-  'Balanced',
-  'High-Fiber',
-  'High-Protein'
-];
 
 const RecipeBody = ({ recipe }) => {
   const classes = useStyles();
 
   const {
-    label,
+    title,
+    sourceName,
     image,
-    source,
-    calories,
-    dietLabels,
-    healthLabels,
-    totalWeight,
-    totalTime,
-    url
+    summary,
+    readyInMinutes,
+    healthScore,
+    author,
+    diets,
+    dishTypes,
+    cuisines,
+    occasions,
+    sourceUrl,
+    spoonacularScore,
   } = recipe;
 
-  console.log(dietLabels);
+  console.log(recipe);
 
   return (
     <div className={classes.root}>
       <div className={classes.section1}>
         <Grid container alignItems='center' justify='center'>
           <Grid item>
-            <Typography variant='h3' align='center'>
-              {label}
+            <Typography variant='h3' align='center' className={classes.title}>
+              {title}
             </Typography>
             <Typography color='textSecondary' variant='h5' align='center'>
-              {source}
+              {sourceName ? sourceName : author}
             </Typography>
           </Grid>
           <Grid item xs={12} align='center' style={{ marginTop: '1rem' }}>
-            <img src={image} alt='' />
+            <img src={image} alt='' className={classes.image} />
           </Grid>
         </Grid>
         <Typography style={{ marginTop: '1rem' }} align='center'>
-          Recipe rating
+          Recipe health score
         </Typography>
         <Typography
           style={{ marginTop: '1rem' }}
@@ -90,9 +100,10 @@ const RecipeBody = ({ recipe }) => {
           component='div'
         >
           <Rating
-            name='half-rating'
-            defaultValue={0}
+            name='half-rating-read'
+            value={healthScore}
             precision={0.5}
+            readOnly
             size='large'
           />
         </Typography>
@@ -103,29 +114,39 @@ const RecipeBody = ({ recipe }) => {
           align='center'
           component='div'
         >
-          <Chip
-            className={classes.chip2}
-            avatar={<Avatar>@</Avatar>}
-            label={healthLabels.toString()}
-            clickable
-            color='primary'
-          />
+          {diets ? (
+            <Chip
+              className={classes.chip2}
+              avatar={<Avatar>#</Avatar>}
+              label={diets.toString()}
+              color='primary'
+            />
+          ) : (
+            <Chip
+              className={classes.chip2}
+              avatar={<Avatar>#</Avatar>}
+              label='No diet labels'
+              color='primary'
+            />
+          )}
         </Typography>
       </div>
-      <Divider variant='middle' />
       <div className={classes.section2}>
-        <Typography variant='body1'>Diet labels</Typography>
-        <div>
-          {labelsArray.map(labels => (
-            <Chip
-              key={uuidv4()}
-              className={classes.chip}
-              color={dietLabels.toString() === labels ? 'primary' : 'default'}
-              label={labels}
+        <List>
+          <ListItem>
+            <ListItemText
+              primary={
+                <Typography variant='h5' color='textPrimary' gutterBottom>
+                  Overview
+                </Typography>
+              }
+              secondary={
+                <Typography color='textPrimary'>
+                  {summary && summary.replace(/<.*?>/g, '')}
+                </Typography>
+              }
             />
-          ))}
-        </div>
-        <List className={classes.root}>
+          </ListItem>
           <ListItem>
             <ListItemAvatar>
               <Avatar>
@@ -134,50 +155,90 @@ const RecipeBody = ({ recipe }) => {
             </ListItemAvatar>
             <ListItemText
               primary='Total time to cook'
-              secondary={`${totalTime} minutes`}
+              secondary={`${readyInMinutes} minutes`}
             />
           </ListItem>
           <Divider variant='inset' component='li' />
+          {cuisines && cuisines.length ? (
+            <>
+              <ListItem>
+                <ListItemAvatar>
+                  <Avatar>
+                    <PublicIcon />
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText
+                  primary='Country of origin'
+                  secondary={cuisines}
+                />
+              </ListItem>
+              <Divider variant='inset' component='li' />
+            </>
+          ) : null}
+          {occasions && occasions.length ? (
+            <>
+              <ListItem>
+                <ListItemAvatar>
+                  <Avatar>
+                    <CakeIcon />
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText
+                  primary='To cook on occasion'
+                  secondary={occasions}
+                />
+              </ListItem>
+              <Divider variant='inset' component='li' />
+            </>
+          ) : null}
           <ListItem>
             <ListItemAvatar>
               <Avatar>
                 <FastfoodIcon />
               </Avatar>
             </ListItemAvatar>
-            <ListItemText
-              primary='Calories'
-              secondary={`${Math.round(calories)} kcal`}
-            />
-          </ListItem>
-          <Divider variant='inset' component='li' />
-          <ListItem>
-            <ListItemAvatar>
-              <Avatar>W</Avatar>
-            </ListItemAvatar>
-            <ListItemText
-              primary='Total weight'
-              secondary={`${Math.round(totalWeight)} grams`}
-            />
+            <ListItemText primary='Type of dish' secondary={dishTypes} />
           </ListItem>
           <Divider variant='inset' component='li' />
           <ListItem>
             <ListItemAvatar>
               <Avatar>
-                <ImportContactsRoundedIcon />
+                <SupervisedUserCircleRoundedIcon />
               </Avatar>
             </ListItemAvatar>
             <ListItemText
               primary='To see instructions by'
               secondary={
-                <a href={url} target='_blank' rel='noopener noreferrer'>
+                <a href={sourceUrl} target='_blank' rel='noopener noreferrer'>
                   <Chip
                     avatar={<Avatar component='span'>@</Avatar>}
-                    label={source}
+                    label={sourceName}
                     clickable
                     color='primary'
                     component='span'
                   />
                 </a>
+              }
+            />
+          </ListItem>
+          <ListItem>
+            <ListItemAvatar>
+              <Avatar>
+                <img
+                  alt='spoon'
+                  src='/img/spoonacular.png'
+                  className={classes.spoon}
+                />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText
+              primary='Spoonacular score'
+              secondary={
+                <Chip
+                  label={`${spoonacularScore} %`}
+                  color='primary'
+                  component='span'
+                />
               }
             />
           </ListItem>

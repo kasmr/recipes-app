@@ -4,16 +4,16 @@ import {
   SEARCH_RECIPES,
   SET_QUERY,
   SET_REDIRECT,
-  SHOW_LOADING
+  SHOW_LOADING,
 } from './types';
 
 const initalState = {
   recipes: [],
-  currentRecipe: [],
+  currentRecipe: {},
   query: '',
   redirect: false,
   results: [],
-  loading: false
+  loading: false,
 };
 
 export const recipeReducer = (state = initalState, action) => {
@@ -23,21 +23,21 @@ export const recipeReducer = (state = initalState, action) => {
         ...state,
         recipes: action.payload,
         redirect: false,
-        loading: false
+        loading: false,
       };
     case GET_RECIPE:
       return {
         ...state,
         currentRecipe: action.payload,
         redirect: false,
-        loading: false
+        loading: false,
       };
     case SET_QUERY:
       return {
         ...state,
         query: action.payload,
         redirect: true,
-        loading: false
+        loading: false,
       };
     case SEARCH_RECIPES:
       return {
@@ -45,18 +45,18 @@ export const recipeReducer = (state = initalState, action) => {
         query: state.query,
         results: action.payload,
         redirect: false,
-        loading: false
+        loading: false,
       };
     case SET_REDIRECT:
       return {
         ...state,
         redirect: true,
-        loading: false
+        loading: false,
       };
     case SHOW_LOADING:
       return {
         ...state,
-        loading: true
+        loading: true,
       };
 
     default:
