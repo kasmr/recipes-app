@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import Navbar from './components/layout/Navbar';
 import Recipe from './components/recipe/Recipe';
-import Results from './components/pages/Results';
+import Results from './components/results/Results';
 import Home from './components/pages/Home';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';

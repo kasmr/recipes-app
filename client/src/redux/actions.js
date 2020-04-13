@@ -73,16 +73,20 @@ export const setQuery = (text) => {
 };
 
 //Search for recipes
+//try for complex search
+const cuisine = null;
 
 export const searchRecipes = (query) => async (dispatch) => {
   try {
     dispatch(showLoading());
 
     const res = await axios.get(
-      `https://api.edamam.com/search?q=${query}&app_id=${process.env.REACT_APP_RECIPE_API_ID}&app_key=${process.env.REACT_APP_RECIPE_API_KEY}`
+      `${cors}/https://api.spoonacular.com/recipes/complexSearch?query=${query}&${cuisine}number=10&apiKey=${process.env.REACT_APP_RECIPE_API_KEY}`
     );
 
-    dispatch({ type: SEARCH_RECIPES, payload: res.data.hits });
+    const { results } = res.data;
+    console.log(results);
+    dispatch({ type: SEARCH_RECIPES, payload: results });
   } catch (err) {
     console.error(err);
   }

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { getRecipe, loadUser } from '../../redux/actions';
 import RecipeBody from './RecipeBody';
 import RecipeTable from './RecipeTable';
-import RecipeIngredients from './RecipeIngredients';
+import RecipeInstructions from './RecipeInstructions';
 import { Redirect } from 'react-router';
 import SkeletonCurrent from '../layout/SkeletonCurrent';
 
@@ -37,7 +37,7 @@ const Recipe = ({
       {currentRecipe && (
         <div>
           <RecipeBody recipe={currentRecipe} />
-          <RecipeIngredients recipe={currentRecipe} />
+          <RecipeInstructions recipe={currentRecipe} />
           <RecipeTable recipe={currentRecipe} />
         </div>
       )}

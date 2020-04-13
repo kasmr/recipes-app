@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const RecipeIngredients = ({ recipe }) => {
+const RecipeInstructions = ({ recipe }) => {
   const classes = useStyles();
 
   const { analyzedInstructions } = recipe;
@@ -61,4 +61,4 @@ const RecipeIngredients = ({ recipe }) => {
   );
 };
 
-export default RecipeIngredients;
+export default RecipeInstructions;

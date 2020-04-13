@@ -28,6 +28,7 @@ const RecipesList = ({ stateRecipes, getRecipes, loading }) => {
           summary={recipe.summary}
           time={recipe.readyInMinutes}
           id={recipe.id}
+          image={recipe.image}
           key={recipe.id}
         />
       ))}

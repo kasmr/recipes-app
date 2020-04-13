@@ -2,16 +2,27 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { searchRecipes, loadUser } from '../../redux/actions';
 import PropTypes from 'prop-types';
-import RecipeItem from '../recipes/RecipeItem';
 import '../recipes/recipesList.scss';
 import { Redirect } from 'react-router';
 import SkeletonGroup from '../layout/SkeletonGroup';
+import { Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import ResultItem from './ResultItem';
+
+const useStyles = makeStyles((theme) => ({
+  title: {
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '2rem',
+    },
+  },
+}));
 
 const Results = ({ results, searchRecipes, query, loading, loadUser }) => {
-  useEffect(() => {
-    loadUser()
-    searchRecipes(query);
+  const classes = useStyles();
 
+  useEffect(() => {
+    loadUser();
+    searchRecipes(query);
     //eslint-disable-next-line
   }, [query]);
 
@@ -24,19 +35,18 @@ const Results = ({ results, searchRecipes, query, loading, loadUser }) => {
   }
 
   return (
-    <div className='main-container'>
-      {results.map((r) => (
-        <RecipeItem
-          image={r.recipe.image}
-          title={r.recipe.label}
-          source={r.recipe.source}
-          labels={r.recipe.healthLabels}
-          calories={r.recipe.calories}
-          time={r.recipe.totalTime}
-          key={r.recipe.uri}
-        />
-      ))}
-    </div>
+    <>
+      <Typography
+        className={classes.title}
+        variant='h3'
+        align='center'
+      >{`Your search results for ${query}`}</Typography>
+      <div className='main-container'>
+        {results.map((recipe) => (
+          <ResultItem recipe={recipe} />
+        ))}
+      </div>
+    </>
   );
 };
 
@@ -45,6 +55,7 @@ Results.propTypes = {
   searchRecipes: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   loadUser: PropTypes.func.isRequired,
+  query: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => {
