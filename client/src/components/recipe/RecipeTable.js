@@ -11,26 +11,27 @@ import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles({
   title: {
-    margin: '2rem 0'
+    margin: '2rem 0',
   },
   table: {
-    minWidth: 650
-  }
+    minWidth: 300,
+  },
 });
 
-const StyledTableCell = withStyles(theme => ({
+const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: theme.palette.primary.main,
-    color: theme.palette.common.white
+    color: theme.palette.common.white,
   },
   body: {
-    fontSize: 14
-  }
+    fontSize: 14,
+  },
 }))(TableCell);
 
 const RecipeTable = ({ recipe }) => {
   const classes = useStyles();
 
+  const { extendedIngredients } = recipe;
   return (
     <>
       <Typography
@@ -39,29 +40,40 @@ const RecipeTable = ({ recipe }) => {
         justify='center'
         align='center'
       >
-        Nutrients contained:
+        Ingredients:
       </Typography>
-      <TableContainer component={Paper} style={{ marginBottom: '2rem' }}>
+      <TableContainer
+        component={Paper}
+        className={classes.TableContainer}
+        style={{ marginBottom: '2rem' }}
+      >
         <Table className={classes.table} aria-label='simple table'>
           <TableHead>
             <TableRow>
-              <StyledTableCell>Nutrients</StyledTableCell>
-              <StyledTableCell align='right'>Total</StyledTableCell>
-              <StyledTableCell align='right'>Daily amount</StyledTableCell>
+              <StyledTableCell>Ingredient</StyledTableCell>
+              <StyledTableCell align='right'>Amount</StyledTableCell>
               <StyledTableCell align='right'>Unit</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {recipe.digest.map(row => (
-              <TableRow key={row.tag}>
-                <TableCell component='th' scope='row'>
-                  {row.label}
-                </TableCell>
-                <TableCell align='right'>{Math.round(row.total)}</TableCell>
-                <TableCell align='right'>{Math.round(row.daily)}</TableCell>
-                <TableCell align='right'>{row.unit}</TableCell>
-              </TableRow>
-            ))}
+            {extendedIngredients &&
+              extendedIngredients.map((row) => (
+                <TableRow key={row.id}>
+                  <TableCell component='th' scope='row'>
+                    <p>{row.originalName}</p>
+                    <img
+                      alt='ingredient'
+                      src={` https://spoonacular.com/cdn/ingredients_100x100/${row.image}`}
+                    />
+                  </TableCell>
+                  <TableCell align='right'>
+                    {Object.values(row.measures.metric)[0]}
+                  </TableCell>
+                  <TableCell align='right'>
+                    {Object.values(row.measures.metric)[2]}
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </TableContainer>

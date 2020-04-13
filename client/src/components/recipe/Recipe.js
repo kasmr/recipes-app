@@ -37,8 +37,8 @@ const Recipe = ({
       {currentRecipe && (
         <div>
           <RecipeBody recipe={currentRecipe} />
-          {/* <RecipeIngredients recipe={currentRecipe} /> */}
-          {/* <RecipeTable recipe={currentRecipe} /> */}
+          <RecipeIngredients recipe={currentRecipe} />
+          <RecipeTable recipe={currentRecipe} />
         </div>
       )}
     </>

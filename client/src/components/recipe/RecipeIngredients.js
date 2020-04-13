@@ -8,20 +8,22 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import { v4 as uuidv4 } from 'uuid';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   demo: {
-    backgroundColor: theme.palette.background.paper
+    backgroundColor: theme.palette.background.paper,
   },
   title: {
-    margin: theme.spacing(4, 0, 2)
-  }
+    margin: theme.spacing(4, 0, 2),
+  },
 }));
 
 const RecipeIngredients = ({ recipe }) => {
   const classes = useStyles();
+
+  const { analyzedInstructions } = recipe;
 
   return (
     <div className={classes.root}>
@@ -33,23 +35,24 @@ const RecipeIngredients = ({ recipe }) => {
             justify='center'
             align='center'
           >
-            Ingredients:
+            Cooking instructions:
           </Typography>
           <div className={classes.demo}>
             <List>
-              {recipe.ingredients.map(ingredient => (
-                <div key={uuidv4()}>
-                  <ListItem>
-                    <ListItemText
-                      primary={ingredient.text}
-                      secondary={`weight: ${Math.round(
-                        ingredient.weight
-                      )} grams`}
-                    />
-                  </ListItem>
-                  <Divider variant='middle' />
-                </div>
-              ))}
+              {analyzedInstructions &&
+                analyzedInstructions.map((instruction) =>
+                  instruction.steps.map((steps) => (
+                    <div key={uuidv4()}>
+                      <ListItem>
+                        <ListItemText
+                          primary={steps.step}
+                          secondary={`Step № ${steps.number}`}
+                        />
+                      </ListItem>
+                      <Divider variant='middle' />
+                    </div>
+                  ))
+                )}
             </List>
           </div>
         </Grid>

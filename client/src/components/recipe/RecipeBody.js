@@ -15,6 +15,7 @@ import TimerIcon from '@material-ui/icons/Timer';
 import PublicIcon from '@material-ui/icons/Public';
 import CakeIcon from '@material-ui/icons/Cake';
 import SupervisedUserCircleRoundedIcon from '@material-ui/icons/SupervisedUserCircleRounded';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,6 +43,9 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('sm')]: {
       width: '300px',
     },
+  },
+  itemText: {
+    wordWrap: 'break-word',
   },
   section1: {
     margin: theme.spacing(3, 2),
@@ -71,6 +75,7 @@ const RecipeBody = ({ recipe }) => {
     occasions,
     sourceUrl,
     spoonacularScore,
+    aggregateLikes,
   } = recipe;
 
   console.log(recipe);
@@ -114,7 +119,7 @@ const RecipeBody = ({ recipe }) => {
           align='center'
           component='div'
         >
-          {diets ? (
+          {diets && diets.length ? (
             <Chip
               className={classes.chip2}
               avatar={<Avatar>#</Avatar>}
@@ -158,7 +163,7 @@ const RecipeBody = ({ recipe }) => {
               secondary={`${readyInMinutes} minutes`}
             />
           </ListItem>
-          <Divider variant='inset' component='li' />
+          <Divider variant='inset' component='div' />
           {cuisines && cuisines.length ? (
             <>
               <ListItem>
@@ -169,10 +174,10 @@ const RecipeBody = ({ recipe }) => {
                 </ListItemAvatar>
                 <ListItemText
                   primary='Country of origin'
-                  secondary={cuisines}
+                  secondary={cuisines.toString()}
                 />
               </ListItem>
-              <Divider variant='inset' component='li' />
+              <Divider variant='inset' component='div' />
             </>
           ) : null}
           {occasions && occasions.length ? (
@@ -188,7 +193,7 @@ const RecipeBody = ({ recipe }) => {
                   secondary={occasions}
                 />
               </ListItem>
-              <Divider variant='inset' component='li' />
+              <Divider variant='inset' component='div' />
             </>
           ) : null}
           <ListItem>
@@ -197,7 +202,11 @@ const RecipeBody = ({ recipe }) => {
                 <FastfoodIcon />
               </Avatar>
             </ListItemAvatar>
-            <ListItemText primary='Type of dish' secondary={dishTypes} />
+            <ListItemText
+              primary='Type of dish'
+              secondary={dishTypes && dishTypes.toString()}
+              className={classes.itemText}
+            />
           </ListItem>
           <Divider variant='inset' component='li' />
           <ListItem>
@@ -221,6 +230,7 @@ const RecipeBody = ({ recipe }) => {
               }
             />
           </ListItem>
+          <Divider variant='inset' component='li' />
           <ListItem>
             <ListItemAvatar>
               <Avatar>
@@ -239,6 +249,20 @@ const RecipeBody = ({ recipe }) => {
                   color='primary'
                   component='span'
                 />
+              }
+            />
+          </ListItem>
+          <Divider variant='inset' component='li' />
+          <ListItem>
+            <ListItemAvatar>
+              <Avatar>
+                <FavoriteIcon />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText
+              primary='Likes given'
+              secondary={
+                <Chip label={aggregateLikes} color='primary' component='span' />
               }
             />
           </ListItem>
