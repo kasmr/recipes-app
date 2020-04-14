@@ -4,13 +4,14 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import Navbar from './components/layout/Navbar';
 import Recipe from './components/recipe/Recipe';
-import Results from './components/results/Results';
+import Results from './components/pages/Results';
 import Home from './components/pages/Home';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import setAuthToken from './utils/setAuthToken';
 import PrivateRoute from './components/routing/PrivateRoute';
 import About from './components/pages/About';
+import ExtendedSearch from './components/pages/ExtendedSearch';
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -36,6 +37,7 @@ const App = () => {
           <Switch>
             <PrivateRoute exact path='/' component={Home} />
             <PrivateRoute exact path='/about' component={About} />
+            <PrivateRoute exact path='/ex-search' component={ExtendedSearch} />
             <PrivateRoute exact path='/results' component={Results} />
             <PrivateRoute exact path='/recipe/:id' component={Recipe} />
             <Route exact path='/register' component={Register} />

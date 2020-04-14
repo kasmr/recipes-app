@@ -68,6 +68,7 @@ const Navbar = ({ setQuery, isAuthenticated }) => {
                 />
               </div>
             </form>
+
             <Link to='/' className={classes.logo}>
               <Typography className={classes.title} variant='h4' noWrap>
                 Recipe App

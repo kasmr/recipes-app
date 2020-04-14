@@ -7,7 +7,7 @@ import { Redirect } from 'react-router';
 import SkeletonGroup from '../layout/SkeletonGroup';
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import ResultItem from './ResultItem';
+import RecipeItem from '../recipes/RecipeItem';
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -43,7 +43,18 @@ const Results = ({ results, searchRecipes, query, loading, loadUser }) => {
       >{`Your search results for ${query}`}</Typography>
       <div className='main-container'>
         {results.map((recipe) => (
-          <ResultItem recipe={recipe} />
+          <RecipeItem
+            title={recipe.title}
+            source={recipe.sourceName}
+            author={recipe.author}
+            diets={recipe.diets}
+            healthScore={recipe.healthScore}
+            summary={recipe.summary}
+            time={recipe.readyInMinutes}
+            id={recipe.id}
+            image={recipe.image}
+            key={recipe.id}
+          />
         ))}
       </div>
     </>
