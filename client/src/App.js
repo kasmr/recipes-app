@@ -37,7 +37,11 @@ const App = () => {
           <Switch>
             <PrivateRoute exact path='/' component={Home} />
             <PrivateRoute exact path='/about' component={About} />
-            <PrivateRoute exact path='/ex-search' component={ExtendedSearch} />
+            <PrivateRoute
+              exact
+              path='/extended-search'
+              component={ExtendedSearch}
+            />
             <PrivateRoute exact path='/results' component={Results} />
             <PrivateRoute exact path='/recipe/:id' component={Recipe} />
             <Route exact path='/register' component={Register} />

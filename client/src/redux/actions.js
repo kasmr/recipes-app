@@ -38,10 +38,10 @@ export const getRecipes = () => async (dispatch) => {
   try {
     dispatch(showLoading());
 
-    // const res = await axios.get(
-    //   `${cors}/https://api.spoonacular.com/recipes/random?number=12&limitLicense=false&apiKey=${process.env.REACT_APP_RECIPE_API_KEY}`
-    // );
-    // dispatch({ type: GET_RECIPES, payload: res.data.recipes });
+    const res = await axios.get(
+      `${cors}/https://api.spoonacular.com/recipes/random?number=12&limitLicense=false&apiKey=${process.env.REACT_APP_RECIPE_API_KEY}`
+    );
+    dispatch({ type: GET_RECIPES, payload: res.data.recipes });
   } catch (err) {
     console.error(err);
   }
@@ -79,11 +79,10 @@ export const searchRecipes = (query) => async (dispatch) => {
     dispatch(showLoading());
 
     const res = await axios.get(
-      `${cors}/https://api.spoonacular.com/recipes/complexSearch?query=${query}number=10&addRecipeInformation=true&apiKey=${process.env.REACT_APP_RECIPE_API_KEY}`
+      `${cors}/https://api.spoonacular.com/recipes/complexSearch?query=${query}&number=10&addRecipeInformation=true&apiKey=${process.env.REACT_APP_RECIPE_API_KEY}`
     );
 
     const { results } = res.data;
-    console.log(results);
     dispatch({ type: SEARCH_RECIPES, payload: results });
   } catch (err) {
     console.error(err);

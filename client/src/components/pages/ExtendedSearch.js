@@ -13,20 +13,34 @@ import Select from '@material-ui/core/Select';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
+import InputBase from '@material-ui/core/InputBase';
+import SearchIcon from '@material-ui/icons/Search';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     justifyContent: 'space-around',
     flexWrap: 'wrap',
-    marginTop: '5rem',
+    marginTop: '10rem',
+    [theme.breakpoints.down('sm')]: {
+      marginTop: '4rem',
+    },
     '& > *': {
       margin: theme.spacing(1),
-      width: '80%',
-      height: 500,
+      width: 770,
+      height: 400,
       [theme.breakpoints.down('sm')]: {
         width: '90%',
+        height: 670,
       },
+    },
+  },
+  title: {
+    width: '100%',
+    fontSize: '2rem',
+    margin: '1rem',
+    [theme.breakpoints.down('sm')]: {
+      margin: '1rem 0',
     },
   },
   form: {
@@ -39,6 +53,45 @@ const useStyles = makeStyles((theme) => ({
   },
   slider: {
     width: 350,
+    margin: 8,
+  },
+  search: {
+    display: 'flex',
+    position: 'relative',
+    borderRadius: theme.shape.borderRadius,
+    color: 'black',
+    border: 'black 1.5px solid',
+    margin: 'auto',
+    width: 500,
+    backgroundColor: '#fff',
+    [theme.breakpoints.down('sm')]: {
+      width: 'auto',
+      margin: '0 1.5rem',
+    },
+  },
+  searchIcon: {
+    padding: theme.spacing(0, 2),
+    height: '100%',
+    position: 'absolute',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  inputRoot: {
+    color: 'inherit',
+  },
+  inputInput: {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      width: '50ch',
+    },
+  },
+  checkbox: {
+    margin: 'auto',
   },
 }));
 
@@ -125,11 +178,7 @@ const intolerancesArray = [
   'wheat',
 ];
 
-function valuetext(value) {
-  return `${value}`;
-}
-
-export default function SimplePaper() {
+const ExtendedSearch = () => {
   const classes = useStyles();
 
   const [state, setState] = React.useState({
@@ -153,7 +202,7 @@ export default function SimplePaper() {
     setDiet(event.target.value);
   };
 
-  //diet
+  //dish type
   const [dishType, setDishType] = React.useState('');
 
   const handleChange3 = (event) => {
@@ -168,6 +217,14 @@ export default function SimplePaper() {
     setMins(newValue);
   };
 
+  //mins to make
+
+  const [calories, setCalories] = React.useState(1500);
+
+  const handleChange5 = (event, newValue) => {
+    setCalories(newValue);
+  };
+
   //intolerances
   const [intolerances, setIntolerances] = React.useState([]);
 
@@ -176,13 +233,35 @@ export default function SimplePaper() {
   };
 
   return (
-    <div className={classes.root}>
-      <Paper elevation={2}>
+    <form className={classes.root}>
+      <Paper elevation={2} className={classes.pa}>
+        <Typography
+          variant='h2'
+          gutterBottom
+          align='center'
+          className={classes.title}
+        >
+          EXTENDED SEARCH
+        </Typography>
+        <div className={classes.search}>
+          <div className={classes.searchIcon}>
+            <SearchIcon />
+          </div>
+          <InputBase
+            placeholder='Search…'
+            classes={{
+              root: classes.inputRoot,
+              input: classes.inputInput,
+            }}
+            inputProps={{ 'aria-label': 'search' }}
+            type='text'
+            value=''
+            // onChange={onChange}
+          />
+        </div>
         <FormGroup row className={classes.form}>
           <FormControl className={classes.formControl}>
-            <InputLabel id='demo-simple-select-helper-label'>
-              Country origin
-            </InputLabel>
+            <InputLabel>Country origin</InputLabel>
             <Select value={cuisine} onChange={handleChange1}>
               {cuisinesArray.map((item) => (
                 <MenuItem key={item} value={item}>
@@ -192,7 +271,7 @@ export default function SimplePaper() {
             </Select>
           </FormControl>
           <FormControl className={classes.formControl}>
-            <InputLabel id='demo-simple-select-helper-label'>Diet</InputLabel>
+            <InputLabel>Diet</InputLabel>
             <Select value={diet} onChange={handleChange2}>
               {dietsArray.map((item) => (
                 <MenuItem key={item} value={item}>
@@ -202,9 +281,7 @@ export default function SimplePaper() {
             </Select>
           </FormControl>
           <FormControl className={classes.formControl}>
-            <InputLabel id='demo-simple-select-helper-label'>
-              Dish type
-            </InputLabel>
+            <InputLabel>Dish type</InputLabel>
             <Select value={dishType} onChange={handleChange3}>
               {dishTypesArray.map((item) => (
                 <MenuItem key={item} value={item}>
@@ -214,12 +291,8 @@ export default function SimplePaper() {
             </Select>
           </FormControl>
           <FormControl className={classes.formControl}>
-            <InputLabel id='demo-mutiple-checkbox-label'>
-              Intolerances
-            </InputLabel>
+            <InputLabel>Intolerances</InputLabel>
             <Select
-              labelId='demo-mutiple-checkbox-label'
-              id='demo-mutiple-checkbox'
               multiple
               value={intolerances}
               onChange={handleChange6}
@@ -240,9 +313,7 @@ export default function SimplePaper() {
             <FormHelperText>Intolerances to exclude</FormHelperText>
           </FormControl>
           <FormControl className={classes.slider}>
-            <Typography id='discrete-slider' gutterBottom>
-              Maximal time to make (min)
-            </Typography>
+            <Typography gutterBottom>Maximum time to make (min)</Typography>
             <Slider
               value={mins}
               valueLabelDisplay='auto'
@@ -254,18 +325,23 @@ export default function SimplePaper() {
               onChange={handleChange4}
             />
           </FormControl>
+          <FormControl className={classes.slider}>
+            <Typography gutterBottom>
+              Maximum calories recipe has (kcal)
+            </Typography>
+            <Slider
+              value={calories}
+              valueLabelDisplay='auto'
+              aria-labelledby='discrete-slider'
+              step={500}
+              marks
+              min={500}
+              max={4000}
+              onChange={handleChange5}
+            />
+          </FormControl>
           <FormControlLabel
-            control={
-              <Checkbox
-                checked={state.checkedB}
-                onChange={handleChange}
-                name='checkedA'
-                color='primary'
-              />
-            }
-            label='Primary'
-          />
-          <FormControlLabel
+            className={classes.checkbox}
             control={
               <Checkbox
                 checked={state.checkedB}
@@ -278,6 +354,8 @@ export default function SimplePaper() {
           />
         </FormGroup>
       </Paper>
-    </div>
+    </form>
   );
-}
+};
+
+export default ExtendedSearch;

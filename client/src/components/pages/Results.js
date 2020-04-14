@@ -13,7 +13,13 @@ const useStyles = makeStyles((theme) => ({
   title: {
     [theme.breakpoints.down('sm')]: {
       fontSize: '2rem',
+      marginTop: '5rem',
+      fontWeight: 'lighter',
     },
+  },
+  span: {
+    fontWeight: 'bold',
+    textTransform: 'uppercase',
   },
 }));
 
@@ -36,11 +42,9 @@ const Results = ({ results, searchRecipes, query, loading, loadUser }) => {
 
   return (
     <>
-      <Typography
-        className={classes.title}
-        variant='h3'
-        align='center'
-      >{`Your search results for ${query}`}</Typography>
+      <Typography className={classes.title} align='center'>
+        Your search results for <span className={classes.span}>"{query}"</span>
+      </Typography>
       <div className='main-container'>
         {results.map((recipe) => (
           <RecipeItem
