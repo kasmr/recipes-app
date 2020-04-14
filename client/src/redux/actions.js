@@ -79,7 +79,7 @@ export const searchRecipes = (query) => async (dispatch) => {
     dispatch(showLoading());
 
     const res = await axios.get(
-      `${cors}/https://api.spoonacular.com/recipes/complexSearch?query=${query}&number=10&addRecipeInformation=true&apiKey=${process.env.REACT_APP_RECIPE_API_KEY}`
+      `${cors}/https://api.spoonacular.com/recipes/complexSearch?query=${query}number=10&addRecipeInformation=true&apiKey=${process.env.REACT_APP_RECIPE_API_KEY}`
     );
 
     const { results } = res.data;
