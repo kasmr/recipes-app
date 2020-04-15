@@ -77,7 +77,12 @@ const RecipeItem = ({
             subheader={source ? source : author}
           />
 
-          <CardMedia className={classes.media} image={image} title='title' />
+          <CardMedia
+            className={classes.media}
+            image={image}
+            title='title'
+            component='div'
+          />
         </Link>
         <CardContent>
           <Typography
