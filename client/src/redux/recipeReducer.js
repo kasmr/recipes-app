@@ -2,9 +2,15 @@ import {
   GET_RECIPES,
   GET_RECIPE,
   SEARCH_RECIPES,
+  SEARCH_EXTENDED,
   SET_QUERY,
   SET_REDIRECT,
   SHOW_LOADING,
+  ADD_FAVORITE,
+  DELETE_FAVORITE,
+  SET_CUURENT,
+  CLEAR_CUURENT,
+  GET_FAVORITES,
 } from './types';
 
 const initalState = {
@@ -14,6 +20,8 @@ const initalState = {
   redirect: false,
   results: [],
   loading: false,
+  favoritesIDS: [715538, 716429],
+  favorites: [],
 };
 
 export const recipeReducer = (state = initalState, action) => {
@@ -40,11 +48,18 @@ export const recipeReducer = (state = initalState, action) => {
         loading: false,
       };
     case SEARCH_RECIPES:
+    case SEARCH_EXTENDED:
       return {
         ...state,
         query: state.query,
         results: action.payload,
         redirect: false,
+        loading: false,
+      };
+    case GET_FAVORITES:
+      return {
+        ...state,
+        favorites: action.payload,
         loading: false,
       };
     case SET_REDIRECT:

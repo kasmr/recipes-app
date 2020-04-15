@@ -2,6 +2,7 @@ export const GET_RECIPES = 'GET_RECIPES';
 export const GET_RECIPE = 'GET_RECIPE';
 export const SET_QUERY = 'SET_QUERY';
 export const SEARCH_RECIPES = 'SEARCH_RECIPES';
+export const SEARCH_EXTENDED = 'SEARCH_EXTENDED';
 export const SET_REDIRECT = 'SET_REDIRECT';
 export const SHOW_LOADING = 'SHOW_LOADING';
 export const SHOW_ALERT = 'SHOW_ALERT';
@@ -16,3 +17,7 @@ export const LOGOUT = 'LOGOUT';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 // Types for favorite backend
 export const ADD_FAVORITE = 'ADD_FAVORITE';
+export const GET_FAVORITES = 'GET_FAVORITES';
+export const DELETE_FAVORITE = 'DELETE_FAVORITE';
+export const SET_CUURENT = 'SET_CUURENT';
+export const CLEAR_CUURENT = 'CLEAR_CUURENT';

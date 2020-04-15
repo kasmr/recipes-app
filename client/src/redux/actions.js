@@ -4,6 +4,7 @@ import {
   GET_RECIPES,
   GET_RECIPE,
   SEARCH_RECIPES,
+  SEARCH_EXTENDED,
   SET_QUERY,
   SHOW_LOADING,
   REGISTER_SUCCESS,
@@ -14,6 +15,11 @@ import {
   LOGIN_FAIL,
   LOGIN_SUCCESS,
   LOGOUT,
+  ADD_FAVORITE,
+  DELETE_FAVORITE,
+  SET_CUURENT,
+  CLEAR_CUURENT,
+  GET_FAVORITES,
 } from './types';
 
 const cors = 'https://cors-anywhere.herokuapp.com';
@@ -110,11 +116,36 @@ export const searchExtended = (
 
     const { results } = res.data;
     console.log(results);
-    dispatch({ type: SEARCH_RECIPES, payload: results });
+    dispatch({ type: SEARCH_EXTENDED, payload: results });
   } catch (err) {
     console.error(err);
   }
 };
+
+//Favorite actions
+
+//Get favorites
+export const getFavorites = (ids) => async (dispatch) => {
+  try {
+    dispatch(showLoading());
+
+    const res = await axios.get(
+      `${cors}/https://api.spoonacular.com/recipes/informationBulk?ids=${ids}&apiKey=${process.env.REACT_APP_RECIPE_API_KEY}`
+    );
+
+    dispatch({ type: GET_FAVORITES, payload: res.data });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+//Add favorite
+
+//Delete favorite
+
+//Set current
+
+//Clear current
 
 //////////////////
 

@@ -13,6 +13,7 @@ import PrivateRoute from './components/routing/PrivateRoute';
 import About from './components/pages/About';
 import ExtendedSearch from './components/pages/extendedSearch/ExtendedSearch';
 import ResultsExtended from './components/pages/extendedSearch/ResultsExtended';
+import Favorites from './components/pages/Favorites';
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -52,6 +53,7 @@ const App = () => {
             <PrivateRoute exact path='/recipe/:id' component={Recipe} />
             <Route exact path='/register' component={Register} />
             <Route exact path='/login' component={Login} />
+            <Route exact path='/favorites' component={Favorites} />
           </Switch>
         </Container>
       </BrowserRouter>

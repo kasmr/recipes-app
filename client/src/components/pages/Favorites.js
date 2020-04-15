@@ -1,53 +1,59 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { getRecipes, showLoading } from '../../redux/actions';
+import { showLoading, getFavorites } from '../../redux/actions';
 import PropTypes from 'prop-types';
-import RecipeItem from './RecipeItem';
 import SkeletonGroup from '../layout/SkeletonGroup';
-import './recipesList.scss';
+import '../../components/recipes/recipesList.scss';
+import RecipeItem from '../recipes/RecipeItem';
 
-const RecipesList = ({ stateRecipes, getRecipes, loading }) => {
+const Favorites = ({ favoritesIDS, favorites, getFavorites, loading }) => {
   useEffect(() => {
     // fetchData();
-    getRecipes();
-
+    // getFavorites(favoritesIDS.toString());
     //eslint-disable-next-line
   }, []);
 
-  if (loading || stateRecipes === null) {
+  if (loading || favorites === null) {
     return <SkeletonGroup />;
   }
 
   return (
-    <div className='main-container'>
-      {stateRecipes.map((r) => (
-        <RecipeItem
-          image={r.recipe.image}
-          title={r.recipe.label}
-          source={r.recipe.source}
-          labels={r.recipe.healthLabels}
-          calories={r.recipe.calories}
-          time={r.recipe.totalTime}
-          key={r.recipe.uri}
-        />
-      ))}
-    </div>
+    <>
+      <h1>Favorites</h1>
+      <div className='main-container'>
+        {favorites.map((recipe) => (
+          <RecipeItem
+            title={recipe.title}
+            source={recipe.sourceName}
+            author={recipe.author}
+            diets={recipe.diets}
+            healthScore={recipe.healthScore}
+            summary={recipe.summary}
+            time={recipe.readyInMinutes}
+            id={recipe.id}
+            image={recipe.image}
+            key={recipe.id}
+          />
+        ))}
+      </div>
+    </>
   );
 };
 
-RecipesList.propTypes = {
-  stateRecipes: PropTypes.array.isRequired,
-  getRecipes: PropTypes.func.isRequired,
+Favorites.propTypes = {
+  favoritesIDS: PropTypes.array.isRequired,
+  getFavorites: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => {
   return {
-    stateRecipes: state.recipes.recipes,
+    favoritesIDS: state.recipes.favoritesIDS,
+    favorites: state.recipes.favorites,
     loading: state.recipes.loading,
   };
 };
 
-export default connect(mapStateToProps, { getRecipes, showLoading })(
-  RecipesList
+export default connect(mapStateToProps, { getFavorites, showLoading })(
+  Favorites
 );
