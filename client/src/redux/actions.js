@@ -16,7 +16,7 @@ import {
   LOGOUT,
 } from './types';
 
-const cors = 'http://cors-anywhere.herokuapp.com';
+const cors = 'https://cors-anywhere.herokuapp.com';
 
 //Set loading to true
 export const showLoading = () => {

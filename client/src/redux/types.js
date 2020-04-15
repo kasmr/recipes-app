@@ -14,3 +14,5 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'LOGIN_FAIL';
 export const LOGOUT = 'LOGOUT';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
+// Types for favorite backend
+export const ADD_FAVORITE = 'ADD_FAVORITE';
