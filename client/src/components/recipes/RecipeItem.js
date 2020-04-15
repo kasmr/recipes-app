@@ -6,10 +6,8 @@ import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import ShareIcon from '@material-ui/icons/Share';
 import Favorite from '@material-ui/icons/Favorite';
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -19,6 +17,7 @@ import { Link } from 'react-router-dom';
 import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
 import './recipesList.scss';
+import ShareModal from '../layout/ShareModal';
 
 const stringToColor = () => {
   let hex = Math.floor(Math.random() * 0xffffff);
@@ -136,9 +135,7 @@ const RecipeItem = ({
             }
             style={{ margin: '0' }}
           />
-          <IconButton aria-label='share' style={{ padding: '8px' }}>
-            <ShareIcon />
-          </IconButton>
+          <ShareModal id={id} />
           <CardActions className={classes.button1}>
             <Link to={`/recipe/${id}`}>
               <Button size='small' variant='contained' color='primary'>
