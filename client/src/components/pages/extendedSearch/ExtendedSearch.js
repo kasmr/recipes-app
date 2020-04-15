@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { searchExtended, setQuery } from '../../../redux/actions';
+import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -15,96 +18,6 @@ import Typography from '@material-ui/core/Typography';
 import Slider from '@material-ui/core/Slider';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    justifyContent: 'space-around',
-    flexWrap: 'wrap',
-    marginTop: '10rem',
-    [theme.breakpoints.down('sm')]: {
-      marginTop: '4rem',
-    },
-    '& > *': {
-      margin: theme.spacing(1),
-      width: 770,
-      height: 400,
-      [theme.breakpoints.down('sm')]: {
-        width: '90%',
-        height: 670,
-      },
-    },
-  },
-  title: {
-    width: '100%',
-    fontSize: '2rem',
-    margin: '1rem',
-    [theme.breakpoints.down('sm')]: {
-      margin: '1rem 0',
-    },
-  },
-  form: {
-    margin: '1rem',
-  },
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-    width: 350,
-  },
-  slider: {
-    width: 350,
-    margin: 8,
-  },
-  search: {
-    display: 'flex',
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    color: 'black',
-    border: 'black 1.5px solid',
-    margin: 'auto',
-    width: 500,
-    backgroundColor: '#fff',
-    [theme.breakpoints.down('sm')]: {
-      width: 'auto',
-      margin: '0 1.5rem',
-    },
-  },
-  searchIcon: {
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  inputRoot: {
-    color: 'inherit',
-  },
-  inputInput: {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      width: '50ch',
-    },
-  },
-  checkbox: {
-    margin: 'auto',
-  },
-}));
-
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
 
 const dishTypesArray = [
   'main course',
@@ -178,32 +91,62 @@ const intolerancesArray = [
   'wheat',
 ];
 
-const ExtendedSearch = () => {
+const ExtendedSearch = ({ searchExtended, setQuery, history }) => {
   const classes = useStyles();
 
-  const [state, setState] = React.useState({
-    checkedA: false,
+  const onSubmit = (e) => {
+    e.preventDefault();
+    setQuery(value);
+    searchExtended(
+      value,
+      inst,
+      cuisine,
+      diet,
+      dishType,
+      mins,
+      calories,
+      intolerances
+    );
+    setValue('');
+    setInst({
+      checked: false,
+    });
+    setCuisine('');
+    setDiet('');
+    setDishType('');
+    setIntolerances([]);
+    history.push('/extended-search/results');
+  };
+
+  const [value, setValue] = useState('');
+
+  const onChange = (event) => {
+    setValue(event.target.value);
+  };
+
+  const [inst, setInst] = useState({
+    checked: false,
   });
 
   const handleChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
+    setInst({ ...inst, [event.target.name]: event.target.checked });
   };
 
   //cuisine
-  const [cuisine, setCuisine] = React.useState('');
+  const [cuisine, setCuisine] = useState('');
 
   const handleChange1 = (event) => {
     setCuisine(event.target.value);
   };
   //diet
-  const [diet, setDiet] = React.useState('');
+  const [diet, setDiet] = useState('');
 
   const handleChange2 = (event) => {
     setDiet(event.target.value);
   };
 
   //dish type
-  const [dishType, setDishType] = React.useState('');
+  const [dishType, setDishType] = useState('');
 
   const handleChange3 = (event) => {
     setDishType(event.target.value);
@@ -211,7 +154,7 @@ const ExtendedSearch = () => {
 
   //mins to make
 
-  const [mins, setMins] = React.useState(30);
+  const [mins, setMins] = useState(30);
 
   const handleChange4 = (event, newValue) => {
     setMins(newValue);
@@ -219,21 +162,21 @@ const ExtendedSearch = () => {
 
   //mins to make
 
-  const [calories, setCalories] = React.useState(1500);
+  const [calories, setCalories] = useState(1500);
 
   const handleChange5 = (event, newValue) => {
     setCalories(newValue);
   };
 
   //intolerances
-  const [intolerances, setIntolerances] = React.useState([]);
+  const [intolerances, setIntolerances] = useState([]);
 
   const handleChange6 = (event) => {
     setIntolerances(event.target.value);
   };
 
   return (
-    <form className={classes.root}>
+    <form className={classes.root} onSubmit={onSubmit}>
       <Paper elevation={2} className={classes.pa}>
         <Typography
           variant='h2'
@@ -255,8 +198,8 @@ const ExtendedSearch = () => {
             }}
             inputProps={{ 'aria-label': 'search' }}
             type='text'
-            value=''
-            // onChange={onChange}
+            value={value}
+            onChange={onChange}
           />
         </div>
         <FormGroup row className={classes.form}>
@@ -344,9 +287,9 @@ const ExtendedSearch = () => {
             className={classes.checkbox}
             control={
               <Checkbox
-                checked={state.checkedB}
+                checked={inst.checked}
                 onChange={handleChange}
-                name='checkedA'
+                name='checked'
                 color='primary'
               />
             }
@@ -358,4 +301,99 @@ const ExtendedSearch = () => {
   );
 };
 
-export default ExtendedSearch;
+ExtendedSearch.propTypes = {
+  searchExtended: PropTypes.func.isRequired,
+  setQuery: PropTypes.func.isRequired,
+};
+
+export default connect(null, { searchExtended, setQuery })(ExtendedSearch);
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    justifyContent: 'space-around',
+    flexWrap: 'wrap',
+    marginTop: '10rem',
+    [theme.breakpoints.down('sm')]: {
+      marginTop: '4rem',
+    },
+    '& > *': {
+      margin: theme.spacing(1),
+      width: 770,
+      height: 400,
+      [theme.breakpoints.down('sm')]: {
+        width: '90%',
+        height: 670,
+      },
+    },
+  },
+  title: {
+    width: '100%',
+    fontSize: '2rem',
+    margin: '1rem',
+    [theme.breakpoints.down('sm')]: {
+      margin: '1rem 0',
+    },
+  },
+  form: {
+    margin: '1rem',
+  },
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 120,
+    width: 350,
+  },
+  slider: {
+    width: 350,
+    margin: 8,
+  },
+  search: {
+    display: 'flex',
+    position: 'relative',
+    borderRadius: theme.shape.borderRadius,
+    color: 'black',
+    border: `${theme.palette.primary.main} 1.5px solid`,
+    margin: 'auto',
+    width: 500,
+    backgroundColor: '#fff',
+    [theme.breakpoints.down('sm')]: {
+      width: 'auto',
+      margin: '0 1.5rem',
+    },
+  },
+  searchIcon: {
+    padding: theme.spacing(0, 2),
+    height: '100%',
+    position: 'absolute',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  inputRoot: {
+    color: 'inherit',
+  },
+  inputInput: {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      width: '50ch',
+    },
+  },
+  checkbox: {
+    margin: 'auto',
+  },
+}));
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};

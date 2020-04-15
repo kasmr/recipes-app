@@ -11,7 +11,8 @@ import Login from './components/auth/Login';
 import setAuthToken from './utils/setAuthToken';
 import PrivateRoute from './components/routing/PrivateRoute';
 import About from './components/pages/About';
-import ExtendedSearch from './components/pages/ExtendedSearch';
+import ExtendedSearch from './components/pages/extendedSearch/ExtendedSearch';
+import ResultsExtended from './components/pages/extendedSearch/ResultsExtended';
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -43,6 +44,11 @@ const App = () => {
               component={ExtendedSearch}
             />
             <PrivateRoute exact path='/results' component={Results} />
+            <PrivateRoute
+              exact
+              path='/extended-search/results'
+              component={ResultsExtended}
+            />
             <PrivateRoute exact path='/recipe/:id' component={Recipe} />
             <Route exact path='/register' component={Register} />
             <Route exact path='/login' component={Login} />

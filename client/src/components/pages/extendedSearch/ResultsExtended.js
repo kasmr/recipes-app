@@ -1,22 +1,21 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { searchRecipes, loadUser } from '../../redux/actions';
+import { loadUser } from '../../../redux/actions';
 import PropTypes from 'prop-types';
-import '../recipes/recipesList.scss';
+import '../../recipes/recipesList.scss';
 import { Redirect } from 'react-router';
-import SkeletonGroup from '../layout/SkeletonGroup';
+import SkeletonGroup from '../../layout/SkeletonGroup';
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import RecipeItem from '../recipes/RecipeItem';
+import RecipeItem from '../../recipes/RecipeItem';
 
-const Results = ({ results, searchRecipes, query, loading, loadUser }) => {
+const Results = ({ results, query, loading, loadUser }) => {
   const classes = useStyles();
 
   useEffect(() => {
     loadUser();
-    searchRecipes(query);
     //eslint-disable-next-line
-  }, [query]);
+  }, []);
 
   if (query === '') {
     return <Redirect to='/' />;
@@ -53,7 +52,6 @@ const Results = ({ results, searchRecipes, query, loading, loadUser }) => {
 
 Results.propTypes = {
   results: PropTypes.array.isRequired,
-  searchRecipes: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   loadUser: PropTypes.func.isRequired,
   query: PropTypes.string.isRequired,
@@ -67,7 +65,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { searchRecipes, loadUser })(Results);
+export default connect(mapStateToProps, { loadUser })(Results);
 
 const useStyles = makeStyles((theme) => ({
   title: {

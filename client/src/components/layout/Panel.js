@@ -23,65 +23,6 @@ import Badge from '@material-ui/core/Badge';
 import CardHeader from '@material-ui/core/CardHeader';
 import Tooltip from '@material-ui/core/Tooltip';
 
-const useStyles = makeStyles((theme) => ({
-  list: {
-    width: 280,
-    [theme.breakpoints.up('sm')]: {
-      width: 350,
-    },
-  },
-  media: {
-    height: 0,
-    paddingTop: '56.25%', // 16:9
-  },
-  fullList: {
-    width: 'auto',
-  },
-  large: {
-    width: 60,
-    height: 60,
-    backgroundColor: theme.palette.primary.main,
-    cursor: 'pointer',
-  },
-}));
-
-const StyledBadge = withStyles((theme) => ({
-  badge: {
-    cursor: 'pointer',
-    backgroundColor: '#44b700',
-    color: '#44b700',
-    boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
-    '&::after': {
-      position: 'absolute',
-      width: '100%',
-      height: '100%',
-      borderRadius: '50%',
-      animation: '$ripple 1.2s infinite ease-in-out',
-      border: '1px solid currentColor',
-      content: '""',
-    },
-  },
-  '@keyframes ripple': {
-    '0%': {
-      transform: 'scale(.8)',
-      opacity: 1,
-    },
-    '100%': {
-      transform: 'scale(2.4)',
-      opacity: 0,
-    },
-  },
-}))(Badge);
-
-const DarkTooltip = withStyles((theme) => ({
-  tooltip: {
-    backgroundColor: 'rgba(0, 0, 0, 0.87)',
-    color: '#fff',
-    boxShadow: theme.shadows[1],
-    fontSize: 11,
-  },
-}))(Tooltip);
-
 const Panel = ({ logout, user }) => {
   const classes = useStyles();
   const [state, setState] = React.useState({
@@ -141,17 +82,19 @@ const Panel = ({ logout, user }) => {
             <ListItemText primary='Home' />
           </ListItem>
         </Link>
+        <Link to='/extended-search'>
+          <ListItem button>
+            <ListItemIcon>
+              <SearchIcon />
+            </ListItemIcon>
+            <ListItemText primary='Extended Search' />
+          </ListItem>
+        </Link>
         <ListItem disabled button>
           <ListItemIcon>
             <FavoriteIcon />
           </ListItemIcon>
           <ListItemText primary='Favorites' />
-        </ListItem>
-        <ListItem disabled button>
-          <ListItemIcon>
-            <SearchIcon />
-          </ListItemIcon>
-          <ListItemText primary='Extended Search' />
         </ListItem>
       </List>
       <Divider />
@@ -206,3 +149,62 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, { logout })(Panel);
+
+const useStyles = makeStyles((theme) => ({
+  list: {
+    width: 280,
+    [theme.breakpoints.up('sm')]: {
+      width: 350,
+    },
+  },
+  media: {
+    height: 0,
+    paddingTop: '56.25%', // 16:9
+  },
+  fullList: {
+    width: 'auto',
+  },
+  large: {
+    width: 60,
+    height: 60,
+    backgroundColor: theme.palette.primary.main,
+    cursor: 'pointer',
+  },
+}));
+
+const StyledBadge = withStyles((theme) => ({
+  badge: {
+    cursor: 'pointer',
+    backgroundColor: '#44b700',
+    color: '#44b700',
+    boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+    '&::after': {
+      position: 'absolute',
+      width: '100%',
+      height: '100%',
+      borderRadius: '50%',
+      animation: '$ripple 1.2s infinite ease-in-out',
+      border: '1px solid currentColor',
+      content: '""',
+    },
+  },
+  '@keyframes ripple': {
+    '0%': {
+      transform: 'scale(.8)',
+      opacity: 1,
+    },
+    '100%': {
+      transform: 'scale(2.4)',
+      opacity: 0,
+    },
+  },
+}))(Badge);
+
+const DarkTooltip = withStyles((theme) => ({
+  tooltip: {
+    backgroundColor: 'rgba(0, 0, 0, 0.87)',
+    color: '#fff',
+    boxShadow: theme.shadows[1],
+    fontSize: 11,
+  },
+}))(Tooltip);

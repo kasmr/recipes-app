@@ -91,21 +91,30 @@ export const searchRecipes = (query) => async (dispatch) => {
 
 //Extended search for recipes
 
-// export const searchRecipes = (query) => async (dispatch) => {
-//   try {
-//     dispatch(showLoading());
+export const searchExtended = (
+  value,
+  inst,
+  cuisine,
+  diet,
+  dishType,
+  mins,
+  calories,
+  intolerances
+) => async (dispatch) => {
+  try {
+    dispatch(showLoading());
 
-//     const res = await axios.get(
-//       `${cors}/https://api.spoonacular.com/recipes/complexSearch?query=${query}&number=10&addRecipeInformation=true&apiKey=${process.env.REACT_APP_RECIPE_API_KEY}`
-//     );
+    const res = await axios.get(
+      `${cors}/https://api.spoonacular.com/recipes/complexSearch?query=${value}&number=10&addRecipeInformation=true&instructionsRequired=${inst}&cuisine=${cuisine}&diet=${diet}&type=${dishType}&maxReadyTime=${mins}&maxCalories=${calories}&intolerances=${intolerances}&apiKey=${process.env.REACT_APP_RECIPE_API_KEY}`
+    );
 
-//     const { results } = res.data;
-//     console.log(results);
-//     dispatch({ type: SEARCH_RECIPES, payload: results });
-//   } catch (err) {
-//     console.error(err);
-//   }
-// };
+    const { results } = res.data;
+    console.log(results);
+    dispatch({ type: SEARCH_RECIPES, payload: results });
+  } catch (err) {
+    console.error(err);
+  }
+};
 
 //////////////////
 
