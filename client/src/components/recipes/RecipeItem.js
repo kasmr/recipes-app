@@ -135,7 +135,7 @@ const RecipeItem = ({
               <Checkbox
                 icon={<FavoriteBorder />}
                 checkedIcon={<Favorite />}
-                name='checkedH'
+                name='check'
               />
             }
             style={{ margin: '0' }}

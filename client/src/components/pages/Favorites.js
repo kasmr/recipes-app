@@ -1,15 +1,29 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { showLoading, getFavorites } from '../../redux/actions';
+import {
+  showLoading,
+  getFavorites,
+  getIDS,
+  loadUser,
+} from '../../redux/actions';
 import PropTypes from 'prop-types';
 import SkeletonGroup from '../layout/SkeletonGroup';
 import '../../components/recipes/recipesList.scss';
 import RecipeItem from '../recipes/RecipeItem';
 
-const Favorites = ({ favoritesIDS, favorites, getFavorites, loading }) => {
+const Favorites = ({
+  favoritesIDS,
+  favorites,
+  getFavorites,
+  loading,
+  getIDS,
+  loadUser,
+}) => {
   useEffect(() => {
+    loadUser();
+    getIDS();
+    console.log(favoritesIDS);
     // fetchData();
-    // getFavorites(favoritesIDS.toString());
     //eslint-disable-next-line
   }, []);
 
@@ -20,7 +34,7 @@ const Favorites = ({ favoritesIDS, favorites, getFavorites, loading }) => {
   return (
     <>
       <h1>Favorites</h1>
-      <div className='main-container'>
+      {/* <div className='main-container'>
         {favorites.map((recipe) => (
           <RecipeItem
             title={recipe.title}
@@ -35,7 +49,7 @@ const Favorites = ({ favoritesIDS, favorites, getFavorites, loading }) => {
             key={recipe.id}
           />
         ))}
-      </div>
+      </div> */}
     </>
   );
 };
@@ -54,6 +68,9 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { getFavorites, showLoading })(
-  Favorites
-);
+export default connect(mapStateToProps, {
+  getFavorites,
+  showLoading,
+  getIDS,
+  loadUser,
+})(Favorites);

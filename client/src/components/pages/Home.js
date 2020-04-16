@@ -20,6 +20,7 @@ const Home = ({ redirect, loadUser }) => {
 
 Home.propTypes = {
   redirect: PropTypes.bool.isRequired,
+  loadUser: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {

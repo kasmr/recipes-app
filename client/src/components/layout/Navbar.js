@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -12,8 +12,10 @@ import SearchIcon from '@material-ui/icons/Search';
 import Panel from './Panel';
 import MenuBookRoundedIcon from '@material-ui/icons/MenuBookRounded';
 
-const Navbar = ({ setQuery, isAuthenticated }) => {
+const Navbar = ({ setQuery, isAuthenticated, location }) => {
   const classes = useStyles();
+
+  const { pathname } = location;
 
   const [value, setValue] = useState('');
 
@@ -26,6 +28,24 @@ const Navbar = ({ setQuery, isAuthenticated }) => {
   const onChange = (e) => {
     setValue(e.target.value);
   };
+  if (pathname === '/extended-search') {
+    return (
+      <div className={classes.root}>
+        <AppBar position='fixed'>
+          <Toolbar style={{ justifyContent: 'space-between' }}>
+            <Panel />
+
+            <Link to='/' className={classes.logo}>
+              <Typography className={classes.title} variant='h4' noWrap>
+                Recipe App
+              </Typography>
+              <MenuBookRoundedIcon className={classes.mainIcon} />
+            </Link>
+          </Toolbar>
+        </AppBar>
+      </div>
+    );
+  }
 
   if (!isAuthenticated) {
     return (
@@ -93,7 +113,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { setQuery })(Navbar);
+export default withRouter(connect(mapStateToProps, { setQuery })(Navbar));
 
 const useStyles = makeStyles((theme) => ({
   root: {
