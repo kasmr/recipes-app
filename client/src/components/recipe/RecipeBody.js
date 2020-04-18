@@ -78,8 +78,6 @@ const RecipeBody = ({ recipe }) => {
     aggregateLikes,
   } = recipe;
 
-  console.log(recipe);
-
   return (
     <div className={classes.root}>
       <div className={classes.section1}>

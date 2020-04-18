@@ -52,7 +52,6 @@ const RecipeTable = ({ recipe }) => {
             <TableRow>
               <StyledTableCell>Ingredient</StyledTableCell>
               <StyledTableCell align='right'>Amount</StyledTableCell>
-              <StyledTableCell align='right'>Unit</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -67,10 +66,9 @@ const RecipeTable = ({ recipe }) => {
                     />
                   </TableCell>
                   <TableCell align='right'>
-                    {Object.values(row.measures.metric)[0]}
-                  </TableCell>
-                  <TableCell align='right'>
-                    {Object.values(row.measures.metric)[2]}
+                    {Object.values(row.measures.metric)[0] +
+                      ' ' +
+                      Object.values(row.measures.metric)[2]}
                   </TableCell>
                 </TableRow>
               ))}

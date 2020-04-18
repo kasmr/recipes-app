@@ -39,9 +39,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.secondary.main,
   },
   button1: {
-    marginLeft: '2.5rem',
+    marginLeft: '4.5rem',
     [theme.breakpoints.up('sm')]: {
-      marginLeft: '7rem',
+      marginLeft: '7.5rem',
     },
   },
   avatar: {

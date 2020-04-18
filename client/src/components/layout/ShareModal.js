@@ -20,6 +20,12 @@ import {
   TwitterIcon,
 } from 'react-share';
 
+import Slide from '@material-ui/core/Slide';
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction='down' ref={ref} {...props} />;
+});
+
 const styles = (theme) => ({
   root: {
     margin: 0,
@@ -96,7 +102,11 @@ const ShareModal = ({ id }) => {
       >
         <ShareIcon />
       </IconButton>
-      <Dialog onClose={handleClose} open={open}>
+      <Dialog
+        onClose={handleClose}
+        open={open}
+        TransitionComponent={Transition}
+      >
         <DialogTitle onClose={handleClose}>
           Share the recipe with friends!
         </DialogTitle>

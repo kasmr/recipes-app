@@ -1,11 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import {
-  showLoading,
-  getFavorites,
-  getIDS,
-  loadUser,
-} from '../../redux/actions';
+import { showLoading, getFavorites, loadUser } from '../../redux/actions';
 import PropTypes from 'prop-types';
 import SkeletonGroup from '../layout/SkeletonGroup';
 import '../../components/recipes/recipesList.scss';
@@ -16,12 +11,10 @@ const Favorites = ({
   favorites,
   getFavorites,
   loading,
-  getIDS,
   loadUser,
 }) => {
   useEffect(() => {
     loadUser();
-    getIDS();
     console.log(favoritesIDS);
     // fetchData();
     //eslint-disable-next-line
@@ -71,6 +64,6 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
   getFavorites,
   showLoading,
-  getIDS,
+
   loadUser,
 })(Favorites);

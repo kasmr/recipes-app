@@ -7,6 +7,8 @@ import RecipeTable from './RecipeTable';
 import RecipeInstructions from './RecipeInstructions';
 import { Redirect } from 'react-router';
 import SkeletonCurrent from '../layout/SkeletonCurrent';
+import { Container } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 const Recipe = ({
   match,
@@ -16,6 +18,7 @@ const Recipe = ({
   loading,
   loadUser,
 }) => {
+  const classes = useStyles();
   const id = match.params.id;
 
   useEffect(() => {
@@ -34,13 +37,15 @@ const Recipe = ({
 
   return (
     <>
-      {currentRecipe && (
-        <div>
-          <RecipeBody recipe={currentRecipe} />
-          <RecipeInstructions recipe={currentRecipe} />
-          <RecipeTable recipe={currentRecipe} />
-        </div>
-      )}
+      <Container className={classes.container}>
+        {currentRecipe && (
+          <div>
+            <RecipeBody recipe={currentRecipe} />
+            <RecipeInstructions recipe={currentRecipe} />
+            <RecipeTable recipe={currentRecipe} />
+          </div>
+        )}
+      </Container>
     </>
   );
 };
@@ -64,3 +69,12 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, { getRecipe, loadUser })(Recipe);
+
+const useStyles = makeStyles((theme) => ({
+  container: {
+    [theme.breakpoints.down('sm')]: {
+      paddingLeft: 0,
+      paddingRight: 0,
+    },
+  },
+}));
