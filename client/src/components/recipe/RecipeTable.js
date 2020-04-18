@@ -62,7 +62,11 @@ const RecipeTable = ({ recipe }) => {
                     <p>{row.originalName}</p>
                     <img
                       alt='ingredient'
-                      src={` https://spoonacular.com/cdn/ingredients_100x100/${row.image}`}
+                      src={
+                        row.image
+                          ? `https://spoonacular.com/cdn/ingredients_100x100/${row.image}`
+                          : '/img/no-image.jpg'
+                      }
                     />
                   </TableCell>
                   <TableCell align='right'>

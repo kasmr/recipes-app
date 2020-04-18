@@ -8,7 +8,10 @@ import './recipesList.scss';
 
 const RecipesList = ({ stateRecipes, getRecipes, loading }) => {
   useEffect(() => {
-    getRecipes();
+    if (!stateRecipes.length) {
+      getRecipes();
+    }
+
     //eslint-disable-next-line
   }, []);
 
