@@ -85,6 +85,7 @@ const Navbar = ({ setQuery, isAuthenticated, location }) => {
                   type='text'
                   value={value}
                   onChange={onChange}
+                  required
                 />
               </div>
             </form>

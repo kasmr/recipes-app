@@ -52,6 +52,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { getRecipes, showLoading })(
-  RecipesList
-);
+export default connect(mapStateToProps, {
+  getRecipes,
+  showLoading,
+})(RecipesList);

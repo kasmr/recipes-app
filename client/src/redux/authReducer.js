@@ -7,6 +7,7 @@ import {
   LOGOUT,
   AUTH_ERROR,
   SHOW_LOADING,
+  ADD_FAVORITE,
 } from './types';
 
 const initalState = {
@@ -15,6 +16,7 @@ const initalState = {
   loading: false,
   user: null,
   error: null,
+  favoriteIDS: [],
 };
 
 export const authReducer = (state = initalState, action) => {
@@ -47,6 +49,12 @@ export const authReducer = (state = initalState, action) => {
         loading: false,
         user: null,
         error: action.payload,
+      };
+    case ADD_FAVORITE:
+      return {
+        ...state,
+        favoriteIDS: [...state.favorites, action.payload],
+        loading: false,
       };
     case SHOW_LOADING:
       return {

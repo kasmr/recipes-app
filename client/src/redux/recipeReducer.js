@@ -6,10 +6,6 @@ import {
   SET_QUERY,
   SET_REDIRECT,
   SHOW_LOADING,
-  ADD_FAVORITE,
-  DELETE_FAVORITE,
-  SET_CUURENT,
-  CLEAR_CUURENT,
   GET_FAVORITES,
 } from './types';
 
@@ -20,8 +16,6 @@ const initalState = {
   redirect: false,
   results: [],
   loading: false,
-  favoritesIDS: [715538, 716429],
-  favorites: [],
 };
 
 export const recipeReducer = (state = initalState, action) => {
@@ -54,12 +48,6 @@ export const recipeReducer = (state = initalState, action) => {
         query: state.query,
         results: action.payload,
         redirect: false,
-        loading: false,
-      };
-    case GET_FAVORITES:
-      return {
-        ...state,
-        favorites: action.payload,
         loading: false,
       };
     case SET_REDIRECT:

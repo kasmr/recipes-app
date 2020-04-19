@@ -91,7 +91,11 @@ const RecipeBody = ({ recipe }) => {
             </Typography>
           </Grid>
           <Grid item xs={12} align='center' style={{ marginTop: '1rem' }}>
-            <img src={image} alt='' className={classes.image} />
+            <img
+              src={image ? image : '/img/no-image.jpg'}
+              alt=''
+              className={classes.image}
+            />
           </Grid>
         </Grid>
         <Typography style={{ marginTop: '1rem' }} align='center'>
