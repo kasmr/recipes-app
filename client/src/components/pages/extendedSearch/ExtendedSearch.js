@@ -74,7 +74,7 @@ const dietsArray = [
   'lacto vegetarian',
   'primal',
   'whole 30',
-  'gluten Free',
+  'gluten free',
 ];
 
 const intolerancesArray = [

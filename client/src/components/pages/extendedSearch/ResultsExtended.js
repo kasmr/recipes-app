@@ -31,20 +31,33 @@ const Results = ({ results, query, loading, loadUser }) => {
         Your search results for <span className={classes.span}>"{query}"</span>
       </Typography>
       <div className='main-container'>
-        {results.map((recipe) => (
-          <RecipeItem
-            title={recipe.title}
-            source={recipe.sourceName}
-            author={recipe.author}
-            diets={recipe.diets}
-            healthScore={recipe.healthScore}
-            summary={recipe.summary}
-            time={recipe.readyInMinutes}
-            id={recipe.id}
-            image={recipe.image}
-            key={recipe.id}
-          />
-        ))}
+        {results.length ? (
+          results.map((recipe) => (
+            <RecipeItem
+              title={recipe.title}
+              source={recipe.sourceName}
+              author={recipe.author}
+              diets={recipe.diets}
+              healthScore={recipe.healthScore}
+              summary={recipe.summary}
+              time={recipe.readyInMinutes}
+              id={recipe.id}
+              image={recipe.image}
+              key={recipe.id}
+            />
+          ))
+        ) : (
+          <div>
+            <Typography className={classes.results} align='center'>
+              <span className={classes.span}>No results found</span>
+            </Typography>
+            <img
+              alt='no results'
+              src='/img/no-results.png'
+              className={classes.image}
+            />
+          </div>
+        )}
       </div>
     </>
   );
@@ -72,13 +85,23 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '5rem',
     fontSize: '2rem',
     [theme.breakpoints.down('sm')]: {
-      fontSize: '2rem',
-      marginTop: '5rem',
       fontWeight: 'lighter',
     },
+  },
+  results: {
+    marginTop: '2rem',
+    fontSize: '1.5rem',
   },
   span: {
     fontWeight: 'bold',
     textTransform: 'uppercase',
+  },
+  image: {
+    display: 'flex',
+    margin: 'auto',
+    width: '60%',
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+    },
   },
 }));
