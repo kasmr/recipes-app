@@ -39,10 +39,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.secondary.main,
   },
   button1: {
-    marginLeft: '4.5rem',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: '7.5rem',
-    },
+    marginLeft: 'auto',
   },
   avatar: {
     backgroundColor: `${stringToColor()}`,
