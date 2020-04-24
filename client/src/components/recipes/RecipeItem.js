@@ -19,33 +19,6 @@ import Box from '@material-ui/core/Box';
 import './recipesList.scss';
 import ShareModal from '../layout/ShareModal';
 
-const stringToColor = () => {
-  let hex = Math.floor(Math.random() * 0xffffff);
-  let color = '#' + hex.toString(16);
-
-  return color;
-};
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    maxWidth: 345,
-    height: '100%',
-  },
-  media: {
-    height: 0,
-    paddingTop: '56.25%', // 16:9
-  },
-  red: {
-    backgroundColor: theme.palette.secondary.main,
-  },
-  button1: {
-    marginLeft: 'auto',
-  },
-  avatar: {
-    backgroundColor: `${stringToColor()}`,
-  },
-}));
-
 const RecipeItem = ({
   title,
   source,
@@ -152,3 +125,30 @@ const RecipeItem = ({
 };
 
 export default RecipeItem;
+
+const stringToColor = () => {
+  let hex = Math.floor(Math.random() * 0xffffff);
+  let color = '#' + hex.toString(16);
+
+  return color;
+};
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    maxWidth: 345,
+    height: '100%',
+  },
+  media: {
+    height: 0,
+    paddingTop: '56.25%', // 16:9
+  },
+  red: {
+    backgroundColor: theme.palette.secondary.main,
+  },
+  button1: {
+    marginLeft: 'auto',
+  },
+  avatar: {
+    backgroundColor: `${stringToColor()}`,
+  },
+}));

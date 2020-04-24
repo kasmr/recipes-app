@@ -7,6 +7,8 @@ import {
   SET_REDIRECT,
   SHOW_LOADING,
   GET_FAVORITES,
+  ADD_FAVORITE,
+  GET_DIETS,
 } from './types';
 
 const initalState = {
@@ -16,6 +18,8 @@ const initalState = {
   redirect: false,
   results: [],
   loading: false,
+  id: [],
+  favorites: [],
 };
 
 export const recipeReducer = (state = initalState, action) => {
@@ -49,6 +53,20 @@ export const recipeReducer = (state = initalState, action) => {
         results: action.payload,
         redirect: false,
         loading: false,
+      };
+    case GET_DIETS:
+      return {
+        ...state,
+        results: action.payload,
+        loading: false,
+        redirect: false,
+      };
+    case ADD_FAVORITE:
+      return {
+        ...state,
+        redirect: false,
+        loading: false,
+        id: [...state.id, action.payload],
       };
     case SET_REDIRECT:
       return {

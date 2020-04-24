@@ -20,6 +20,7 @@ import {
   SET_CUURENT,
   CLEAR_CUURENT,
   GET_FAVORITES,
+  GET_DIETS,
 } from './types';
 
 const cors = 'https://cors-anywhere.herokuapp.com';
@@ -122,6 +123,24 @@ export const searchExtended = (
   }
 };
 
+//Get diets
+
+export const getDiets = (diets) => async (dispatch) => {
+  try {
+    dispatch(showLoading());
+
+    const res = await axios.get(
+      `${cors}/https://api.spoonacular.com/recipes/complexSearch?query=&number=10&addRecipeInformation=true&diet=${diets}&apiKey=${process.env.REACT_APP_RECIPE_API_KEY}`
+    );
+
+    const { results } = res.data;
+    console.log(results);
+    dispatch({ type: GET_DIETS, payload: results });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 //Favorite actions
 
 //Get favorites
@@ -140,6 +159,21 @@ export const getFavorites = (ids) => async (dispatch) => {
 };
 
 //Add favorite
+export const addFavorite = (favorite) => async (dispatch) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  try {
+    const res = await axios.post('/api/contacts', favorite, config);
+
+    dispatch({ type: ADD_FAVORITE, payload: res.data });
+  } catch (err) {
+    console.error(err);
+  }
+};
 
 //Delete favorite
 

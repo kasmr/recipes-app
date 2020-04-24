@@ -3,6 +3,7 @@ export const GET_RECIPE = 'GET_RECIPE';
 export const SET_QUERY = 'SET_QUERY';
 export const SEARCH_RECIPES = 'SEARCH_RECIPES';
 export const SEARCH_EXTENDED = 'SEARCH_EXTENDED';
+export const GET_DIETS = 'GET_DIETS';
 export const SET_REDIRECT = 'SET_REDIRECT';
 export const SHOW_LOADING = 'SHOW_LOADING';
 export const SHOW_ALERT = 'SHOW_ALERT';
