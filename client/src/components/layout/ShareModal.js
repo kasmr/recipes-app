@@ -30,7 +30,7 @@ const styles = (theme) => ({
   root: {
     margin: 0,
     padding: theme.spacing(3),
-    width: 400,
+    width: 'auto',
     [theme.breakpoints.down('sm')]: {
       width: 'auto',
       marginTop: '1rem',

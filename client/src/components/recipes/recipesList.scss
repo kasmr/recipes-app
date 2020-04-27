@@ -2,6 +2,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
+  box-sizing: initial;
 
   .card {
     margin: 2rem 1rem;

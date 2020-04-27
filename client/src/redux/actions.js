@@ -127,10 +127,8 @@ export const searchExtended = (
 
 export const getDiets = (diets) => async (dispatch) => {
   try {
-    dispatch(showLoading());
-
     const res = await axios.get(
-      `${cors}/https://api.spoonacular.com/recipes/complexSearch?query=&number=10&addRecipeInformation=true&diet=${diets}&apiKey=${process.env.REACT_APP_RECIPE_API_KEY}`
+      `${cors}/https://api.spoonacular.com/recipes/complexSearch?query=${diets}&number=10&addRecipeInformation=true&diet=${diets}&apiKey=${process.env.REACT_APP_RECIPE_API_KEY}`
     );
 
     const { results } = res.data;

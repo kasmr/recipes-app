@@ -42,6 +42,7 @@ const RecipesList = ({ stateRecipes, getRecipes, loading }) => {
 RecipesList.propTypes = {
   stateRecipes: PropTypes.array.isRequired,
   getRecipes: PropTypes.func.isRequired,
+
   loading: PropTypes.bool.isRequired,
 };
 

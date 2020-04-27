@@ -18,6 +18,8 @@ import Rating from '@material-ui/lab/Rating';
 import Box from '@material-ui/core/Box';
 import './recipesList.scss';
 import ShareModal from '../layout/ShareModal';
+import { getDiets, setQuery } from '../../redux/actions';
+import { connect } from 'react-redux';
 
 const RecipeItem = ({
   title,
@@ -29,8 +31,17 @@ const RecipeItem = ({
   author,
   diets,
   image,
+  getDiets,
+  setQuery,
 }) => {
   const classes = useStyles();
+
+  const modifiedDiets = diets.toString();
+
+  const onClick = () => {
+    getDiets(modifiedDiets);
+    setQuery(modifiedDiets);
+  };
 
   return (
     <Box className='card' boxShadow={2}>
@@ -84,6 +95,7 @@ const RecipeItem = ({
                 avatar={<Avatar>#</Avatar>}
                 label={diets.slice(0, 2).toString()}
                 color='primary'
+                onClick={onClick}
               />
             ) : (
               <Chip
@@ -124,7 +136,13 @@ const RecipeItem = ({
   );
 };
 
-export default RecipeItem;
+const mapStateToProps = (state) => {
+  return {
+    query: state.recipes.query,
+  };
+};
+
+export default connect(mapStateToProps, { getDiets, setQuery })(RecipeItem);
 
 const stringToColor = () => {
   let hex = Math.floor(Math.random() * 0xffffff);

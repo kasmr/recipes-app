@@ -57,6 +57,7 @@ export const recipeReducer = (state = initalState, action) => {
     case GET_DIETS:
       return {
         ...state,
+        query: action.payload,
         results: action.payload,
         loading: false,
         redirect: false,

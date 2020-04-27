@@ -14,6 +14,7 @@ import About from './components/pages/About';
 import ExtendedSearch from './components/pages/extendedSearch/ExtendedSearch';
 import ResultsExtended from './components/pages/extendedSearch/ResultsExtended';
 import Favorites from './components/pages/Favorites';
+import { CssBaseline } from '@material-ui/core';
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -21,6 +22,7 @@ if (localStorage.token) {
 
 const theme = createMuiTheme({
   palette: {
+    type: 'dark',
     primary: {
       main: '#0288d1',
     },
@@ -33,30 +35,32 @@ const theme = createMuiTheme({
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
-      <BrowserRouter>
-        <Container maxWidth='xl' style={{ marginTop: 55 }}>
-          <Navbar />
-          <Switch>
-            <PrivateRoute exact path='/' component={Home} />
-            <PrivateRoute exact path='/about' component={About} />
-            <PrivateRoute
-              exact
-              path='/extended-search'
-              component={ExtendedSearch}
-            />
-            <PrivateRoute exact path='/results' component={Results} />
-            <PrivateRoute
-              exact
-              path='/extended-search/results'
-              component={ResultsExtended}
-            />
-            <PrivateRoute exact path='/recipe/:id' component={Recipe} />
-            <Route exact path='/register' component={Register} />
-            <Route exact path='/login' component={Login} />
-            <Route exact path='/favorites' component={Favorites} />
-          </Switch>
-        </Container>
-      </BrowserRouter>
+      <CssBaseline>
+        <BrowserRouter>
+          <Container maxWidth='xl' style={{ marginTop: 55 }}>
+            <Navbar />
+            <Switch>
+              <PrivateRoute exact path='/' component={Home} />
+              <PrivateRoute exact path='/about' component={About} />
+              <PrivateRoute
+                exact
+                path='/extended-search'
+                component={ExtendedSearch}
+              />
+              <PrivateRoute exact path='/results' component={Results} />
+              <PrivateRoute
+                exact
+                path='/extended-search/results'
+                component={ResultsExtended}
+              />
+              <PrivateRoute exact path='/recipe/:id' component={Recipe} />
+              <Route exact path='/register' component={Register} />
+              <Route exact path='/login' component={Login} />
+              <Route exact path='/favorites' component={Favorites} />
+            </Switch>
+          </Container>
+        </BrowserRouter>
+      </CssBaseline>
     </ThemeProvider>
   );
 };

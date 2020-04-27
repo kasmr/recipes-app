@@ -200,6 +200,7 @@ const ExtendedSearch = ({ searchExtended, setQuery, history }) => {
             type='text'
             value={value}
             onChange={onChange}
+            required
           />
         </div>
         <FormGroup row className={classes.form}>
