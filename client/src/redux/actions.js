@@ -241,7 +241,7 @@ export const login = (formData) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: LOGIN_FAIL,
-      payload: err.response.data.mag,
+      payload: err.response.data.msg,
     });
   }
 };

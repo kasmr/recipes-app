@@ -41,7 +41,9 @@ const Login = ({ isAuthenticated, error, login, history }) => {
 
   return (
     <form className={classes.root} onSubmit={onSubmit}>
-      {error && <Alert error={error} type='error' />}
+      {error && error !== 'User already exists' && (
+        <Alert error={error} type='error' />
+      )}
       <div className='form'>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />

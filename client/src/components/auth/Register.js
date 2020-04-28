@@ -44,7 +44,9 @@ const Register = ({ register, error, isAuthenticated, history }) => {
 
   return (
     <form className={classes.root} autoComplete='off' onSubmit={onSubmit}>
-      {error && <Alert error={error} type='error' />}
+      {error && error !== 'User does not exist' && (
+        <Alert error={error} type='error' />
+      )}
       <div className='form'>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />

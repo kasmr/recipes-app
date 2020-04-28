@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { logout } from '../../redux/actions';
 import PropTypes from 'prop-types';
@@ -25,7 +25,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 
 const Panel = ({ logout, user }) => {
   const classes = useStyles();
-  const [state, setState] = React.useState({
+  const [state, setState] = useState({
     left: false,
   });
 
@@ -49,29 +49,51 @@ const Panel = ({ logout, user }) => {
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <CardHeader
-        avatar={
-          <DarkTooltip title='Click to logout'>
-            <StyledBadge
-              overlap='circle'
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'right',
-              }}
-              variant='dot'
-              onClick={() => logout()}
-            >
-              <Avatar
-                className={classes.large}
+      {user ? (
+        <CardHeader
+          avatar={
+            <DarkTooltip title='Click to logout'>
+              <StyledBadge
+                overlap='circle'
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'right',
+                }}
+                variant='dot'
                 onClick={() => logout()}
-              ></Avatar>
-            </StyledBadge>
-          </DarkTooltip>
-        }
-        title={user && user.name}
-        subheader={user && user.email}
-      />
-
+              >
+                <Avatar
+                  className={classes.large}
+                  onClick={() => logout()}
+                ></Avatar>
+              </StyledBadge>
+            </DarkTooltip>
+          }
+          title={user && user.name}
+          subheader={user && user.email}
+        />
+      ) : (
+        <CardHeader
+          avatar={
+            <DarkTooltip title='Click to login'>
+              <Link to='/login'>
+                <StyledBadge
+                  overlap='circle'
+                  anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'right',
+                  }}
+                  variant='dot'
+                >
+                  <Avatar className={classes.large}></Avatar>
+                </StyledBadge>
+              </Link>
+            </DarkTooltip>
+          }
+          title='Unauthorized'
+          subheader='please login'
+        />
+      )}
       <CardMedia className={classes.media} image='/menu.jpg' title='Recipes' />
       <List>
         <Link to='/'>

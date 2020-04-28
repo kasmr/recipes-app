@@ -47,60 +47,59 @@ const Navbar = ({ setQuery, isAuthenticated, location }) => {
     );
   }
 
-  if (!isAuthenticated) {
-    return (
-      <div className={classes.root}>
-        <AppBar position='fixed'>
-          <Toolbar>
-            <Typography
-              className={classes.title2}
-              variant='h4'
-              noWrap
-              align='center'
-            >
-              Recipe App <MenuBookRoundedIcon style={{ fontSize: '2rem' }} />
-            </Typography>
-          </Toolbar>
-        </AppBar>
-      </div>
-    );
-  } else {
-    return (
-      <div className={classes.root}>
-        <AppBar position='fixed'>
-          <Toolbar style={{ justifyContent: 'space-between' }}>
-            <Panel />
-            <form onSubmit={onFormSubmit}>
-              <div className={classes.search}>
-                <div className={classes.searchIcon}>
-                  <SearchIcon />
-                </div>
-                <InputBase
-                  placeholder='Search…'
-                  classes={{
-                    root: classes.inputRoot,
-                    input: classes.inputInput,
-                  }}
-                  inputProps={{ 'aria-label': 'search' }}
-                  type='text'
-                  value={value}
-                  onChange={onChange}
-                  required
-                />
+  // if (!isAuthenticated) {
+  //   return (
+  //     <div className={classes.root}>
+  //       <AppBar position='fixed'>
+  //         <Toolbar>
+  //           <Typography
+  //             className={classes.title2}
+  //             variant='h4'
+  //             noWrap
+  //             align='center'
+  //           >
+  //             Recipe App <MenuBookRoundedIcon style={{ fontSize: '2rem' }} />
+  //           </Typography>
+  //         </Toolbar>
+  //       </AppBar>
+  //     </div>
+  //   );
+  // } else
+  return (
+    <div className={classes.root}>
+      <AppBar position='fixed'>
+        <Toolbar style={{ justifyContent: 'space-between' }}>
+          <Panel />
+          <form onSubmit={onFormSubmit}>
+            <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
               </div>
-            </form>
+              <InputBase
+                placeholder='Search…'
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+                inputProps={{ 'aria-label': 'search' }}
+                type='text'
+                value={value}
+                onChange={onChange}
+                required
+              />
+            </div>
+          </form>
 
-            <Link to='/' className={classes.logo}>
-              <Typography className={classes.title} variant='h4' noWrap>
-                Recipe App
-              </Typography>
-              <MenuBookRoundedIcon className={classes.mainIcon} />
-            </Link>
-          </Toolbar>
-        </AppBar>
-      </div>
-    );
-  }
+          <Link to='/' className={classes.logo}>
+            <Typography className={classes.title} variant='h4' noWrap>
+              Recipe App
+            </Typography>
+            <MenuBookRoundedIcon className={classes.mainIcon} />
+          </Link>
+        </Toolbar>
+      </AppBar>
+    </div>
+  );
 };
 
 Navbar.propTypes = {
