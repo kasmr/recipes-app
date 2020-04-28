@@ -38,10 +38,10 @@ const RecipeItem = ({
 
   const modifiedDiets = diets.toString();
 
-  const onClick = () => {
-    getDiets(modifiedDiets);
-    setQuery(modifiedDiets);
-  };
+  // const onClick = () => {
+  //   getDiets(modifiedDiets);
+  //   setQuery(modifiedDiets);
+  // };
 
   return (
     <Box className='card' boxShadow={2}>
@@ -95,7 +95,7 @@ const RecipeItem = ({
                 avatar={<Avatar>#</Avatar>}
                 label={diets.slice(0, 2).toString()}
                 color='primary'
-                onClick={onClick}
+                // onClick={onClick}
               />
             ) : (
               <Chip
