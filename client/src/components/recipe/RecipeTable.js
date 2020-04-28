@@ -56,8 +56,8 @@ const RecipeTable = ({ recipe }) => {
           </TableHead>
           <TableBody>
             {extendedIngredients &&
-              extendedIngredients.map((row) => (
-                <TableRow key={row.id}>
+              extendedIngredients.map((row, i) => (
+                <TableRow key={i}>
                   <TableCell component='th' scope='row'>
                     <p>{row.originalName}</p>
                     <img

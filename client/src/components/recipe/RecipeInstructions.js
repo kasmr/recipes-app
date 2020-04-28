@@ -8,18 +8,6 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import { v4 as uuidv4 } from 'uuid';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  demo: {
-    backgroundColor: theme.palette.background.paper,
-  },
-  title: {
-    margin: theme.spacing(4, 0, 2),
-  },
-}));
-
 const RecipeInstructions = ({ recipe }) => {
   const classes = useStyles();
 
@@ -37,7 +25,7 @@ const RecipeInstructions = ({ recipe }) => {
           >
             Cooking instructions:
           </Typography>
-          <div className={classes.demo}>
+          <div className={classes.body}>
             <List>
               {analyzedInstructions &&
                 analyzedInstructions.map((instruction) =>
@@ -62,3 +50,16 @@ const RecipeInstructions = ({ recipe }) => {
 };
 
 export default RecipeInstructions;
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  body: {
+    backgroundColor: theme.palette.background.paper,
+    borderRadius: 5,
+  },
+  title: {
+    margin: theme.spacing(4, 0, 2),
+  },
+}));

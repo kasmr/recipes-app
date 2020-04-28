@@ -22,8 +22,12 @@ import { Avatar } from '@material-ui/core';
 import Badge from '@material-ui/core/Badge';
 import CardHeader from '@material-ui/core/CardHeader';
 import Tooltip from '@material-ui/core/Tooltip';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import Brightness4OutlinedIcon from '@material-ui/icons/Brightness4Outlined';
+import Brightness7Icon from '@material-ui/icons/Brightness7';
 
-const Panel = ({ logout, user }) => {
+const Panel = ({ logout, user, handleDarkMode, dark }) => {
   const classes = useStyles();
   const [state, setState] = useState({
     left: false,
@@ -130,6 +134,28 @@ const Panel = ({ logout, user }) => {
           </ListItem>
         </Link>
       </List>
+      <Divider />
+      <FormControlLabel
+        className={classes.switch}
+        control={
+          <Checkbox
+            checked={dark}
+            onChange={handleDarkMode}
+            icon={
+              <Brightness4OutlinedIcon
+                style={{ fontSize: 40 }}
+                color='primary'
+              />
+            }
+            checkedIcon={
+              <Brightness7Icon style={{ fontSize: 40 }} color='primary' />
+            }
+            color='primary'
+          />
+        }
+        label={dark ? 'Light mode' : 'Dark mode'}
+        labelPlacement='bottom'
+      />
     </div>
   );
 
@@ -192,6 +218,10 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.primary.main,
     cursor: 'pointer',
   },
+  switch: {
+    display: 'flex',
+    marginTop: '5rem',
+  },
 }));
 
 const StyledBadge = withStyles((theme) => ({
@@ -210,6 +240,7 @@ const StyledBadge = withStyles((theme) => ({
       content: '""',
     },
   },
+
   '@keyframes ripple': {
     '0%': {
       transform: 'scale(.8)',

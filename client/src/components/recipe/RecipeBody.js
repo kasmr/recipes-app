@@ -17,47 +17,6 @@ import CakeIcon from '@material-ui/icons/Cake';
 import SupervisedUserCircleRoundedIcon from '@material-ui/icons/SupervisedUserCircleRounded';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: '100%',
-    backgroundColor: theme.palette.background.paper,
-    marginTop: '5rem',
-  },
-  title: {
-    [theme.breakpoints.down('sm')]: {
-      fontSize: '2rem',
-    },
-  },
-  spoon: {
-    width: 40,
-  },
-  chip: {
-    margin: theme.spacing(0.5),
-  },
-  chip2: {
-    [theme.breakpoints.down('sm')]: {
-      display: 'flex',
-    },
-  },
-  image: {
-    [theme.breakpoints.down('sm')]: {
-      width: '300px',
-    },
-  },
-  itemText: {
-    wordWrap: 'break-word',
-  },
-  section1: {
-    margin: theme.spacing(3, 2),
-  },
-  section2: {
-    margin: theme.spacing(2),
-  },
-  section3: {
-    margin: theme.spacing(3, 1, 1),
-  },
-}));
-
 const RecipeBody = ({ recipe }) => {
   const classes = useStyles();
 
@@ -275,3 +234,45 @@ const RecipeBody = ({ recipe }) => {
 };
 
 export default RecipeBody;
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: '100%',
+    backgroundColor: theme.palette.background.paper,
+    marginTop: '5rem',
+    borderRadius: 5,
+  },
+  title: {
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '2rem',
+    },
+  },
+  spoon: {
+    width: 40,
+  },
+  chip: {
+    margin: theme.spacing(0.5),
+  },
+  chip2: {
+    [theme.breakpoints.down('sm')]: {
+      display: 'flex',
+    },
+  },
+  image: {
+    [theme.breakpoints.down('sm')]: {
+      width: '300px',
+    },
+  },
+  itemText: {
+    wordWrap: 'break-word',
+  },
+  section1: {
+    margin: theme.spacing(3, 2),
+  },
+  section2: {
+    margin: theme.spacing(2),
+  },
+  section3: {
+    margin: theme.spacing(3, 1, 1),
+  },
+}));

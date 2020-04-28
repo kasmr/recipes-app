@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
@@ -20,25 +20,31 @@ if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
 
-const theme = createMuiTheme({
-  palette: {
-    type: 'dark',
-    primary: {
-      main: '#0288d1',
-    },
-    secondary: {
-      main: '#e53935',
-    },
-  },
-});
-
 const App = () => {
+  const [dark, setDark] = useState(true);
+
+  const theme = createMuiTheme({
+    palette: {
+      type: dark ? 'dark' : 'light',
+      primary: {
+        main: '#0288d1',
+      },
+      secondary: {
+        main: '#e53935',
+      },
+    },
+  });
+
+  const handleDarkMode = () => {
+    setDark(!dark);
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline>
         <BrowserRouter>
           <Container maxWidth='xl' style={{ marginTop: 55 }}>
-            <Navbar />
+            <Navbar handleDarkMode={handleDarkMode} dark={dark} />
             <Switch>
               <Route exact path='/' component={Home} />
               <Route exact path='/about' component={About} />

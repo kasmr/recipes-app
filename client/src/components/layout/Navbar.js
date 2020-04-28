@@ -12,7 +12,13 @@ import SearchIcon from '@material-ui/icons/Search';
 import Panel from './Panel';
 import MenuBookRoundedIcon from '@material-ui/icons/MenuBookRounded';
 
-const Navbar = ({ setQuery, isAuthenticated, location }) => {
+const Navbar = ({
+  setQuery,
+  isAuthenticated,
+  location,
+  dark,
+  handleDarkMode,
+}) => {
   const classes = useStyles();
 
   const { pathname } = location;
@@ -33,7 +39,7 @@ const Navbar = ({ setQuery, isAuthenticated, location }) => {
       <div className={classes.root}>
         <AppBar position='fixed'>
           <Toolbar style={{ justifyContent: 'space-between' }}>
-            <Panel />
+            <Panel dark={dark} handleDarkMode={handleDarkMode} />
 
             <Link to='/' className={classes.logo}>
               <Typography className={classes.title} variant='h4' noWrap>
@@ -69,7 +75,7 @@ const Navbar = ({ setQuery, isAuthenticated, location }) => {
     <div className={classes.root}>
       <AppBar position='fixed'>
         <Toolbar style={{ justifyContent: 'space-between' }}>
-          <Panel />
+          <Panel dark={dark} handleDarkMode={handleDarkMode} />
           <form onSubmit={onFormSubmit}>
             <div className={classes.search}>
               <div className={classes.searchIcon}>
@@ -154,7 +160,7 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       backgroundColor: fade(theme.palette.common.white, 0.25),
     },
-    marginLeft: '11rem',
+    marginLeft: '11.5rem',
     width: 'auto',
     [theme.breakpoints.down('sm')]: {
       width: 'auto',
