@@ -15,7 +15,6 @@ const initalState = {
   recipes: [],
   currentRecipe: {},
   query: '',
-  redirect: false,
   results: [],
   loading: false,
   id: [],
@@ -28,21 +27,18 @@ export const recipeReducer = (state = initalState, action) => {
       return {
         ...state,
         recipes: action.payload,
-        redirect: false,
         loading: false,
       };
     case GET_RECIPE:
       return {
         ...state,
         currentRecipe: action.payload,
-        redirect: false,
         loading: false,
       };
     case SET_QUERY:
       return {
         ...state,
         query: action.payload,
-        redirect: true,
         loading: false,
       };
     case SEARCH_RECIPES:
@@ -51,7 +47,6 @@ export const recipeReducer = (state = initalState, action) => {
         ...state,
         query: state.query,
         results: action.payload,
-        redirect: false,
         loading: false,
       };
     case GET_DIETS:
@@ -60,19 +55,17 @@ export const recipeReducer = (state = initalState, action) => {
         query: action.payload,
         results: action.payload,
         loading: false,
-        redirect: false,
       };
     case ADD_FAVORITE:
       return {
         ...state,
-        redirect: false,
+
         loading: false,
         id: [...state.id, action.payload],
       };
     case SET_REDIRECT:
       return {
         ...state,
-        redirect: true,
         loading: false,
       };
     case SHOW_LOADING:
