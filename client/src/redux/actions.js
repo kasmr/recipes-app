@@ -17,10 +17,10 @@ import {
   LOGOUT,
   ADD_FAVORITE,
   DELETE_FAVORITE,
-  SET_CUURENT,
-  CLEAR_CUURENT,
   GET_FAVORITES,
+  GET_FAVORITE_IDS,
   GET_DIETS,
+  GET_FAVORITE_RECIPES,
 } from './types';
 
 const cors = 'https://cors-anywhere.herokuapp.com';
@@ -139,10 +139,28 @@ export const getDiets = (diets) => async (dispatch) => {
   }
 };
 
+////////////////////////////
+
 //Favorite actions
 
-//Get favorites
-export const getFavorites = (ids) => async (dispatch) => {
+////////////////////////////
+
+//Get favorite ids from backend
+
+export const getFavoriteIDS = () => async (dispatch) => {
+  try {
+    const res = await axios.get('/api/favorites');
+
+    const modifiedData = res.data.map((item) => item.recipeID);
+
+    dispatch({ type: GET_FAVORITE_IDS, payload: modifiedData });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+//Get favorite Recipes
+export const getFavoriteRecipes = (ids) => async (dispatch) => {
   try {
     dispatch(showLoading());
 
@@ -150,7 +168,7 @@ export const getFavorites = (ids) => async (dispatch) => {
       `${cors}/https://api.spoonacular.com/recipes/informationBulk?ids=${ids}&apiKey=${process.env.REACT_APP_RECIPE_API_KEY}`
     );
 
-    dispatch({ type: GET_FAVORITES, payload: res.data });
+    dispatch({ type: GET_FAVORITE_RECIPES, payload: res.data });
   } catch (err) {
     console.error(err);
   }
@@ -165,7 +183,7 @@ export const addFavorite = (favorite) => async (dispatch) => {
   };
 
   try {
-    const res = await axios.post('/api/contacts', favorite, config);
+    const res = await axios.post('/api/favorites', favorite, config);
 
     dispatch({ type: ADD_FAVORITE, payload: res.data });
   } catch (err) {
@@ -183,7 +201,7 @@ export const addFavorite = (favorite) => async (dispatch) => {
 
 //Backend actions
 
-/////////////////
+//////////////////
 
 //Load user
 export const loadUser = () => async (dispatch) => {

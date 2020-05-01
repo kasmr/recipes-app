@@ -1,24 +1,31 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { showLoading, getFavorites, loadUser } from '../../redux/actions';
+import {
+  showLoading,
+  getFavoriteRecipes,
+  loadUser,
+  getFavoriteIDS,
+} from '../../redux/actions';
 import PropTypes from 'prop-types';
 import SkeletonGroup from '../layout/SkeletonGroup';
 import '../../components/recipes/recipesList.scss';
 import RecipeItem from '../recipes/RecipeItem';
 
 const Favorites = ({
-  favoritesIDS,
+  favoriteIDS,
   favorites,
-  getFavorites,
+  getFavoriteRecipes,
+  getFavoriteIDS,
   loading,
   loadUser,
 }) => {
   useEffect(() => {
     loadUser();
-    console.log(favoritesIDS);
-    // fetchData();
+    getFavoriteRecipes(favoriteIDS);
     //eslint-disable-next-line
   }, []);
+
+  console.log(favorites);
 
   if (loading || favorites === null) {
     return <SkeletonGroup />;
@@ -27,7 +34,7 @@ const Favorites = ({
   return (
     <>
       <h1>Favorites</h1>
-      {/* <div className='main-container'>
+      <div className='main-container'>
         {favorites.map((recipe) => (
           <RecipeItem
             title={recipe.title}
@@ -42,28 +49,28 @@ const Favorites = ({
             key={recipe.id}
           />
         ))}
-      </div> */}
+      </div>
     </>
   );
 };
 
 Favorites.propTypes = {
-  favoritesIDS: PropTypes.array.isRequired,
-  getFavorites: PropTypes.func.isRequired,
+  favoritesIDS: PropTypes.array,
+  getFavorites: PropTypes.func,
   loading: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => {
   return {
-    favoritesIDS: state.recipes.favoritesIDS,
+    favoriteIDS: state.auth.favoriteIDS,
     favorites: state.recipes.favorites,
     loading: state.recipes.loading,
   };
 };
 
 export default connect(mapStateToProps, {
-  getFavorites,
+  getFavoriteRecipes,
   showLoading,
-
+  getFavoriteIDS,
   loadUser,
 })(Favorites);

@@ -18,7 +18,8 @@ export const LOGOUT = 'LOGOUT';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 // Types for favorite backend
 export const ADD_FAVORITE = 'ADD_FAVORITE';
-export const GET_FAVORITES = 'GET_FAVORITES';
+export const GET_FAVORITE_RECIPES = 'GET_FAVORITE_RECIPES';
+export const GET_FAVORITE_IDS = 'GET_FAVORITE_IDS';
 export const DELETE_FAVORITE = 'DELETE_FAVORITE';
 export const SET_CUURENT = 'SET_CUURENT';
 export const CLEAR_CUURENT = 'CLEAR_CUURENT';

@@ -7,29 +7,13 @@ const FavoriteSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'users',
   },
-  title: {
+  recipeID: {
     type: String,
     required: true,
   },
-  source: {
+  title: {
     type: String,
-    required: false,
-  },
-  image: {
-    type: String,
-    required: false,
-  },
-  labels: {
-    type: String,
-    required: false,
-  },
-  calories: {
-    type: String,
-    required: false,
-  },
-  time: {
-    type: String,
-    required: false,
+    required: true,
   },
   date: {
     type: Date,

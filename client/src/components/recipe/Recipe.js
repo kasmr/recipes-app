@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getRecipe, loadUser } from '../../redux/actions';
+import { getRecipe, loadUser, addFavorite } from '../../redux/actions';
 import RecipeBody from './RecipeBody';
 import RecipeTable from './RecipeTable';
 import RecipeInstructions from './RecipeInstructions';
@@ -9,7 +9,14 @@ import SkeletonCurrent from '../layout/SkeletonCurrent';
 import { Container } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-const Recipe = ({ match, getRecipe, currentRecipe, loading, loadUser }) => {
+const Recipe = ({
+  match,
+  getRecipe,
+  currentRecipe,
+  loading,
+  loadUser,
+  addFavorite,
+}) => {
   const classes = useStyles();
   const id = match.params.id;
 
@@ -28,7 +35,11 @@ const Recipe = ({ match, getRecipe, currentRecipe, loading, loadUser }) => {
       <Container className={classes.container}>
         {currentRecipe && (
           <div>
-            <RecipeBody recipe={currentRecipe} />
+            <RecipeBody
+              id={id}
+              addFavorite={addFavorite}
+              recipe={currentRecipe}
+            />
             <RecipeInstructions recipe={currentRecipe} />
             <RecipeTable recipe={currentRecipe} />
           </div>
@@ -54,7 +65,9 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { getRecipe, loadUser })(Recipe);
+export default connect(mapStateToProps, { getRecipe, loadUser, addFavorite })(
+  Recipe
+);
 
 const useStyles = makeStyles((theme) => ({
   container: {

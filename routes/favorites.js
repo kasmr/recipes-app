@@ -33,16 +33,16 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { title, source, image, labels, calories, time } = req.body;
+    const { recipeID, title } = req.body;
+
+    let favorite = await Favorite.findById(req.params.id);
+
+    if (!favorite) return res.status(404).json({ msg: 'Favorite not found' });
 
     try {
       const newFavorite = new Favorite({
+        recipeID,
         title,
-        source,
-        image,
-        labels,
-        calories,
-        time,
         user: req.user.id,
       });
 
@@ -60,16 +60,16 @@ router.post(
 // @desc        Update favorite
 // @access      Private
 router.put('/:id', auth, async (req, res) => {
-  const { title, source, image, labels, calories, time } = req.body;
+  const { favoriteID } = req.body;
 
   // Build favorite object
   const favoriteFields = {};
-  if (title) favoriteFields.title = title;
-  if (source) favoriteFields.source = source;
-  if (labels) favoriteFields.labels = labels;
-  if (image) favoriteFields.image = image;
-  if (calories) favoriteFields.calories = calories;
-  if (time) favoriteFields.time = time;
+  if (favoriteID) favoriteFields.favoriteID = favoriteID;
+  // if (source) favoriteFields.source = source;
+  // if (labels) favoriteFields.labels = labels;
+  // if (image) favoriteFields.image = image;
+  // if (calories) favoriteFields.calories = calories;
+  // if (time) favoriteFields.time = time;
 
   try {
     let favorite = await Favorite.findById(req.params.id);

@@ -8,6 +8,7 @@ import {
   AUTH_ERROR,
   SHOW_LOADING,
   ADD_FAVORITE,
+  GET_FAVORITE_IDS,
 } from './types';
 
 const initalState = {
@@ -55,6 +56,11 @@ export const authReducer = (state = initalState, action) => {
         ...state,
         favoriteIDS: [...state.favorites, action.payload],
         loading: false,
+      };
+    case GET_FAVORITE_IDS:
+      return {
+        ...state,
+        favoriteIDS: action.payload,
       };
     case SHOW_LOADING:
       return {

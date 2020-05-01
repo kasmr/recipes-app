@@ -116,12 +116,14 @@ const Panel = ({ logout, user, handleDarkMode, dark }) => {
             <ListItemText primary='Extended Search' />
           </ListItem>
         </Link>
-        <ListItem disabled button>
-          <ListItemIcon>
-            <FavoriteIcon />
-          </ListItemIcon>
-          <ListItemText primary='Favorites' />
-        </ListItem>
+        <Link to='/favorites'>
+          <ListItem button>
+            <ListItemIcon>
+              <FavoriteIcon />
+            </ListItemIcon>
+            <ListItemText primary='Favorites' />
+          </ListItem>
+        </Link>
       </List>
       <Divider />
       <List>

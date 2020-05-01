@@ -9,6 +9,7 @@ import {
   GET_FAVORITES,
   ADD_FAVORITE,
   GET_DIETS,
+  GET_FAVORITE_RECIPES,
 } from './types';
 
 const initalState = {
@@ -17,7 +18,6 @@ const initalState = {
   query: '',
   results: [],
   loading: false,
-  id: [],
   favorites: [],
 };
 
@@ -56,12 +56,11 @@ export const recipeReducer = (state = initalState, action) => {
         results: action.payload,
         loading: false,
       };
-    case ADD_FAVORITE:
+    case GET_FAVORITE_RECIPES:
       return {
         ...state,
-
+        favorites: action.payload,
         loading: false,
-        id: [...state.id, action.payload],
       };
     case SET_REDIRECT:
       return {
