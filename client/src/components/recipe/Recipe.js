@@ -5,19 +5,11 @@ import { getRecipe, loadUser } from '../../redux/actions';
 import RecipeBody from './RecipeBody';
 import RecipeTable from './RecipeTable';
 import RecipeInstructions from './RecipeInstructions';
-import { Redirect } from 'react-router';
 import SkeletonCurrent from '../layout/SkeletonCurrent';
 import { Container } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-const Recipe = ({
-  match,
-  getRecipe,
-  currentRecipe,
-  redirect,
-  loading,
-  loadUser,
-}) => {
+const Recipe = ({ match, getRecipe, currentRecipe, loading, loadUser }) => {
   const classes = useStyles();
   const id = match.params.id;
 
@@ -26,10 +18,6 @@ const Recipe = ({
     loadUser();
     //eslint-disable-next-line
   }, []);
-
-  if (redirect === true) {
-    return <Redirect to='/results' />;
-  }
 
   if (loading || currentRecipe === null) {
     return <SkeletonCurrent />;
@@ -53,7 +41,6 @@ const Recipe = ({
 Recipe.propTypes = {
   currentRecipe: PropTypes.object.isRequired,
   getRecipe: PropTypes.func.isRequired,
-  redirect: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
   loadUser: PropTypes.func.isRequired,
@@ -62,7 +49,6 @@ Recipe.propTypes = {
 const mapStateToProps = (state) => {
   return {
     currentRecipe: state.recipes.currentRecipe,
-    redirect: state.recipes.redirect,
     loading: state.recipes.loading,
     isAuthenticated: state.auth.isAuthenticated,
   };

@@ -101,9 +101,6 @@ const useStyles = makeStyles((theme) => ({
   image: {
     display: 'flex',
     margin: 'auto',
-    width: '60%',
-    [theme.breakpoints.down('sm')]: {
-      width: '100%',
-    },
+    width: '100%',
   },
 }));

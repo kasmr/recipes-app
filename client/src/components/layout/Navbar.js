@@ -18,6 +18,7 @@ const Navbar = ({
   location,
   dark,
   handleDarkMode,
+  history,
 }) => {
   const classes = useStyles();
 
@@ -29,6 +30,7 @@ const Navbar = ({
     e.preventDefault();
     setQuery(value);
     setValue('');
+    history.push('/results');
   };
 
   const onChange = (e) => {

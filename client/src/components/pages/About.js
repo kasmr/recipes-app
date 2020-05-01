@@ -5,29 +5,6 @@ import { loadUser } from '../../redux/actions';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    height: '94.3vh',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  info: {
-    display: 'flex',
-    flexDirection: 'column',
-    [theme.breakpoints.down('sm')]: {
-      fontSize: '1.5rem',
-    },
-  },
-  img: {
-    marginTop: '1rem',
-    [theme.breakpoints.down('sm')]: {
-      width: '70%',
-    },
-  },
-}));
-
 const About = ({ loadUser }) => {
   const classes = useStyles();
 
@@ -74,3 +51,26 @@ About.propTypes = {
 };
 
 export default connect(null, { loadUser })(About);
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    height: '94.3vh',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  info: {
+    display: 'flex',
+    flexDirection: 'column',
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '1.5rem',
+    },
+  },
+  img: {
+    marginTop: '1rem',
+    [theme.breakpoints.down('sm')]: {
+      width: '70%',
+    },
+  },
+}));

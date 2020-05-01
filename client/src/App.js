@@ -11,8 +11,7 @@ import Login from './components/auth/Login';
 import setAuthToken from './utils/setAuthToken';
 import PrivateRoute from './components/routing/PrivateRoute';
 import About from './components/pages/About';
-import ExtendedSearch from './components/pages/extendedSearch/ExtendedSearch';
-import ResultsExtended from './components/pages/extendedSearch/ResultsExtended';
+import ExtendedSearch from './components/pages/ExtendedSearch';
 import Favorites from './components/pages/Favorites';
 import { CssBaseline } from '@material-ui/core';
 
@@ -57,7 +56,7 @@ const App = () => {
               <Route
                 exact
                 path='/extended-search/results'
-                component={ResultsExtended}
+                component={Results}
               />
               <Route exact path='/recipe/:id' component={Recipe} />
               <Route exact path='/register' component={Register} />
