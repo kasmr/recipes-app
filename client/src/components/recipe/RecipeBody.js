@@ -17,7 +17,7 @@ import CakeIcon from '@material-ui/icons/Cake';
 import SupervisedUserCircleRoundedIcon from '@material-ui/icons/SupervisedUserCircleRounded';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 
-const RecipeBody = ({ recipe, addFavorite, id }) => {
+const RecipeBody = ({ recipe }) => {
   const classes = useStyles();
 
   const {
@@ -36,19 +36,6 @@ const RecipeBody = ({ recipe, addFavorite, id }) => {
     spoonacularScore,
     aggregateLikes,
   } = recipe;
-
-  const [current, setCurrent] = useState({
-    recipeID: '',
-    title: '',
-  });
-
-  useEffect(() => {
-    setCurrent({ recipeID: id, title: title });
-  }, []);
-
-  const addRecipe = () => {
-    addFavorite(current);
-  };
 
   return (
     <div className={classes.root}>
@@ -70,7 +57,6 @@ const RecipeBody = ({ recipe, addFavorite, id }) => {
             />
           </Grid>
         </Grid>
-        <button onClick={addRecipe}>Add favorite</button>
         <Typography style={{ marginTop: '1rem' }} align='center'>
           Recipe health score
         </Typography>

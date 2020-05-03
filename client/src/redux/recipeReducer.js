@@ -6,8 +6,6 @@ import {
   SET_QUERY,
   SET_REDIRECT,
   SHOW_LOADING,
-  GET_FAVORITES,
-  ADD_FAVORITE,
   GET_DIETS,
   GET_FAVORITE_RECIPES,
 } from './types';

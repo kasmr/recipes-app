@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Tooltip from '@material-ui/core/Tooltip';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import Alert from './Alert';
 
 const useStyles = makeStyles((theme) => ({
   fab: {
@@ -21,26 +23,43 @@ const DarkTooltip = withStyles((theme) => ({
   },
 }))(Tooltip);
 
-const FloatingButtonAdd = ({ addFavorite, recipe }) => {
+const FloatingButtonAdd = ({ addFavorite, id, recipe: { title } }) => {
   const classes = useStyles();
 
-  const { id } = recipe;
+  const [added, setAdded] = useState(false);
 
-  const favorite = {
-    favoriteID: id,
+  const [current, setCurrent] = useState({
+    recipeID: '',
+    title: '',
+  });
+
+  useEffect(() => {
+    setCurrent({ recipeID: id, title: title });
+    //eslint-disable-next-line
+  }, []);
+
+  const addRecipe = () => {
+    addFavorite(current);
+    setAdded(true);
+    setTimeout(() => {
+      setAdded(false);
+    }, 6000);
   };
 
   return (
-    <DarkTooltip title='Add to favorites'>
-      <Fab
-        className={classes.fab}
-        color='primary'
-        aria-label='add'
-        onClick={() => addFavorite(favorite)}
-      >
-        <AddIcon />
-      </Fab>
-    </DarkTooltip>
+    <>
+      {added && <Alert error='Successfuly added to favorites' type='success' />}
+      <DarkTooltip title='Add to favorites'>
+        <Fab
+          className={classes.fab}
+          color='primary'
+          aria-label='add'
+          onClick={addRecipe}
+        >
+          <FavoriteIcon />
+        </Fab>
+      </DarkTooltip>
+    </>
   );
 };
 

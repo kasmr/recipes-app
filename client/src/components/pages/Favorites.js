@@ -1,27 +1,30 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import {
-  showLoading,
-  getFavoriteRecipes,
-  loadUser,
-  getFavoriteIDS,
-} from '../../redux/actions';
+import { showLoading, getFavoriteRecipes, loadUser } from '../../redux/actions';
 import PropTypes from 'prop-types';
 import SkeletonGroup from '../layout/SkeletonGroup';
 import '../../components/recipes/recipesList.scss';
+import { makeStyles } from '@material-ui/core/styles';
+import { Typography } from '@material-ui/core';
 import RecipeItem from '../recipes/RecipeItem';
 
 const Favorites = ({
   favoriteIDS,
   favorites,
   getFavoriteRecipes,
-  getFavoriteIDS,
   loading,
   loadUser,
 }) => {
+  const classes = useStyles();
+
   useEffect(() => {
     loadUser();
-    getFavoriteRecipes(favoriteIDS);
+    getFavoriteRecipes(
+      favoriteIDS
+        .map((item) => item.recipeID)
+        .sort()
+        .filter((item, pos, ary) => !pos || item !== ary[pos - 1])
+    );
     //eslint-disable-next-line
   }, []);
 
@@ -33,7 +36,9 @@ const Favorites = ({
 
   return (
     <>
-      <h1>Favorites</h1>
+      <Typography className={classes.title} align='center'>
+        Your favorties:
+      </Typography>
       <div className='main-container'>
         {favorites.map((recipe) => (
           <RecipeItem
@@ -71,6 +76,15 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
   getFavoriteRecipes,
   showLoading,
-  getFavoriteIDS,
   loadUser,
 })(Favorites);
+
+const useStyles = makeStyles((theme) => ({
+  title: {
+    marginTop: '5rem',
+    fontSize: '2rem',
+    [theme.breakpoints.down('sm')]: {
+      fontWeight: 'lighter',
+    },
+  },
+}));

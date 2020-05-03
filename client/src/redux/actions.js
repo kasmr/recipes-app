@@ -151,9 +151,14 @@ export const getFavoriteIDS = () => async (dispatch) => {
   try {
     const res = await axios.get('/api/favorites');
 
-    const modifiedData = res.data.map((item) => item.recipeID);
+    //Dont know how to make MongoDB not to store the same ids, well i sort and filter array so it doesnt have the same ids
 
-    dispatch({ type: GET_FAVORITE_IDS, payload: modifiedData });
+    // const modifiedData = res.data
+    //   .map((item) => item.recipeID)
+    //   .sort()
+    //   .filter((item, pos, ary) => !pos || item != ary[pos - 1]);
+
+    dispatch({ type: GET_FAVORITE_IDS, payload: res.data });
   } catch (err) {
     console.error(err);
   }

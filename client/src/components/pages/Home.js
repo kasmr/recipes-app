@@ -16,6 +16,7 @@ const Home = ({ loadUser, getFavoriteIDS }) => {
 
 Home.propTypes = {
   loadUser: PropTypes.func.isRequired,
+  getFavoriteIDS: PropTypes.func.isRequired,
 };
 
 export default connect(null, { loadUser, getFavoriteIDS })(Home);

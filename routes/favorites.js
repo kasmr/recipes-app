@@ -35,10 +35,6 @@ router.post(
 
     const { recipeID, title } = req.body;
 
-    let favorite = await Favorite.findById(req.params.id);
-
-    if (!favorite) return res.status(404).json({ msg: 'Favorite not found' });
-
     try {
       const newFavorite = new Favorite({
         recipeID,

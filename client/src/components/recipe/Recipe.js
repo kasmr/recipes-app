@@ -8,6 +8,7 @@ import RecipeInstructions from './RecipeInstructions';
 import SkeletonCurrent from '../layout/SkeletonCurrent';
 import { Container } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import FloatingButtonAdd from '../layout/FloatingButtonAdd';
 
 const Recipe = ({
   match,
@@ -35,13 +36,14 @@ const Recipe = ({
       <Container className={classes.container}>
         {currentRecipe && (
           <div>
-            <RecipeBody
+            <RecipeBody recipe={currentRecipe} />
+            <RecipeInstructions recipe={currentRecipe} />
+            <RecipeTable recipe={currentRecipe} />
+            <FloatingButtonAdd
               id={id}
               addFavorite={addFavorite}
               recipe={currentRecipe}
             />
-            <RecipeInstructions recipe={currentRecipe} />
-            <RecipeTable recipe={currentRecipe} />
           </div>
         )}
       </Container>
@@ -65,9 +67,11 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { getRecipe, loadUser, addFavorite })(
-  Recipe
-);
+export default connect(mapStateToProps, {
+  getRecipe,
+  loadUser,
+  addFavorite,
+})(Recipe);
 
 const useStyles = makeStyles((theme) => ({
   container: {
