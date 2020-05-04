@@ -52,6 +52,7 @@ const App = () => {
                 path='/extended-search'
                 component={ExtendedSearch}
               />
+              <PrivateRoute exact path='/favorites' component={Favorites} />
               <Route exact path='/results' component={Results} />
               <Route
                 exact
@@ -61,7 +62,6 @@ const App = () => {
               <Route exact path='/recipe/:id' component={Recipe} />
               <Route exact path='/register' component={Register} />
               <Route exact path='/login' component={Login} />
-              <Route exact path='/favorites' component={Favorites} />
             </Switch>
           </Container>
         </BrowserRouter>

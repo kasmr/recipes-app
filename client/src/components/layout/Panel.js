@@ -27,7 +27,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Brightness4OutlinedIcon from '@material-ui/icons/Brightness4Outlined';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
 
-const Panel = ({ logout, user, handleDarkMode, dark }) => {
+const Panel = ({ logout, user, handleDarkMode, dark, favoriteIDS }) => {
   const classes = useStyles();
   const [state, setState] = useState({
     left: false,
@@ -64,12 +64,9 @@ const Panel = ({ logout, user, handleDarkMode, dark }) => {
                   horizontal: 'right',
                 }}
                 variant='dot'
-                onClick={() => logout()}
+                onClick={logout}
               >
-                <Avatar
-                  className={classes.large}
-                  onClick={() => logout()}
-                ></Avatar>
+                <Avatar className={classes.large} onClick={logout}></Avatar>
               </StyledBadge>
             </DarkTooltip>
           }
@@ -119,7 +116,18 @@ const Panel = ({ logout, user, handleDarkMode, dark }) => {
         <Link to='/favorites'>
           <ListItem button>
             <ListItemIcon>
-              <FavoriteIcon />
+              <Badge
+                badgeContent={
+                  favoriteIDS
+                    .map((item) => item.recipeID)
+                    .sort()
+                    .filter((item, pos, ary) => !pos || item !== ary[pos - 1])
+                    .length
+                }
+                color='secondary'
+              >
+                <FavoriteIcon />
+              </Badge>
             </ListItemIcon>
             <ListItemText primary='Favorites' />
           </ListItem>

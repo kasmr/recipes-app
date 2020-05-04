@@ -15,6 +15,7 @@ import MenuBookRoundedIcon from '@material-ui/icons/MenuBookRounded';
 const Navbar = ({
   setQuery,
   isAuthenticated,
+  favoriteIDS,
   location,
   dark,
   handleDarkMode,
@@ -41,7 +42,11 @@ const Navbar = ({
       <div className={classes.root}>
         <AppBar position='fixed'>
           <Toolbar style={{ justifyContent: 'space-between' }}>
-            <Panel dark={dark} handleDarkMode={handleDarkMode} />
+            <Panel
+              favoriteIDS={favoriteIDS}
+              dark={dark}
+              handleDarkMode={handleDarkMode}
+            />
 
             <Link to='/' className={classes.logo}>
               <Typography className={classes.title} variant='h4' noWrap>
@@ -77,7 +82,11 @@ const Navbar = ({
     <div className={classes.root}>
       <AppBar position='fixed'>
         <Toolbar style={{ justifyContent: 'space-between' }}>
-          <Panel dark={dark} handleDarkMode={handleDarkMode} />
+          <Panel
+            favoriteIDS={favoriteIDS}
+            dark={dark}
+            handleDarkMode={handleDarkMode}
+          />
           <form onSubmit={onFormSubmit}>
             <div className={classes.search}>
               <div className={classes.searchIcon}>
@@ -113,11 +122,13 @@ const Navbar = ({
 Navbar.propTypes = {
   setQuery: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
+  favoriteIDS: PropTypes.array,
 };
 
 const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.auth.isAuthenticated,
+    favoriteIDS: state.auth.favoriteIDS,
   };
 };
 
@@ -162,7 +173,7 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       backgroundColor: fade(theme.palette.common.white, 0.25),
     },
-    marginLeft: '11.5rem',
+    marginLeft: '12rem',
     width: 'auto',
     [theme.breakpoints.down('sm')]: {
       width: 'auto',

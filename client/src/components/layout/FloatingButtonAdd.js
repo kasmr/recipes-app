@@ -1,27 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Tooltip from '@material-ui/core/Tooltip';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import Alert from './Alert';
-
-const useStyles = makeStyles((theme) => ({
-  fab: {
-    position: 'sticky',
-    bottom: theme.spacing(2),
-    left: '95%',
-  },
-}));
-
-const DarkTooltip = withStyles((theme) => ({
-  tooltip: {
-    backgroundColor: 'rgba(0, 0, 0, 0.87)',
-    color: '#fff',
-    boxShadow: theme.shadows[1],
-    fontSize: 11,
-  },
-}))(Tooltip);
 
 const FloatingButtonAdd = ({ addFavorite, id, recipe: { title } }) => {
   const classes = useStyles();
@@ -64,3 +46,20 @@ const FloatingButtonAdd = ({ addFavorite, id, recipe: { title } }) => {
 };
 
 export default FloatingButtonAdd;
+
+const useStyles = makeStyles((theme) => ({
+  fab: {
+    position: 'sticky',
+    bottom: theme.spacing(2),
+    left: '95%',
+  },
+}));
+
+const DarkTooltip = withStyles((theme) => ({
+  tooltip: {
+    backgroundColor: 'rgba(0, 0, 0, 0.87)',
+    color: '#fff',
+    boxShadow: theme.shadows[1],
+    fontSize: 11,
+  },
+}))(Tooltip);

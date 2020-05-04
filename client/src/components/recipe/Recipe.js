@@ -1,7 +1,12 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getRecipe, loadUser, addFavorite } from '../../redux/actions';
+import {
+  getRecipe,
+  loadUser,
+  addFavorite,
+  getFavoriteIDS,
+} from '../../redux/actions';
 import RecipeBody from './RecipeBody';
 import RecipeTable from './RecipeTable';
 import RecipeInstructions from './RecipeInstructions';
@@ -17,6 +22,7 @@ const Recipe = ({
   loading,
   loadUser,
   addFavorite,
+  getFavoriteIDS,
 }) => {
   const classes = useStyles();
   const id = match.params.id;
@@ -24,6 +30,7 @@ const Recipe = ({
   useEffect(() => {
     getRecipe(id);
     loadUser();
+    getFavoriteIDS();
     //eslint-disable-next-line
   }, []);
 
@@ -56,7 +63,8 @@ Recipe.propTypes = {
   getRecipe: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
-  loadUser: PropTypes.func.isRequired,
+  addFavorite: PropTypes.func.isRequired,
+  getFavoriteIDS: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
@@ -71,6 +79,7 @@ export default connect(mapStateToProps, {
   getRecipe,
   loadUser,
   addFavorite,
+  getFavoriteIDS,
 })(Recipe);
 
 const useStyles = makeStyles((theme) => ({

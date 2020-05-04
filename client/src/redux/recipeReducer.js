@@ -4,7 +4,6 @@ import {
   SEARCH_RECIPES,
   SEARCH_EXTENDED,
   SET_QUERY,
-  SET_REDIRECT,
   SHOW_LOADING,
   GET_DIETS,
   GET_FAVORITE_RECIPES,
@@ -58,11 +57,6 @@ export const recipeReducer = (state = initalState, action) => {
       return {
         ...state,
         favorites: action.payload,
-        loading: false,
-      };
-    case SET_REDIRECT:
-      return {
-        ...state,
         loading: false,
       };
     case SHOW_LOADING:
