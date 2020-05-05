@@ -61,6 +61,7 @@ const Recipe = ({
 Recipe.propTypes = {
   currentRecipe: PropTypes.object.isRequired,
   getRecipe: PropTypes.func.isRequired,
+  loadUser: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
   addFavorite: PropTypes.func.isRequired,

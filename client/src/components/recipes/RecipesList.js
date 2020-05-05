@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { getRecipes, showLoading } from '../../redux/actions';
+import { getRecipes } from '../../redux/actions';
 import PropTypes from 'prop-types';
 import RecipeItem from './RecipeItem';
 import SkeletonGroup from '../layout/SkeletonGroup';
@@ -42,7 +42,6 @@ const RecipesList = ({ stateRecipes, getRecipes, loading }) => {
 RecipesList.propTypes = {
   stateRecipes: PropTypes.array.isRequired,
   getRecipes: PropTypes.func.isRequired,
-
   loading: PropTypes.bool.isRequired,
 };
 
@@ -55,5 +54,4 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, {
   getRecipes,
-  showLoading,
 })(RecipesList);

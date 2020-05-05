@@ -9,25 +9,6 @@ import Paper from '@material-ui/core/Paper';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 
-const useStyles = makeStyles({
-  title: {
-    margin: '2rem 0',
-  },
-  table: {
-    minWidth: 300,
-  },
-});
-
-const StyledTableCell = withStyles((theme) => ({
-  head: {
-    backgroundColor: theme.palette.primary.main,
-    color: theme.palette.common.white,
-  },
-  body: {
-    fontSize: 14,
-  },
-}))(TableCell);
-
 const RecipeTable = ({ recipe }) => {
   const classes = useStyles();
 
@@ -67,6 +48,7 @@ const RecipeTable = ({ recipe }) => {
                           ? `https://spoonacular.com/cdn/ingredients_100x100/${row.image}`
                           : '/img/no-image.jpg'
                       }
+                      className={classes.image}
                     />
                   </TableCell>
                   <TableCell align='right'>
@@ -84,3 +66,25 @@ const RecipeTable = ({ recipe }) => {
 };
 
 export default RecipeTable;
+
+const useStyles = makeStyles({
+  title: {
+    margin: '2rem 0',
+  },
+  table: {
+    minWidth: 300,
+  },
+  image: {
+    maxWidth: 100,
+  },
+});
+
+const StyledTableCell = withStyles((theme) => ({
+  head: {
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.common.white,
+  },
+  body: {
+    fontSize: 14,
+  },
+}))(TableCell);

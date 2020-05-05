@@ -20,7 +20,7 @@ if (localStorage.token) {
 }
 
 const App = () => {
-  const [dark, setDark] = useState(true);
+  const [dark, setDark] = useState(false);
 
   const theme = createMuiTheme({
     palette: {

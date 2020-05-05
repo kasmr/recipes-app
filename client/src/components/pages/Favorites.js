@@ -28,8 +28,6 @@ const Favorites = ({
     //eslint-disable-next-line
   }, []);
 
-  console.log(favorites);
-
   if (loading || favorites === null) {
     return <SkeletonGroup />;
   }
@@ -40,7 +38,7 @@ const Favorites = ({
         Your favorties:
       </Typography>
       <div className='main-container'>
-        {favorites.map((recipe) => (
+        {favorites.map((recipe, i) => (
           <RecipeItem
             title={recipe.title}
             source={recipe.sourceName}
@@ -60,6 +58,8 @@ const Favorites = ({
 };
 
 Favorites.propTypes = {
+  loadUser: PropTypes.func.isRequired,
+  showLoading: PropTypes.func.isRequired,
   favoritesIDS: PropTypes.array,
   getFavorites: PropTypes.func,
   loading: PropTypes.bool.isRequired,

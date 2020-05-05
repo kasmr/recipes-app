@@ -16,8 +16,6 @@ import {
   LOGIN_SUCCESS,
   LOGOUT,
   ADD_FAVORITE,
-  DELETE_FAVORITE,
-  GET_FAVORITES,
   GET_FAVORITE_IDS,
   GET_DIETS,
   GET_FAVORITE_RECIPES,
@@ -139,11 +137,11 @@ export const getDiets = (diets) => async (dispatch) => {
   }
 };
 
-////////////////////////////
+//////////////////
 
 //Favorite actions
 
-////////////////////////////
+//////////////////
 
 //Get favorite ids from backend
 
@@ -188,8 +186,6 @@ export const addFavorite = (favorite) => async (dispatch) => {
     console.error(err);
   }
 };
-
-//Delete favorite
 
 //////////////////
 
@@ -262,4 +258,3 @@ export const login = (formData) => async (dispatch) => {
 export const logout = () => {
   return { type: LOGOUT };
 };
-//Clear Errors

@@ -51,16 +51,16 @@ export const authReducer = (state = initalState, action) => {
         user: null,
         error: action.payload,
       };
+    case GET_FAVORITE_IDS:
+      return {
+        ...state,
+        favoriteIDS: action.payload,
+      };
     case ADD_FAVORITE:
       return {
         ...state,
         favoriteIDS: [...state.favoriteIDS, action.payload],
         loading: false,
-      };
-    case GET_FAVORITE_IDS:
-      return {
-        ...state,
-        favoriteIDS: action.payload,
       };
     case SHOW_LOADING:
       return {

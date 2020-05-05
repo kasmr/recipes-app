@@ -14,9 +14,7 @@ export const AUTH_ERROR = 'AUTH_ERROR';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'LOGIN_FAIL';
 export const LOGOUT = 'LOGOUT';
-export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 // Types for favorite backend
 export const ADD_FAVORITE = 'ADD_FAVORITE';
 export const GET_FAVORITE_RECIPES = 'GET_FAVORITE_RECIPES';
 export const GET_FAVORITE_IDS = 'GET_FAVORITE_IDS';
-export const DELETE_FAVORITE = 'DELETE_FAVORITE';
