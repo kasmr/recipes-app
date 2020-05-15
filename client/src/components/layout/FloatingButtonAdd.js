@@ -5,7 +5,12 @@ import Tooltip from '@material-ui/core/Tooltip';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import Alert from './Alert';
 
-const FloatingButtonAdd = ({ addFavorite, id, recipe: { title } }) => {
+const FloatingButtonAdd = ({
+  addFavorite,
+  id,
+  recipe: { title },
+  isAuthenticated,
+}) => {
   const classes = useStyles();
 
   const [added, setAdded] = useState(false);
@@ -27,6 +32,22 @@ const FloatingButtonAdd = ({ addFavorite, id, recipe: { title } }) => {
       setAdded(false);
     }, 6000);
   };
+
+  if (!isAuthenticated) {
+    return (
+      <>
+        <Fab
+          className={classes.fab}
+          color='primary'
+          aria-label='add'
+          onClick={addRecipe}
+          disabled
+        >
+          <FavoriteIcon />
+        </Fab>
+      </>
+    );
+  }
 
   return (
     <>

@@ -6,7 +6,12 @@ import RecipeItem from './RecipeItem';
 import SkeletonGroup from '../layout/SkeletonGroup';
 import './recipesList.scss';
 
-const RecipesList = ({ stateRecipes, getRecipes, loading }) => {
+const RecipesList = ({
+  stateRecipes,
+  getRecipes,
+  loading,
+  isAuthenticated,
+}) => {
   useEffect(() => {
     if (!stateRecipes.length) {
       getRecipes();
@@ -33,6 +38,7 @@ const RecipesList = ({ stateRecipes, getRecipes, loading }) => {
           id={recipe.id}
           image={recipe.image}
           key={recipe.id}
+          isAuthenticated={isAuthenticated}
         />
       ))}
     </div>
@@ -43,12 +49,14 @@ RecipesList.propTypes = {
   stateRecipes: PropTypes.array.isRequired,
   getRecipes: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => {
   return {
     stateRecipes: state.recipes.recipes,
     loading: state.recipes.loading,
+    isAuthenticated: state.auth.isAuthenticated,
   };
 };
 

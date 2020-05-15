@@ -23,6 +23,7 @@ const Recipe = ({
   loadUser,
   addFavorite,
   getFavoriteIDS,
+  isAuthenticated,
 }) => {
   const classes = useStyles();
   const id = match.params.id;
@@ -47,6 +48,7 @@ const Recipe = ({
             <RecipeInstructions recipe={currentRecipe} />
             <RecipeTable recipe={currentRecipe} />
             <FloatingButtonAdd
+              isAuthenticated={isAuthenticated}
               id={id}
               addFavorite={addFavorite}
               recipe={currentRecipe}

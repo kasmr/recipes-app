@@ -34,6 +34,7 @@ const RecipeItem = ({
   diets,
   image,
   addFavorite,
+  isAuthenticated,
 }) => {
   const classes = useStyles();
 
@@ -128,18 +129,33 @@ const RecipeItem = ({
             </Typography>
           </CardContent>
           <CardActions disableSpacing>
-            <FormControlLabel
-              onClick={addRecipe}
-              control={
-                <Checkbox
-                  checked={added}
-                  icon={<FavoriteBorder />}
-                  checkedIcon={<Favorite />}
-                  name='check'
-                />
-              }
-              style={{ margin: '0' }}
-            />
+            {isAuthenticated ? (
+              <FormControlLabel
+                onClick={addRecipe}
+                control={
+                  <Checkbox
+                    checked={added}
+                    icon={<FavoriteBorder />}
+                    checkedIcon={<Favorite />}
+                    name='check'
+                  />
+                }
+                style={{ margin: '0' }}
+              />
+            ) : (
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={added}
+                    icon={<FavoriteBorder />}
+                    name='check'
+                  />
+                }
+                style={{ margin: '0' }}
+                disabled
+              />
+            )}
+
             <ShareModal id={id} />
             <CardActions className={classes.button1}>
               <Link to={`/recipe/${id}`}>
